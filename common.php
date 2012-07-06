@@ -1,0 +1,101 @@
+<?php
+////////////////////////////////////////////////////////////////////////////////
+//   Copyright (C) ReloadCMS Development Team                                 //
+//   http://reloadcms.com                                                     //
+//   This product released under GNU General Public License v2                //
+////////////////////////////////////////////////////////////////////////////////
+error_reporting(E_ALL);
+
+if (! defined ( 'RCMS_ROOT_PATH' )) {
+	die ( "Hacking attempt!" );
+}
+
+// Unset any globals created by register_globals being turned ON
+while (list($global) = each($GLOBALS)){
+	if (!preg_match('/^(_POST|_GET|_COOKIE|_SERVER|_FILES|GLOBALS|HTTP.*|_REQUEST)$/', $global)){
+		unset($$global);
+	}
+}
+unset($global);
+
+////////////////////////////////////////////////////////////////////////////////
+// Defining constants                                                         //
+////////////////////////////////////////////////////////////////////////////////
+define('RCMS_VERSION_A', '1');
+define('RCMS_VERSION_B', '5');
+define('RCMS_VERSION_C', '0');
+if(is_file(RCMS_ROOT_PATH . '_nightly.txt')) define('RCMS_VERSION_SUFFIX', '-beta'); else define('RCMS_VERSION_SUFFIX', '');
+define('RCMS_LINK', 'http://reloadcms.com');
+define('RCMS_COPYRIGHT', '&copy; 2004-2012 ReloadCMS Team');
+define('RCMS_POWERED', '<a href="' . RCMS_LINK . '">Powered by ReloadCMS</a>');
+
+// Main paths
+define('SYSTEM_MODULES_PATH',RCMS_ROOT_PATH . 'modules/system/');
+define('ENGINE_PATH',        RCMS_ROOT_PATH . 'modules/engine/');
+define('MODULES_PATH',       RCMS_ROOT_PATH . 'modules/general/');
+define('MODULES_TPL_PATH',   RCMS_ROOT_PATH . 'modules/templates/');
+define('CONFIG_PATH',        RCMS_ROOT_PATH . 'config/');
+define('LANG_PATH',          RCMS_ROOT_PATH . 'languages/');
+define('ADMIN_PATH',         RCMS_ROOT_PATH . 'admin/');
+define('SKIN_PATH',          RCMS_ROOT_PATH . 'skins/');
+define('SMILES_PATH',          SKIN_PATH . 'smiles/');
+define('BACKUP_PATH',        RCMS_ROOT_PATH . 'backups/');
+
+// Content paths
+define('DATA_PATH',     RCMS_ROOT_PATH . 'content/');
+define('RATE_PATH',     DATA_PATH . 'rate/');
+define('DF_PATH',       DATA_PATH . 'datafiles/');
+define('USERS_PATH',    DATA_PATH . 'users/'); 
+define('FILES_PATH',    RCMS_ROOT_PATH . 'uploads/');
+define('LOGS_PATH',     DATA_PATH . 'logs/');
+
+// Cookies
+define('FOREVER_COOKIE', time()+3600*24*365*5);
+
+define('IGNORE_LOCK_FILES', false);
+define('SAFEMODE_HACK', false);
+define('SAFEMODE_HACK_FTP', 'ftp://username:password@localhost/path/to/reloadcms');
+
+////////////////////////////////////////////////////////////////////////////////
+// Loading modules                                                            //
+////////////////////////////////////////////////////////////////////////////////
+include_once(SYSTEM_MODULES_PATH . 'load.php');
+
+////////////////////////////////////////////////////////////////////////////////
+// magic_quotes_gpc fix                                                       //
+////////////////////////////////////////////////////////////////////////////////
+if(@get_magic_quotes_gpc()) unfck_gpc();
+
+function unfck($v) {
+	return is_array($v) ? array_map('unfck', $v) : stripslashes($v);
+}
+
+function unfck_gpc() {
+	foreach (array('POST', 'GET', 'REQUEST', 'COOKIE') as $gpc){
+		$GLOBALS['_' . $gpc] = array_map('unfck', $GLOBALS['_' . $gpc]);
+	}
+}
+
+function rcms_showAdminMessage($mesg){
+    global $lang;
+    echo '<table border="0" cellspacing="2" cellpadding="2" class="input-form-table" width="100%"><tr class="input-form-tr"><td valign="middle" align="left" class="row1">' . $mesg . '</td></tr></table>';
+}
+
+if(empty($_SERVER['REQUEST_URI'])) $_SERVER['REQUEST_URI'] = $_SERVER['SCRIPT_NAME'];
+if(empty($_SERVER['REMOTE_ADDR'])) $_SERVER['REMOTE_ADDR'] = '0.0.0.0';
+if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
+if(empty($_SERVER['REMOTE_HOST'])) $_SERVER['REMOTE_HOST'] = $_SERVER['REMOTE_ADDR'];
+if(empty($_SERVER['HTTP_REFERER'])) $_SERVER['HTTP_REFERER'] = '';
+if(empty($_SERVER['HTTP_USER_AGENT'])) $_SERVER['HTTP_USER_AGENT'] = '';
+
+////////////////////////////////////////////////////////////////////////////////
+// Loading modules                                                            //
+////////////////////////////////////////////////////////////////////////////////
+$em_dir = opendir(ENGINE_PATH);
+while ($em = readdir($em_dir)){
+	if(substr($em, 0, 1) != '.' && is_file(ENGINE_PATH . $em)){
+		include_once(ENGINE_PATH . $em);
+	}
+}
+closedir($em_dir);
+?>

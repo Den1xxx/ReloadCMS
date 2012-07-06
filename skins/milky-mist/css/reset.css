@@ -1,0 +1,47 @@
+﻿/* CSS Document */
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, em, img, strong, b, u, i, dl, dt, dd, ol, ul, li, form, label, table, tbody, tfoot, thead, tr, th, td {
+margin: 0; 
+padding: 0; 
+border: 0; 
+outline: 0; 
+vertical-align: baseline; 
+background: transparent; 
+}
+body {
+line-height: 1; 
+background: #fff;
+color: #000;
+text-align: left;
+font: 0.875em Arial, sans-serif;
+}
+html,body {
+height: 100%;
+}
+:focus {
+outline: 0; 
+}
+table {
+border-collapse: collapse; 
+border-spacing: 0; 
+font-size: 100%;
+}
+a {color: #287fc3; text-decoration: underline;
+}
+input[type="text"], input[type="password"] {
+font-size: 100%;
+padding: 0;
+}
+textarea {
+font: 100% Arial, sans-serif;
+padding: 0;
+}
+
+.formText {
+font-size: 100%;
+padding: 0;
+}
+input {
+z-index: expression(runtimeStyle.zIndex = 1, type == "text" ? (className += " formText") : 0, type == "password" ? (className += " formText") : 0
+)
+}
+

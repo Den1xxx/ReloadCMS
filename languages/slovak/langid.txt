@@ -1,0 +1,3 @@
+Slovak
+sk
+utf-8

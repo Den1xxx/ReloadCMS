@@ -1,0 +1,3 @@
+Turkish
+tr
+utf-8

@@ -1,0 +1,37 @@
+.tform .ftext { 
+float: left;
+width: 100px;
+height: 21px; margin:0 6px 0 0px; display:inline;
+background: url(../images/tform-bg.jpg) 0 0 no-repeat; /* рисунок поля */
+}
+
+.tform  form { margin-left:16px;}
+.tform h2 {color:#a06030; font-size:14px; margin-left:25px; margin-top:8px; margin-bottom:4px;}
+.tform .ftext input {
+border: none; /* убираем бордюр и background у input */
+background: none;
+padding:2px 2px 2px 2px; 
+text-align:center; 
+color:#a06030;
+width: 86px; float:left;/* реальная ширина поля */
+height: 21px; 
+font-size:14px;/* чтобы поле вело себя предсказуемо в IE */
+}
+
+.registr { margin-left:30px; line-height:22px;}
+.registr span{color:#000;}
+.registr span a{text-decoration:none; color:#000;}
+.submitinp {display:none;}
+
+input, textarea, select, button
+  {
+  background-color: #F8F8F8;
+  border : #D8D8D8 1px solid;
+  font-family: tahoma, Verdana, Helvetica, sans-serif;
+  font-size: 11px;
+  }
+  
+input:hover, textarea:hover, input .hovered, button:hover, input:focus, textarea:focus 
+  {
+  border:1px solid #277EEC;
+  }

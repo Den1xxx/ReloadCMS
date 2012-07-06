@@ -1,0 +1,3 @@
+French
+fr
+utf-8

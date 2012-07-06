@@ -1,0 +1,32 @@
+/* ReloadCMS styles classes */
+.window-title {padding:3px;}
+.window-main {padding:5px}
+.row1 {padding:3px;}
+.row3 {padding:3px;}
+.row2 {padding:3px;}
+.special {color: red ! important;}
+.border{border: 1px solid #003366;}
+.codetitle {margin: 10px 5px 0px 5px;padding: 4px;border-width: 1px 1px 1px 1px;border-style: solid;border-color: #A9B8C2;color: #003366;background-color: #E5E5E5;font-size: 8pt;}
+.codetext {margin: 0px 5px 10px 5px;padding: 5px 5px 5px 5px;border-color: #E5E5E5;border-width: 0px 1px 1px 1px;border-style: solid;color: #003366;font-weight: normal;font-size: 8pt;font-family: "Courier New", Courier, mono;background-color: #FAFAFA;overflow: auto}
+.hidden {margin: 0px 5px 10px 5px;padding: 2px 2px 2px 2px;border-color: Navy;border-width: 1px 1px 1px 1px;border-style: dashed;color: black;font-weight: normal;font-size: 8pt;font-family: "Courier New", Courier, mono;background-color: #C4E6FA;overflow: auto;}
+#popUpBox {
+    position:absolute;
+    display:none; 
+    background:#fff;
+    cursor: pointer;
+    border:3px solid #ccc;
+    color: #333;
+    font: bold 14px arial;
+    padding:5px 15px;
+}
+ 
+#popUpBox:hover{
+    background:#ffdb88;
+}
+
+kbd {
+	padding: 0 3px; border-width: 2px 3px 4px; border-style: solid; border-color: #cdcdcd #c9c9c9 #9a9a9a #c0c0c0;
+	font-size: 11px; color: #000; background: #ececec;
+	-moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px;
+} 
+.fn_category_tree {padding-left:10px;list-style-type:none;line-height:1em;}
