@@ -35,7 +35,7 @@ http://reloadcms.com - for an excellent system
 http://cyberapp.ru/cyber-image-manager/ - a cool image manager
 http://jquery.com/ - an excellent framework for
 http://www.tinymce.com/ - a visual editor, which can be used even housewives :)
-http://www.coogle.com/ - for clues in difficult times and transfer the file.
+http://www.google.com/ - for clues in difficult times and transfer the file.
 
 -------------------------------------------------------------------------------------------------
 Вы скачали бета-версию ReloadCMS-1.5.0, окончательный релиз которой я планирую в середине июля 2012г.
@@ -75,4 +75,4 @@ http://reloadcms.com - за отличную систему
 http://cyberapp.ru/cyber-image-manager/ - за прикольный менеджер картинок
 http://jquery.com/ - за превосходный фреймворк
 http://www.tinymce.com/ - за визуальный редактор, которым могут пользоваться даже домохозяйки:)
-http://www.coogle.com/ - за  подсказки в трудную минуту и перевод этого файла.
+http://www.google.com/ - за  подсказки в трудную минуту и перевод этого файла.
