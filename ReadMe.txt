@@ -69,7 +69,7 @@ http://www.tinymce.com/
 С уважением, разработчик
 http://fromgomel.com
 
-Особое спасибо: 
+Особое спасибо:
 http://reloadcms.com
 http://cyberapp.ru/cyber-image-manager/
 http://jquery.com/
