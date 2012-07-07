@@ -30,11 +30,12 @@ Later (in the stable release) will be paved with an installer that will do every
 Sincerely, the developer
 http://fromgomel.com
 
-Special thanks:
-http://reloadcms.com
-http://cyberapp.ru/cyber-image-manager/
-http://jquery.com/
-http://www.tinymce.com/
+Special thanks to:
+http://reloadcms.com - for an excellent system
+http://cyberapp.ru/cyber-image-manager/ - a cool image manager
+http://jquery.com/ - an excellent framework for
+http://www.tinymce.com/ - a visual editor, which can be used even housewives :)
+http://www.coogle.com/ - for clues in difficult times and transfer the file.
 
 -------------------------------------------------------------------------------------------------
 Вы скачали бета-версию ReloadCMS-1.5.0, окончательный релиз которой я планирую в середине июля 2012г.
@@ -70,7 +71,8 @@ http://www.tinymce.com/
 http://fromgomel.com
 
 Особое спасибо:
-http://reloadcms.com
-http://cyberapp.ru/cyber-image-manager/
-http://jquery.com/
-http://www.tinymce.com/
+http://reloadcms.com - за отличную систему
+http://cyberapp.ru/cyber-image-manager/ - за прикольный менеджер картинок
+http://jquery.com/ - за превосходный фреймворк
+http://www.tinymce.com/ - за визуальный редактор, которым могут пользоваться даже домохозяйки:)
+http://www.coogle.com/ - за  подсказки в трудную минуту и перевод этого файла.
