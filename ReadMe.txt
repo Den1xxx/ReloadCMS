@@ -6,11 +6,11 @@ A call the next release of fc somehow confusing - not clear versioning product.
 The owner reloadcms.com NightFly forgive, if you accidentally ruin the process.
 
 What's new in 2012 compared to the version ReloadCMS-2011 (describing the most important)
-1. utf-8 instead of the set cp- for  language
+1. utf-8 instead of the set cp- for  languages
 2. Improved caching. Let me remind you - the site caching works, but only for the guests.
 - No cached pages a certain range - say guests are allowed to write in the forum, the forum does not mean the page cache.
 - Made the cache reset button, as its volume can be quite significant.
-3. The visual editor mode "text" - TinyMCE
+3. The visual editor mode "html" - TinyMCE
 4. bb-codes switch to TinyMCE and back "on the fly."
 5. Loading images in both editors without page reload.
 6. Disabling statistics (for heavy sites).
@@ -46,11 +46,11 @@ http://www.google.com/ - for clues in difficult times and transfer the file.
 Владельца reloadcms.com NightFly прошу простить, если случайно испортил малину.
 
 Что нового в 2012 по сравнению с версией ReloadCMS-2011 (описываю самое важное)
-1. utf-8 вместо множества cp- для каэждого языка
+1. utf-8 вместо множества cp- для каждого языка
 2. Доработано кеширование. Напомню - кеширование сайта работает, но только для Гостей.
 - Не кешируются страницы определённого диапазона - допустим разрешено Гостям писать на форуме, значит страницы форума не кешировать.
 - Сделана кнопка сброса кеша, т.к. его объём может быть довольно значительным.
-3. Визуальный редактор в режиме "text" — TinyMCE 
+3. Визуальный редактор в режиме "html" — TinyMCE 
 4. bb-codes переключается в TinyMCE и обратно "на лету".
 5. Загрузка картинок в обоих редакторах без перезагрузки страницы. 
 6. Отключение статистики (для высоконагруженных сайтов).
