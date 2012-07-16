@@ -25,7 +25,7 @@ if(($list = $articles->getLimitedStat('time', $system->config['num_of_latest'], 
 krsort($arr_res);
 $arr_res=array_values($arr_res);
 for ($k=0; $k < $system->config['num_of_latest']; $k++) 
-$result.=$arr_res[$k];
+$result.=@$arr_res[$k];
 $result .= '</table>';
 show_window(__('Latest articles'), $result);
 ?>
