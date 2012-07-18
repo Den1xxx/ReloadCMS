@@ -1,5 +1,7 @@
 <table  cellpadding="1" cellspacing="1" class="article-main" style="width:100%">
-<?php if(!empty($tpldata['showtitle'])) {?>
+<?php
+global $articles_config;
+ if(!empty($tpldata['showtitle'])) {?>
 <tr>
 <?php if(!empty($tpldata['linktext']) && !empty($tpldata['linkurl'])) {?>
     <td align="center" colspan="3">
@@ -13,38 +15,23 @@
 </tr>
 <?php }?>
 <tr>
-<?
+<?php 
+$rating='';
+if (!empty($articles_config['code_rating'])) {
 if(!empty($tpldata['linkurl'])) $url='/' . $tpldata['linkurl'];
 else $url=$_SERVER['REQUEST_URI'];
 $urlcode = crc32(str_replace('&amp;','&',$url));
-$script='<br/><br/>
-<div class="rw-ui-container rw-urid-' . $urlcode . '"></div>
-<div class="rw-js-container">
-    <script type="text/javascript">
-        function RW_Async_Init(){
-            RW.init("5DCB874DE4CFF9F909B9A4307E998160",
-            {
-                lng: "ru",
-                type: "star"
-            });
-            RW.render();
-        }
-
-        if (typeof(RW) == "undefined"){
-            (function(){
-                var rw = document.createElement("script");
-                rw.type = "text/javascript"; rw.async = true;
-                rw.src = "http://rating-widget.com/js/external.min.php?t=js";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(rw, s);
-            })();
-        }
-
-    </script>
-</div>';
+$RW_UID = html_entity_decode($articles_config['code_rating']); 
+// replace number of widjet to unique ID 
+$RW_UID = str_replace('rw-urid-1','rw-urid-'.$urlcode,$RW_UID);
+$rating='<br/><br/>
+'. $RW_UID . '
+';
+}
+$social = (!empty($articles_config['social'])?html_entity_decode($articles_config['social']):'');
 ?>
 	<td colspan="3" style="width: 100%;padding-left:20px;padding-right:7px;">
-        <?=(empty($tpldata['text'])) ? $tpldata['desc'].$script : $tpldata['text'].$script;?>
+        <?php echo ((empty($tpldata['text'])) ? $tpldata['desc'] : $tpldata['text'].$rating.$social);?>
 		</td>
 </tr>
 

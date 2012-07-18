@@ -84,42 +84,13 @@
 	
 </div><!--/right inr -->
 </div><!--/right -->
-<div id="boxSet">
-	<div class="chooseUser">
-	<?=rcms_show_element('menu_point', 'user@userpanel')?>
-	</div>
-</div>
-
-
-  
 <div class="footer">
 <div class="text redtext"><div class="pbox red"></div>
-&copy;<?=rcms_show_element('title')?> | 
+&copy;<?=$system->config['title']?> | 
 <?=rcms_show_element('navigation', 	'<a href="{link}" >{title}</a> / ')?>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,lj,friendfeed,yaru,moikrug"></div> 
 </div>
 </div><!--/footer -->
   
 </div><!--/container -->
-<script type="text/javascript">
-$(function() {
-	$("#ul-user li:first-child").nextAll().hide();
-    $("#ul-user").mouseenter(function(){
-        $(this).find("li:first-child").nextAll().not(":animated").slideDown(500);
-        $(this).find("li:first-child").nextAll().not(":animated").slideUp(200);
-    });
-    $("#ul-user").mouseleave(function(){
-        $(this).find("li:first-child").nextAll().slideUp(200);
-    });
-    
-    $("#ul-user li").click(function(){
-        if($("#ul-user li").index(this) == 0){
-            return false;
-        }
-    });
-});    
-</script>    <!-- BOX SET -->
 </body>
 </html>

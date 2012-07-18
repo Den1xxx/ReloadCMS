@@ -9,17 +9,20 @@ $articles = new articles();
 $c = (empty($_GET['c']) || $_GET['c'] == '#hidden') ? null : $_GET['c'];
 $b = (empty($_GET['b'])) ? null : (int)$_GET['b'];
 $a = (empty($_GET['a'])) ? null : (int)$_GET['a'];
-$articles->config = @parse_ini_file(CONFIG_PATH . 'articles.ini');
+$articles_config = @parse_ini_file(CONFIG_PATH . 'articles.ini');
 //if old version RCMS, use default settings
-if (empty($articles->config['news'])) $articles->config['news'] = 'news';
-if (empty($articles->config['count_views'])) $articles->config['count_views'] = true;
-if (empty($articles->config['count_comments'])) $articles->config['count_comments'] = true;
-if (empty($articles->config['show_date'])) $articles->config['show_date'] = true;
-if (empty($articles->config['show_author'])) $articles->config['show_author'] = true;
-if (empty($articles->config['hide_path'])) $articles->config['hide_path'] = false;
-//Может и не понадобиться?
-if (empty($articles->config['news'])) $articles->config['news'] = 'news';
-
+//var_dump ($articles_config);
+/*
+if (empty($articles_config['news'])) $articles_config['news'] = 'news';
+if (empty($articles_config['count_views'])) $articles_config['count_views'] = '1';
+if (empty($articles_config['count_comments'])) $articles_config['count_comments'] = '1';
+if (empty($articles_config['show_date'])) $articles_config['show_date'] = '1';
+if (empty($articles_config['show_author'])) $articles_config['show_author'] = '1';
+if (empty($articles_config['category'])) $articles_config['category'] = '1';
+if (empty($articles_config['title'])) $articles_config['title'] = '1';
+if (empty($articles_config['code_rating'])) $articles_config['code_rating'] = '';
+if (empty($articles_config['social'])) $articles_config['social'] = '';
+*/
 if(!empty($a) && ((!empty($b) && !empty($c)) || $c == '#root')){
 	if(!$articles->setWorkContainer($c)){
 		show_error($articles->last_error);

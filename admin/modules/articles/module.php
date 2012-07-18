@@ -9,5 +9,5 @@ if($system->checkForRight('ARTICLES-ADMIN')) $MODULES[$category][1]['containers'
 if($system->checkForRight('ARTICLES-ADMIN')) $MODULES[$category][1]['categories'] = __('Manage categories');
 if($system->checkForRight('ARTICLES-EDITOR')) $MODULES[$category][1]['articles'] = __('Manage articles');
 if($system->checkForRight('ARTICLES-EDITOR')) $MODULES[$category][1]['post'] = __('Post article');
-if($system->checkForRight('ARTICLES-ADMIN')) $MODULES[$category][1]['config'] = __('Show');
+if($system->checkForRight('ARTICLES-ADMIN')) $MODULES[$category][1]['config'] = __('Configuration');
 ?>

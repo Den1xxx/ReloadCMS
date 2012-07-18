@@ -5,10 +5,6 @@
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
 if(empty($system)) die();
-header('Last-Modified: ' . gmdate('r')); 
-header('Content-Type: text/html; charset=' . $system->config['encoding']);
-header("Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0"); // HTTP/1.1 
-header("Pragma: no-cache");
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
