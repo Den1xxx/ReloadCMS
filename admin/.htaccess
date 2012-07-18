@@ -1,3 +1,4 @@
+AddDefaultCharset utf8
 deny from all
 <Files ~ "\.(css|js)$">
 	allow from all
