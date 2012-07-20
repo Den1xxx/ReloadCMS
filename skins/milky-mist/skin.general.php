@@ -86,7 +86,7 @@
 </div><!--/right -->
 <div class="footer">
 <div class="text redtext"><div class="pbox red"></div>
-&copy;<?=$system->config['title']?> | 
+&copy;<?=$system->config['title']?> | <?php echo(!empty($system->config['copyryght'])?$system->config['copyryght'].' | ':'')?> | 
 <?=rcms_show_element('navigation', 	'<a href="{link}" >{title}</a> / ')?>
 </div>
 </div><!--/footer -->
