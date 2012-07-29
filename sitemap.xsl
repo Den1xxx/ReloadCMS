@@ -62,7 +62,7 @@
 					<p>
 						This is a XML Sitemap which is supposed to be processed by search engines like <a href="http://www.google.com">Google</a>, <a href="http://search.msn.com">MSN Search</a> and <a href="http://www.yahoo.com">YAHOO</a>.<br />
 						It was generated using the  <a href="http://reloadcms.com/">ReloadCMS</a> and the <a href="http://www.fromgomel.com/" title="Google Sitemap Generator Plugin for ReloadCMS">Google Sitemap Generator Plugin</a> by <a href="http://fromgomel.com/">Den1xxx</a>.<br />
-						You can find more information about XML sitemaps on <a href="http://sitemaps.org">sitemaps.org</a> and Google's <a href="http://code.google.com/sm_thirdparty.html">list of sitemap programs</a>.
+						You can find more information about XML sitemaps on <a href="http://sitemaps.org">sitemaps.org</a>.
 					</p>
 				</div>
 				<div id="content">

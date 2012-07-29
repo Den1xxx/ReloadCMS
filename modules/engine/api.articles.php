@@ -18,6 +18,8 @@ class articles{
 	//--------------------------Loading configuration-----------------------//
 	function articles(){
 	$this->config = @parse_ini_file(CONFIG_PATH . 'articles.ini');
+	if (empty ($this->config['count_views'])) $this->config['count_views']='';
+	if (empty ($this->config['count_comments'])) $this->config['count_comments']='';
 	}
 	
 	
@@ -616,7 +618,18 @@ class articles{
 		$this->saveIndex();
 		return true;
 	}
-
+	
+	//show text link to article
+	function linktextArticle($text_nonempty, $comcnt, $views) {
+		if ($this->config['count_comments'] OR $this->config['count_views']){
+		$text = (($text_nonempty) ? __('Open article') : __('Comments')); 
+		$comcnt = ($this->config['count_comments'] ? $comcnt : '');
+		$views = ($this->config['count_views'] ? $views : '');
+		$result = $text . ' (' . $comcnt . (($this->config['count_comments'] && $this->config['count_views'])?'/':'').$views . ')';
+		} else $result = __('Open article');
+		return $result;
+	}
+	
 	//---------------------------------------------------------------------------------//
 	// Comments
 
@@ -676,7 +689,7 @@ class articles{
 				return false;
 			}
 			$article_data['comcount']++;
-			if(!write_ini_file($article_data, $art_prefix . 'define')){
+			if($this->config['count_comments']&&!write_ini_file($article_data, $art_prefix . 'define')){
 				$this->last_error = __('Cannot write to file');
 				return false;
 			}

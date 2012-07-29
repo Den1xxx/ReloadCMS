@@ -1,6 +1,5 @@
 <table  cellpadding="1" cellspacing="1" class="article-main" style="width:100%">
 <?php
-global $articles_config;
  if(!empty($tpldata['showtitle'])) {?>
 <tr>
 <?php if(!empty($tpldata['linktext']) && !empty($tpldata['linkurl'])) {?>
@@ -15,23 +14,8 @@ global $articles_config;
 </tr>
 <?php }?>
 <tr>
-<?php 
-$rating='';
-if (!empty($articles_config['code_rating'])) {
-if(!empty($tpldata['linkurl'])) $url='/' . $tpldata['linkurl'];
-else $url=$_SERVER['REQUEST_URI'];
-$urlcode = crc32(str_replace('&amp;','&',$url));
-$RW_UID = html_entity_decode($articles_config['code_rating']); 
-// replace number of widjet to unique ID 
-$RW_UID = str_replace('rw-urid-1','rw-urid-'.$urlcode,$RW_UID);
-$rating='<br/><br/>
-'. $RW_UID . '
-';
-}
-$social = (!empty($articles_config['social'])?html_entity_decode($articles_config['social']):'');
-?>
 	<td colspan="3" style="width: 100%;padding-left:20px;padding-right:7px;">
-        <?php echo ((empty($tpldata['text'])) ? $tpldata['desc'] : $tpldata['text'].$rating.$social);?>
+        <?php echo ((empty($tpldata['text'])) ? $tpldata['desc'] : $tpldata['text']);?>
 		</td>
 </tr>
 

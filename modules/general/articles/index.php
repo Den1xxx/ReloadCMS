@@ -9,20 +9,22 @@ $articles = new articles();
 $c = (empty($_GET['c']) || $_GET['c'] == '#hidden') ? null : $_GET['c'];
 $b = (empty($_GET['b'])) ? null : (int)$_GET['b'];
 $a = (empty($_GET['a'])) ? null : (int)$_GET['a'];
-$articles_config = @parse_ini_file(CONFIG_PATH . 'articles.ini');
-//if old version RCMS, use default settings
-//var_dump ($articles_config);
-/*
-if (empty($articles_config['news'])) $articles_config['news'] = 'news';
-if (empty($articles_config['count_views'])) $articles_config['count_views'] = '1';
-if (empty($articles_config['count_comments'])) $articles_config['count_comments'] = '1';
-if (empty($articles_config['show_date'])) $articles_config['show_date'] = '1';
-if (empty($articles_config['show_author'])) $articles_config['show_author'] = '1';
-if (empty($articles_config['category'])) $articles_config['category'] = '1';
-if (empty($articles_config['title'])) $articles_config['title'] = '1';
-if (empty($articles_config['code_rating'])) $articles_config['code_rating'] = '';
-if (empty($articles_config['social'])) $articles_config['social'] = '';
-*/
+$code_addon = '';
+//add rating
+if (!empty($articles->config['code_rating'])) {
+if(!empty($tpldata['linkurl'])) $url='/' . $tpldata['linkurl'];
+else $url=$_SERVER['REQUEST_URI'];
+$urlcode = crc32(str_replace('&amp;','&',$url));
+$RW_UID = html_entity_decode($articles->config['code_rating']); 
+// replace number of widjet to unique ID 
+$RW_UID = str_replace('rw-urid-1','rw-urid-'.$urlcode,$RW_UID);
+$code_addon .= '<br/><br/>
+'. $RW_UID . '
+';
+}
+//add social button
+$code_addon .= (!empty($articles->config['social'])?html_entity_decode($articles->config['social']):'');
+
 if(!empty($a) && ((!empty($b) && !empty($c)) || $c == '#root')){
 	if(!$articles->setWorkContainer($c)){
 		show_error($articles->last_error);
@@ -73,9 +75,9 @@ rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'
 
 		/* Let's view selected article */
 		if($c !== '#root') {
-			$title = '<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> -&gt; ' . '<a class="winheader" href="?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '">' . $containers[$c] . '</a> -&gt; <a class="winheader" href="?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '&amp;b=' . $b . '">' . ((mb_strlen($category['title'])>30) ? mb_substr($category['title'], 0, 30) . '...' : $category['title']) . '</a> -&gt; ' . ((mb_strlen($article['title']) > 20) ? mb_substr($article['title'], 0, 20) . '...' : $article['title']);
+			$title = '<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> &rarr; ' . '<a class="winheader" href="?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '">' . $containers[$c] . '</a> &rarr; <a class="winheader" href="?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '&amp;b=' . $b . '">' . ((mb_strlen($category['title'])>$articles->config['category']) ? mb_substr($category['title'], 0, $articles->config['category']) . '...' : $category['title']) . '</a> &rarr; ' . ((mb_strlen($article['title']) > $articles->config['title']) ? mb_substr($article['title'], 0, $articles->config['title']) . '...' : $article['title']);
 		} else {
-			$title = '<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> -&gt; ' . '<a class="winheader" href="?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '">' . $containers[$c] . '</a> -&gt; ' . ((mb_strlen($article['title']) > 20) ? mb_substr($article['title'], 0, 20) . '...' : $article['title']);
+			$title = '<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> &rarr; ' . '<a class="winheader" href="?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '">' . $containers[$c] . '</a> &rarr; ' . ((mb_strlen($article['title']) > $articles->config['title']) ? mb_substr($article['title'], 0, $articles->config['title']) . '...' : $article['title']);
 		}
 		$system->config['pagename'] = $article['title'];
 		if(!empty($article['keywords'])) {
@@ -84,7 +86,8 @@ rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'
 		if(!empty($article['sef_desc'])) {
 			$system->addInfoToHead('<meta name="Description" content="' . $article['sef_desc'] . '">' . "\n");
 		}
-		$article['container'] = $c; 														
+		$article['container'] = $c; 	
+		$article['text'] .= $code_addon;
 		show_window($title, rcms_parse_module_template('art-article.tpl', $article));
 
 		/* If comments are enabled in this article, show form */
@@ -138,13 +141,13 @@ rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'
 			if((!$from || $time >= $from) && (!$until || $time <= $until)){
 				if((($cat_data = $articles->getCategory($id[0], false)) !== false || $c == '#root') && ($article = $articles->getArticle($id[0], $id[1], true, true, false, false)) !== false){
 					$result .= rcms_parse_module_template('art-article.tpl', $article + array('showtitle' => true,
-					'linktext' => (($article['text_nonempty']) ? __('Open article') : __('Comments')) . ' (' . $article['comcnt'] . '/' . $article['views'] . ')',
+					'linktext' => $articles->linktextArticle($article['text_nonempty'], $article['comcnt'], $article['views']),
 					'linkurl' => '?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '&amp;b=' . $article['catid'] . '&amp;a=' . $article['id'],
 					'cat_data' => @$cat_data));
 				}
 			}
 		}
-		$title = '<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> -&gt; ' . '<a class="winheader" href="?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '">' . $containers[$c] . '</a> -&gt; ' . __('Search results');
+		$title = '<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> &rarr; ' . '<a class="winheader" href="?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '">' . $containers[$c] . '</a> &rarr; ' . __('Search results');
 		show_window($title, $result);
 	}
 } elseif (!empty($_GET['from']) || !empty($_GET['until'])){
@@ -164,7 +167,7 @@ rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'
 				if((!$from || $time >= $from) && (!$until || $time <= $until)){
 					if((($cat_data = $articles->getCategory($id[0], false)) !== false || $c == '#root') && ($article = $articles->getArticle($id[0], $id[1], true, true, false, false)) !== false){
 						$result .= rcms_parse_module_template('art-article.tpl', $article + array('showtitle' => true,
-						'linktext' => (($article['text_nonempty']) ? __('Open article') : __('Comments')) . ' (' . $article['comcnt'] . '/' . $article['views'] . ')',
+						'linktext' => $articles->linktextArticle($article['text_nonempty'], $article['comcnt'], $article['views']),
 						'linkurl' => '?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '&amp;b=' . $article['catid'] . '&amp;a=' . $article['id'],
 						'cat_data' => @$cat_data));
 					}
@@ -172,7 +175,7 @@ rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'
 			}
 		}
 	}
-	$title = '<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> -&gt; ' . __('Search results');
+	$title = '<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> &rarr; ' . __('Search results');
 	show_window($title, $result);
 } elseif (!empty($c) && (!empty($b) || $c == '#root')){
 	if(!$articles->setWorkContainer($c)){
@@ -185,7 +188,7 @@ rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'
 		$containers = $articles->getContainers();
 		$result = '';
 		if($c !== '#root') {
-			$system->config['pagename'] = ((mb_strlen($category['title'])>30) ? mb_substr($category['title'], 0, 30) . '...' : $category['title']);
+			$system->config['pagename'] = ((mb_strlen($category['title'])>$articles->config['category']) ? mb_substr($category['title'], 0, $articles->config['category']) . '...' : $category['title']);
 		} else {
 			$system->config['pagename'] = $containers[$c];
 		}
@@ -207,20 +210,20 @@ rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'
 			if(!empty($article)){
 				if($c !== '#root') {
 					$result .= rcms_parse_module_template('art-article.tpl', $article + array('showtitle' => true,
-					'linktext' => (($article['text_nonempty']) ? __('Open article') : __('Comments')) . ' (' . $article['comcnt'] . '/' . $article['views'] . ')',
+					'linktext' => $articles->linktextArticle($article['text_nonempty'], $article['comcnt'], $article['views']),
 					'linkurl' => '?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '&amp;b=' . $b . '&amp;a=' . $article['id'],
 					'cat_data' => $category));
 				} else {
 					$result .= rcms_parse_module_template('art-article.tpl', $article + array('showtitle' => true,
-					'linktext' => (($article['text_nonempty']) ? __('Open article') : __('Comments')) . ' (' . $article['comcnt'] . '/' . $article['views'] . ')',
+					'linktext' => $articles->linktextArticle($article['text_nonempty'], $article['comcnt'], $article['views']),
 					'linkurl' => '?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '&amp;a=' . $article['id']));
 				}
 			}
 		}
 		if($c !== '#root') {
-			$title = '<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> -&gt; ' . '<a class="winheader" href="?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '">' . $containers[$c] . '</a> -&gt; ' . ((mb_strlen($category['title'])>30) ? mb_substr($category['title'], 0, 30) . '...' : $category['title']);
+			$title = '<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> &rarr; ' . '<a class="winheader" href="?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '">' . $containers[$c] . '</a> &rarr; ' . ((mb_strlen($category['title'])>$articles->config['category']) ? mb_substr($category['title'], 0, $articles->config['category']) . '...' : $category['title']);
 		} else {
-			$title = '<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> -&gt; ' . $containers[$c];
+			$title = '<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> &rarr; ' . $containers[$c];
 		}
 		show_window($title, $result);
 	}
@@ -236,7 +239,7 @@ rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'
 			foreach($categories as $category) {
 				$result .= rcms_parse_module_template('art-category.tpl', $category + array('link' => '?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '&amp;b=' . $category['id']));
 			}
-			show_window('<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> -&gt; ' . $containers[$c], $result);//Show list container
+			show_window('<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> &rarr; ' . $containers[$c], $result);//Show list container
 			$system->config['pagename'] = $containers[$c];
 		}
 	}    

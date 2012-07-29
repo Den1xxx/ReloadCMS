@@ -2,15 +2,15 @@
 /////////////////////////////////////////API///////////////////////////////////////////////
  rcms_loadAdminLib('sitemap');
  $directory = 'http://'.$_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME'] . basename($_SERVER['SCRIPT_NAME']));
- $priority	= array(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1);
- $changefreq	= array('always','hourly','daily','weekly','montly','yearly','never');
+ $priority	= array('0.1'=>'0.1','0.2'=>'0.2','0.3'=>'0.3','0.4'=>'0.4','0.5'=>'0.5','0.6'=>'0.6','0.7'=>'0.7','0.8'=>'0.8','0.9'=>'0.9','1'=>'1');
+ $changefreq	= array('always'=>'always','hourly'=>'hourly','daily'=>'daily','weekly'=>'weekly','montly'=>'montly','yearly'=>'yearly','never'=>'never');
 	if (!empty ($_POST['names']) && is_array($_POST['names'])){
-	$names = $_POST['names'];
-	$i=0;
-		foreach ($names as $key=>$name){
-				$config [$name]['changefreq'] = $changefreq[$_POST['changefreq'][$i]];
-				$config [$name]['priority'] = $priority[$_POST['priority'][$i]];
-		 $i++;
+	$names = $_POST['changefreq'];
+		foreach ($names as $name=>$value){
+				if (in_array($name, $_POST['names'])){
+				$config [$name]['changefreq'] = $_POST['changefreq'][$name];
+				$config [$name]['priority'] = $_POST['priority'][$name];
+				}
 		}
 	write_ini_file($config, CONFIG_PATH . 'sitemap.ini',true) ;
 	}
@@ -30,14 +30,12 @@ if(!empty($_POST['create']) && !empty($_POST['filename'])){
 	else { rcms_showAdminMessage ('Sitemap'.__(' is empty')); return;}
 	
 ////////////////////////////////////////Start build//////////////////////////////////////
-	$i = 0;
 	foreach ($modules as $module){
 		if (($module != 'module') AND ($module != 'sitemap')) {
-			$chfr = $changefreq[$_POST['changefreq'][$i]];
-			$prio = $priority[$_POST['priority'][$i]];
+			$chfr = $_POST['changefreq'][$module];
+			$prio = $_POST['priority'][$module];
 			include_once ($module.'.php');
 		}
-	$i++;
 	}
  
  $sitemap->sitemapFileName = $_POST['filename']; 
@@ -93,18 +91,18 @@ $modules = rcms_scandir (dirname(__FILE__));
 			$prio = $config[$module]['priority']; 
 			$chfr = $config[$module]['changefreq'];
 			} else {
-			$prio = 0.5;
+			$prio = '0.5';
 			$chfr = 'weekly';
 			}
 	include_once ($file);
  $frm->addrow($name_module,
  $frm->checkbox('names[]', $module, __('Add'), @$config[$module]).'&nbsp;&nbsp;&nbsp;'.
- $frm->select_tag('priority[]', $priority, array_search($prio, $priority)).__('Priority').'&nbsp;&nbsp;&nbsp;'.
- $frm->select_tag('changefreq[]', $changefreq, array_search($chfr, $changefreq)).__('Changefreq')); 
+ $frm->select_tag('priority['.$module.']', $priority, $prio).__('Priority').'&nbsp;&nbsp;&nbsp;'.
+ $frm->select_tag('changefreq['.$module.']', $changefreq, $chfr).__('Changefreq')); 
 			}
 	}
- $frm->addrow(__('Pack file to').'&nbsp;sitemap.xml.gz',$frm->checkbox('gz', 'true', __('Build new'), true));
- $frm->addrow(__('Send to search engines').'&nbsp;sitemap.xml.gz',$frm->checkbox('engines', 'true', __('Enable'), true));
+ $frm->addrow(__('Pack file to').'&nbsp;sitemap.xml.gz',$frm->checkbox('gz', '1', __('Build new'), true));
+ $frm->addrow(__('Send to search engines').'&nbsp;sitemap.xml.gz',$frm->checkbox('engines', '1', __('Enable'), true));
  $frm->addrow(__('Filename'), $frm->text_box('filename', 'sitemap.xml'));
  $frm->show(); 
 };
