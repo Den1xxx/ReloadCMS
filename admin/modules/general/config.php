@@ -38,7 +38,30 @@ $frm->addrow(__('Number of element that will be considered as latest'), $frm->te
 $frm->addrow(__('Number of elements per page'), $frm->text_box('nconfig[perpage]', @$config['perpage']));
 $frm->addrow(__('Module on index page'), $frm->select_tag('nconfig[index_module]', $avaible_modules, @$config['index_module']));
 $frm->addrow(__('Hide welcome message'), $frm->checkbox('nconfig[wmh]', '1', '', @$config['wmh']));
-$frm->addrow(__('Text of Welcome message'), $frm->textarea('welcome_mesg', file_get_contents(DATA_PATH . 'intro.html'), 90, 20), 'top');
+$frm->addrow(__('Text of Welcome message'), $frm->textarea('welcome_mesg', file_get_contents(DATA_PATH . 'intro.html'), 90, 20).
+'
+<script type="text/javascript">
+	tinyMCE.init({
+		mode : \'exact\',
+		elements : \'welcome_mesg\',
+		theme : \'advanced\',
+		language : \'ru\',
+        plugins : \'paste,table,cyberim\',
+		theme_advanced_buttons1_add : \'fontselect,fontsizeselect\',
+        theme_advanced_buttons2_add : \'pastetext,pasteword,selectall,|,forecolor,backcolor\',
+        theme_advanced_buttons3_add : \'tablecontrols\',
+		theme_advanced_toolbar_location : \'top\',
+        theme_advanced_toolbar_align : \'left\',
+        theme_advanced_statusbar_location : \'bottom\',
+        theme_advanced_resizing : true,
+        paste_auto_cleanup_on_paste : true,
+		content_css: \'/css/tinymce.css\',
+		extended_valid_elements : \'script[type|language|src]\'
+		});
+		$(\'table.bb_editor\').hide();
+		</script>
+'
+, 'top');
 $frm->addrow(__('Additional meta tags for your site'), $frm->textarea('meta_tags', file_get_contents(DATA_PATH . 'meta_tags.html'), 90, 5), 'top');
 $frm->addbreak(__('Performance'));
 $frm->addrow(__('Disable statistic'), $frm->checkbox('nconfig[disable_stats]', '1', '', @$config['disable_stats']));
