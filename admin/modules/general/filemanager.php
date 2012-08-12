@@ -35,8 +35,7 @@ if(!empty($_REQUEST['edit'])){
 } elseif(!empty($_REQUEST['rights'])){
 	if(!empty($_REQUEST['save'])) {
 	    rcms_chmod($_REQUEST['path'] . $_REQUEST['rights'], convert_rights_string($_REQUEST['rights_val']), @$_REQUEST['recursively']);
-		//var_dump(convert_rights_string($_REQUEST['rights_val']));//old 755, new 493
-		
+		rcms_showAdminMessage(__('File updated'));
 	}
 	clearstatcache();
     $oldrights = get_rights_string($_REQUEST['path'] . $_REQUEST['rights'], true);
