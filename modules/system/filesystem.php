@@ -114,7 +114,7 @@ function rcms_parse_ini_file($filename, $blocks = false){
 }
 
 function rcms_chmod($file, $val, $rec = false) {
-	$res = @chmod(realpath($file), octdec($val));
+	$res = @chmod(realpath($file), $val);
 	if(is_dir($file) && $rec){
 		$els = rcms_scandir($file);
 		foreach ($els as $el) {
@@ -304,9 +304,10 @@ function convert_rights_string($mode) {
 	$trans = array('-'=>'0','r'=>'4','w'=>'2','x'=>'1');
 	$mode = strtr($mode,$trans);
 	$newmode = '0';
-	$newmode .= $mode[0]+$mode[1]+$mode[2];
-	$newmode .= $mode[3]+$mode[4]+$mode[5];
-	$newmode .= $mode[6]+$mode[7]+$mode[8];
+	$owner = (int) $mode[0] + (int) $mode[1] + (int) $mode[2]; 
+	$group = (int) $mode[3] + (int) $mode[4] + (int) $mode[5]; 
+	$world = (int) $mode[6] + (int) $mode[7] + (int) $mode[8]; 
+	$newmode .= $owner . $group . $world;
 	return intval($newmode, 8);
 }
 

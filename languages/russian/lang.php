@@ -5,6 +5,7 @@
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
 //Add by Den1xxx 
+$lang['def']['Rename'] = 'Переименовать';
 $lang['def']['Static pages'] = 'Статические страницы';
 $lang['def']['Page edit'] = 'Редактирование страницы';
 $lang['def']['Disable statistic'] = 'Отключить статистику';

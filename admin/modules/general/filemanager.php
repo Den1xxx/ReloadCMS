@@ -8,7 +8,7 @@ if(!empty($_REQUEST['edit'])){
 	if(!empty($_REQUEST['save'])) {
 	    file_write_contents($_REQUEST['path'] . $_REQUEST['edit'], $_REQUEST['newcontent']);
 	}
-    $oldcontent = file_get_contents($_REQUEST['path'] . $_REQUEST['edit']);
+    $oldcontent = @file_get_contents($_REQUEST['path'] . $_REQUEST['edit']);
     $editlink = $url_inc . '&edit=' . $_REQUEST['edit'] . '&path=' . $_REQUEST['path'];
     $backlink = $url_inc . '&path=' . $_REQUEST['path'];
 ?>
@@ -35,6 +35,8 @@ if(!empty($_REQUEST['edit'])){
 } elseif(!empty($_REQUEST['rights'])){
 	if(!empty($_REQUEST['save'])) {
 	    rcms_chmod($_REQUEST['path'] . $_REQUEST['rights'], convert_rights_string($_REQUEST['rights_val']), @$_REQUEST['recursively']);
+		//var_dump(convert_rights_string($_REQUEST['rights_val']));//old 755, new 493
+		
 	}
 	clearstatcache();
     $oldrights = get_rights_string($_REQUEST['path'] . $_REQUEST['rights'], true);
@@ -63,6 +65,37 @@ if(!empty($_REQUEST['edit'])){
 </tr>
 </table>
 <?php
+} elseif (!empty($_REQUEST['rename'])&&$_REQUEST['rename']<>'.') {
+	if(!empty($_REQUEST['save'])) {
+	    rcms_rename_file($_REQUEST['path'] . $_REQUEST['rename'], $_REQUEST['path'] . $_REQUEST['newname']);
+		rcms_showAdminMessage(__('File updated'));
+		$_REQUEST['rename'] = $_REQUEST['newname'];
+	}
+	clearstatcache();
+    $link = $url_inc . '&rename=' . $_REQUEST['rename'] . '&path=' . $_REQUEST['path'];
+    $backlink = $url_inc . '&path=' . $_REQUEST['path'];
+
+?>
+<table border='0' cellspacing='0' cellpadding='1' width="100%">
+<tr>
+    <th><?=__('File manager') . ' - ' .  __('Rename') . ' - ' . $_REQUEST['rename']?></th>
+</tr>
+<tr>
+    <td class="row1">
+        <a href="<?=$backlink?>"><?=__('Back')?></a>
+	</td>
+</tr>
+<tr>
+    <td class="row1" align="center">
+        <form name="form1" method="post" action="<?=$link?>">
+            <?=__('Rename')?>: <input type="text" name="newname" value="<?=$_REQUEST['rename']?>"><br/>
+            <input type="submit" name="save" value="<?=__('Submit')?>">
+        </form>
+    </td>
+</tr>
+</table>
+<?php
+
 } else {
     $msg = '';
     if(!empty($_FILES['upload'])) {
@@ -72,7 +105,7 @@ if(!empty($_REQUEST['edit'])){
                 $msg = __('Error occurred');
             } else {$msg = __('Files uploaded');}
         }
-    } elseif(!empty($_REQUEST['delete'])) {
+    } elseif(!empty($_REQUEST['delete'])&&$_REQUEST['delete']<>'.') {
         if(!rcms_delete_files(($_REQUEST['path'] . $_REQUEST['delete']), true)) {
             $msg = __('Error occurred');
         }
@@ -109,16 +142,17 @@ if(!empty($_REQUEST['edit'])){
 <table border='0' cellspacing='1' cellpadding='1' width="100%">
 <tr> 
     <th width="100%"> <?=__('Filename')?> </th>
-    <th nowrap="nowrap"> <?=__('Size of file')?> </th>
-    <th nowrap="nowrap"> <?=__('Rights')?> </th>
-    <th colspan="3"> <?=__('Manage')?> </th>
+    <th style="white-space:nowrap"> <?=__('Size of file')?> </th>
+    <th style="white-space:nowrap"> <?=__('Date')?> </th>
+    <th style="white-space:nowrap"> <?=__('Rights')?> </th>
+    <th colspan="2" style="white-space:nowrap"> <?=__('Manage')?> </th>
 </tr>
 <?php
 $elements = rcms_scandir($_REQUEST['path'], '', 'all', true);
 $dirs = array();
 $files = array();
 foreach ($elements as $file){
-    if(is_dir($_REQUEST['path'] . $file)){
+    if(@is_dir($_REQUEST['path'] . $file)){
         $dirs[] = $file;
     } else {
         $files[] = $file;
@@ -128,41 +162,30 @@ natsort($dirs); natsort($files);
 $elements = array_merge($dirs, $files);
 
 foreach ($elements as $file){
-    $filedata = stat($_REQUEST['path'] . $file);
-    if(is_dir($_REQUEST['path'] . $file)){
+    $filedata = @stat($_REQUEST['path'] . $file);
+    if(@is_dir($_REQUEST['path'] . $file)){
 		$filedata[7] = '';
-        $link = '<a href="'.$url_inc . '&path=' . $_REQUEST['path'] . $file.'">'.$file.'</a>';
+        $link = '<a href="'.$url_inc.'&path='.$_REQUEST['path'].$file.'" title="'.__('Show').'"><img src="'.SKIN_PATH.'folder.png"/> '.$file.'</a>';
         $target = '';
         $style = 'row2';
+		 if ($file<>'.')      $alert = 'onClick="if(confirm(\'' . __('Are you sure you want to delete this directory (recursively)?').'\n /'. $file. '\')) document.location.href = \'' . $url_inc . '&delete=' . $file . '&path=' . $_REQUEST['path']  . '\'"'; else $alert = '';
     } else {
-        $link = $file;
+        $link = '<a href="' . $url_inc . '&edit=' . $file . '&path=' . $_REQUEST['path']. '" title="' . __('Edit') . '"><img src="'.SKIN_PATH.'edit.png"/> ' . $file . '</a>';
         $target = '';
         $style = 'row1';
-    }
-
-    $edittext = '';
-    if(!is_dir($_REQUEST['path'] . $file)){
-        $dotpos = strrpos($file, '.');
-        $editlink = $url_inc . '&edit=' . $file . '&path=' . $_REQUEST['path'];
-        $edittext = '<a href="' . $editlink . '">' . __('Edit') . '</a>';
-    }
-    
-    if(!is_dir($_REQUEST['path'] . $file)){
-        $alert = 'onClick="if(confirm(\''. __('File selected').': \n'. $file. '. \n'.__('Are you sure you want to delete this file?') . '\')) document.location.href = \'' . $url_inc . '&delete=' . $file . '&path=' . $_REQUEST['path']  . '\'"';
-    } else {
-        $alert = 'onClick="if(confirm(\'' . __('Are you sure you want to delete this directory (recursively)?').'\n /'. $file. '\')) document.location.href = \'' . $url_inc . '&delete=' . $file . '&path=' . $_REQUEST['path']  . '\'"';
+		        $alert = 'onClick="if(confirm(\''. __('File selected').': \n'. $file. '. \n'.__('Are you sure you want to delete this file?') . '\')) document.location.href = \'' . $url_inc . '&delete=' . $file . '&path=' . $_REQUEST['path']  . '\'"';
     }
     $deletelink = '<a href="#" ' . $alert . '>' . __('Delete') . '</a>';
-    
-    $rightstext = '<a href="' . $url_inc . '&rights=' . $file . '&path=' . $_REQUEST['path'] . '">' . get_rights_string($_REQUEST['path'] . $file) . '</a>';
+    $renamelink = '<a href="' . $url_inc . '&rename=' . $file . '&path=' . $_REQUEST['path'] . '">' . __('Rename') . '</a>';
+    $rightstext = '<a href="' . $url_inc . '&rights=' . $file . '&path=' . $_REQUEST['path'] . '">' . @get_rights_string($_REQUEST['path'] . $file) . '</a>';
 ?>
 <tr> 
     <td class="<?=$style?>"><?=$link?></td>
     <td class="<?=$style?>"><?=$filedata[7]?></td>
-    <td class="<?=$style?>"><?=$rightstext?></td>
-    <td class="<?=$style?>"><?=$edittext?></td>
+     <td class="<?=$style?>" style="white-space:nowrap"><?=gmdate("Y-m-d H:i:s",$filedata[9])?></td>
+   <td class="<?=$style?>"><?=$rightstext?></td>
     <td class="<?=$style?>"><?=$deletelink?></td>
-    <td class="<?=$style?>"></td>
+    <td class="<?=$style?>"><?=$renamelink?></td>
 </tr>
 <?php
     }
