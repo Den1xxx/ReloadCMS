@@ -451,27 +451,11 @@ function rcms_show_element($element, $parameters = ''){
                 }
             }
 echo '
-<link type="text/css" href="tools/js/jquery.lightbox-0.5.css" rel="stylesheet" media="screen" />
 <link type="text/css" href="' . SKIN_PATH . 'main.css" rel="stylesheet" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"  type="text/javascript"></script>
 <script type="text/javascript" src="' . RCMS_ROOT_PATH . 'tools/js/ajaxupload.js"></script>
-<script src="tools/js/jquery.lightbox-0.5.pack.js" type="text/javascript"></script>
 <script type="text/javascript" src="' . RCMS_ROOT_PATH . 'tools/js/editor.js"></script>
-<script type="text/javascript">
-$(function(){
-$("a.gallery").lightBox({
-	overlayBgColor: "#000",
-	overlayOpacity: 0.9,
-	imageLoading: "' . RCMS_ROOT_PATH . 'tools/js/images/loading.gif",
-	imageBtnClose: "' . RCMS_ROOT_PATH . 'tools/js/images/close.gif",
-	imageBtnPrev: "' . RCMS_ROOT_PATH . 'tools/js/images/arrow_left.gif",
-	imageBtnNext: "' . RCMS_ROOT_PATH . 'tools/js/images/arrow_right.gif",
-	containerResizeSpeed: 350,
-	txtImage: "'.__('Image').'",
-	txtOf: "'.__(' of ').'"
-   });
-});
-</script>';
+';
 
 echo '<script type="text/javascript" src="tools/js/limit.js"></script>'. "\r\n";        //  Limit post addon 
 

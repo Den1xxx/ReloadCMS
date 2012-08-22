@@ -315,6 +315,7 @@ class message{
      *
      */
     function init_bbcodes(){
+	global $system;
     	$this->regexp[0] = array();
 		$this->regexp[1] = array(
 		"#\[b\](.*?)\[/b\]#is" => '<span style="font-weight: bold">\\1</span>',
@@ -338,8 +339,9 @@ class message{
 		);
 		
 		$this->regexp[1] = array_merge(get_animated_to_array(), $this->regexp[1]);
-		$lightbox_config = parse_ini_file(CONFIG_PATH . 'lightbox.ini');
+		$lightbox_config = unserialize(@file_get_contents(CONFIG_PATH . 'lightbox.ini'));
 		if (@$lightbox_config['articles']) {
+		$system->addInfoToHead(@$lightbox_config['code']);
 		$this->regexp[2] = array(
 	    "#[\s\n\r]*\[img\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br /><a href="\\1.\\2"  class="gallery"><img src="\\1.\\2" alt="\\2" width="'.$lightbox_config['width'].'px"/></a><br />',
 		"#[\s\n\r]*\[img=(\"|&quot;|)(left|right)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<img src="\\4.\\5" alt="\\5" align="\\2" />',
