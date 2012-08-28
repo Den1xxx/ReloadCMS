@@ -339,7 +339,7 @@ class message{
 		);
 		
 		$this->regexp[1] = array_merge(get_animated_to_array(), $this->regexp[1]);
-		$lightbox_config = unserialize(@file_get_contents(CONFIG_PATH . 'lightbox.ini'));
+		$lightbox_config = (is_file(CONFIG_PATH . 'lightbox.ini')?unserialize(file_get_contents(CONFIG_PATH . 'lightbox.ini')):array());
 		if (@$lightbox_config['articles']) {
 		$system->addInfoToHead(@$lightbox_config['code']);
 		$this->regexp[2] = array(
