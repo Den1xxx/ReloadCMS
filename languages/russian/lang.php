@@ -5,6 +5,7 @@
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
 //Add by Den1xxx 
+$lang['def']['Editor'] = 'Редактор';
 $lang['def']['Rename'] = 'Переименовать';
 $lang['def']['Static pages'] = 'Статические страницы';
 $lang['def']['Page edit'] = 'Редактирование страницы';
@@ -108,7 +109,7 @@ $lang['def'][' (except images)'] = ' (кроме картинок)';
 $lang['def']['Enable all'] = 'Включить все';
 $lang['def']['Empty module'] = 'Ничего';
 $lang['def']['Your avatar don\'t meet our requirements'] = 'Ваш аватар не соответствует рекомендациям';
-$lang['def']['Containers'] = 'Разделы';
+$lang['def']['Containers'] = 'Оглавление';
 $lang['def']['Invalid form data'] = 'Ошибка контрольного кода';
 $lang['def']['Avatar filesuccessfully uploaded'] = 'Аватар успешно загружен';
 $lang['def']['Pack file with gzip (uncheck if you experience problems)'] = 'Дополнительно сжать gzip (снимите галочку, если возникают проблемы)';
@@ -517,7 +518,7 @@ $lang['def']['Cannot remove system section'] = 'Нельзя удалить си
 $lang['def']['Cannot remove section'] = 'Невозможно удалить раздел';
 $lang['def']['No section selected!'] = 'Раздел не выбран!';
 $lang['def']['This system section doesn\'t have categories'] = 'Этот системный раздел не имеет категорий';
-$lang['def']['Sections'] = 'Разделы';
+$lang['def']['Sections'] = 'Оглавление';
 $lang['def']['Right to control over categories and sections of articles'] = 'Право управлять категориями и разделами статей';
 $lang['def']['Current password'] = 'Текущий пароль';
 $lang['def']['To change profile data you must enter your current password.'] = 'Чтобы изменить свой профиль вы должны ввести свой текущий пароль.';

@@ -39,6 +39,11 @@ if(!empty($menu_points)){
                	if(substr($menu, 0, 4) == 'ucm:' && is_readable(DF_PATH . substr($menu, 4) . '.ucm')) {
                    	$file = file(DF_PATH . substr($menu, 4) . '.ucm');
                    	$title = preg_replace("/[\n\r]+/", '', $file[0]);
+                   	if($system->checkForRight('GENERAL'))  {
+					$add = ' <a href="admin.php?show=module&id=general.ucm&edit='.substr($menu, 4).'"><img src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'"></a>';
+					if (!empty($title)) $title .= $add; 
+					else $file['2'] .= $add;
+					}
                    	$align = preg_replace("/[\n\r]+/", '', $file[1]);
                    	unset($file[0]);
                    	unset($file[1]);
