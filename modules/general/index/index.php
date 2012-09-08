@@ -64,7 +64,7 @@ if(empty($system->config['index_module']) || $system->config['index_module'] == 
 				$id = explode('.', $keys[$a]);
 				if(($category = $articles->getCategory($id[0], true)) !== false && ($article = $articles->getArticle($id[0], $id[1], true, true, false, false)) !== false){
 					$result .= rcms_parse_module_template('art-article.tpl', $article + array('showtitle' => true,
-					'linktext' => (($article['text_nonempty']) ? __('Read more...') : __('Comments')) . ' (' . $article['comcnt'] . '/' . $article['views'] . ')',
+					'linktext' => $articles->linktextArticle($article['text_nonempty'], $article['comcnt'], $article['views']),
 					'iconurl' => '?module=articles&amp;c=news&amp;b=' . $id[0],
 					'linkurl' => '?module=articles&amp;c=news&amp;b=' . $id[0] . '&amp;a=' . $article['id'],
 					'cat_data' => $category));

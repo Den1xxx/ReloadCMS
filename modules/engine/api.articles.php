@@ -367,7 +367,7 @@ class articles{
 		}
 		if(is_file($art_prefix . 'define')){
 			$art_data = rcms_parse_ini_file($art_prefix . 'define');
-			if($cnt){
+			if(!empty($this->config['count_views'])&&$cnt){
 				$art_data['views']++;
 				if(!write_ini_file($art_data, $art_prefix . 'define')){
 					$this->last_error = __('Cannot write to file');
@@ -688,10 +688,15 @@ class articles{
 				$this->last_error = __('Cannot write to file');
 				return false;
 			}
-			$article_data['comcount']++;
-			if($this->config['count_comments']&&!write_ini_file($article_data, $art_prefix . 'define')){
+			if (!empty($this->config['count_comments'])) {
+			if (is_file($art_prefix . 'comments')) {
+			$arr_commts = unserialize(file_get_contents($art_prefix . 'comments'));
+			$article_data['comcount'] = count($arr_commts);
+			} else $article_data['comcount']='1';
+			if(!write_ini_file($article_data, $art_prefix . 'define')){
 				$this->last_error = __('Cannot write to file');
 				return false;
+			}
 			}
 			if($this->container !== '#root' && $this->container !== '#hidden') {
 				$this->index[$cat_id][$art_id]['ccnt']++;
@@ -728,7 +733,8 @@ class articles{
 				rcms_remove_index($comment, $data, true);
 				@file_write_contents($art_prefix . 'comments', serialize($data));
 				$article_data = rcms_parse_ini_file($art_prefix . 'define');
-				$article_data['comcount']--;
+				$arr_commts = unserialize(file_get_contents($art_prefix . 'comments'));
+				$article_data['comcount'] = count($arr_commts);
 				@write_ini_file($article_data, $art_prefix . 'define');
 			}
 			if($this->container !== '#root' && $this->container !== '#hidden') {
