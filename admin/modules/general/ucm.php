@@ -77,3 +77,30 @@ if(!empty($_POST['new'])){
     $frm->show();
 }
 ?>
+<script type="text/javascript" src="./tools/js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+    tinyMCE.init({
+        mode : "exact",
+        elements : "text",
+        theme : "advanced",
+        language : "ru",
+        plugins : "paste,table,cyberim",
+        theme_advanced_buttons2_add : "pastetext,pasteword,selectall",
+        theme_advanced_buttons3_add : "tablecontrols",
+        theme_advanced_toolbar_location : "top",
+                theme_advanced_toolbar_align : "left",
+                theme_advanced_statusbar_location : "bottom",
+                theme_advanced_resizing : true,
+        paste_auto_cleanup_on_paste : true,
+        force_br_newlines : true,
+        force_p_newlines : false,
+        forced_root_block : '', // Needed for 3.x
+        content_css: "/css/tinymce.css",
+        style_formats : [
+             {title : 'Header', block : 'h2', classes : 'window-title'},
+             {title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
+             {title : 'Red header', block : 'h2', styles : {color : '#ff0000'}}
+         ],
+        extended_valid_elements : "script[type|language|src],div[class]"
+        });
+</script>

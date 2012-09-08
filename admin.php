@@ -47,7 +47,6 @@ if(!LOGGED_IN){
     $message = __('You are not administrator of this site');
 	include(ADMIN_PATH . 'error.php');
 } else {
-	if(!empty($_GET['show'])) $show = $_GET['show']; else $show = '';
 	
 	$categories = rcms_scandir(ADMIN_PATH . 'modules', '', 'dir');
 	$MODULES = array();
@@ -56,11 +55,44 @@ if(!LOGGED_IN){
 	    	include_once(ADMIN_PATH . 'modules/' . $category . '/module.php');
 		}
 	}
-	switch($show){
-		case 'nav':
-			include(ADMIN_PATH . 'navigation.php');
-		break;
-		case 'module':
+?>
+<!doctype html>
+<html>
+<head>     
+    <title><?=__('Administration')?></title>
+    <?rcms_show_element('meta')?>
+<meta http-equiv="Content-Type" content="text/html; charset=<?=$system->config['encoding']?>">
+<link rel="stylesheet" href="<?=ADMIN_PATH?>style.css" type="text/css">
+<style type="text/css">
+#layout-center{
+	position: absolute;
+	left: 210px;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	height: 100%;
+	overflow-y:auto;
+}
+#layout-left{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	width: 210px;
+	height: 100%;
+	overflow-y:auto;
+}
+</style>
+<!--[if IE]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script type="text/javascript" src="<?=RCMS_ROOT_PATH?>tools/js/tiny_mce/tiny_mce.js"></script>
+</head>
+<body>
+    <div id="layout-center">
+	<?php
+	if(!empty($_GET['show'])) {
 			$module = (!empty($_GET['id'])) ? basename($_GET['id']) : '.index';
 			$module = explode('.', $module, 2);
 			if(!is_file(ADMIN_PATH . 'modules/' . $module[0] . '/' . $module[1] . '.php')) {
@@ -69,13 +101,13 @@ if(!LOGGED_IN){
 			} elseif($module[1] != 'index' && empty($MODULES[$module[0]][1][$module[1]])) {
 				$message = __('Access denied') . ': ' . $module[0] . '/' . $module[1];
 				include(ADMIN_PATH . 'error.php');
-			} else {
-		    	include(ADMIN_PATH . 'module.php');
-			}
-		break;
-		default:
-			include(ADMIN_PATH . 'frameset.php');
-		break;
-	}
-}
-?>
+			} else include(ADMIN_PATH . 'modules/' . $module[0] . '/' . $module[1] . '.php');
+		} else include(ADMIN_PATH . 'modules/index.php');
+	?>   
+	</div>
+    <div id="layout-left">
+		<?php include(ADMIN_PATH . 'navigation.php'); ?>
+    </div>
+</body>
+</html>	
+<?}?>
