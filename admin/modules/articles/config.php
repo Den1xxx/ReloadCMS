@@ -18,7 +18,8 @@ $frm =new InputForm ('', 'post', __('Submit'));
 
 //Containers configuration
 $frm->addbreak(__('Containers'));
-$frm->addrow(__('News container ID') , $frm->text_box('nconfig[news]', @$config['news']));
+$articles = new articles();
+$frm->addrow(__('News container ID'), $frm->select_tag('nconfig[news]', $articles->getContainers(0)), 'top');
 
 //Categories configuration
 $frm->addbreak(__('Categories'));

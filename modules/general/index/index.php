@@ -34,9 +34,11 @@ if(!empty($menu_points['index-menus'])){
 	$module = $c_module;
 }
 
+
 if(empty($system->config['index_module']) || $system->config['index_module'] == 'news' || $system->config['index_module'] == 'default'){
 	$articles = new articles();
-	if(!$articles->setWorkContainer('news')){
+	$news_container = (!empty($articles->config['news'])?$articles->config['news']:'news');
+	if(!$articles->setWorkContainer($news_container)){
 		show_error($articles->last_error);
 	} else {
 		$result = '';
@@ -65,14 +67,14 @@ if(empty($system->config['index_module']) || $system->config['index_module'] == 
 				if(($category = $articles->getCategory($id[0], true)) !== false && ($article = $articles->getArticle($id[0], $id[1], true, true, false, false)) !== false){
 					$result .= rcms_parse_module_template('art-article.tpl', $article + array('showtitle' => true,
 					'linktext' => $articles->linktextArticle($article['text_nonempty'], $article['comcnt'], $article['views']),
-					'iconurl' => '?module=articles&amp;c=news&amp;b=' . $id[0],
-					'linkurl' => '?module=articles&amp;c=news&amp;b=' . $id[0] . '&amp;a=' . $article['id'],
+					'iconurl' => '?module=articles&amp;c='.$news_container.'&amp;b=' . $id[0],
+					'linkurl' => '?module=articles&amp;c='.$news_container.'&amp;b=' . $id[0] . '&amp;a=' . $article['id'],
 					'cat_data' => $category));
 				}
 			}
 			$result .= '<div align="right">' . rcms_pagination(sizeof($list), $system->config['perpage'], $page + 1, '?module=' . $module) . '</div>';
 		}
-		show_window(__('Latest news'), $result);
+		show_window($category['title'], $result);
 	}
 	$system->config['pagename'] = __('Latest news');
 } elseif ($system->config['index_module'] != 'empty' && !empty($system->modules['main'][$module])){
