@@ -62,7 +62,7 @@ if((!empty($_POST['save']) && !empty($c) && (!empty($b) || $c == '#hidden' || $c
 			} else {
 				rcms_showAdminMessage(__('Article moved'));
 			}
-		} else rcms_redirect ('http://'.$_SERVER['HTTP_HOST'].'/?module=articles&c='.$c.'&b='.$b.'&a='.$a);
+		} else rcms_redirect (RCMS_ROOT_PATH.'?module=articles&c='.$c.'&b='.$b.'&a='.$a);
 	}
 }
 
