@@ -12,6 +12,7 @@
 	
 //Save in archive ./content	and ./config
 if (!empty($_POST['backupit'])) {
+	rcms_clear_directory(CACHE_DIR);
 	if(!empty($_POST['gzip'])) $suffix = '.gz';
 	else $suffix = '';
     $bkupfilename = BACKUP_PATH . 'backup_'.(!empty($_POST['all'])?'all_':'').date('d.m.Y_H-i-s').'.tar' . $suffix;
