@@ -182,7 +182,7 @@ function rcms_parse_text_by_mode($str, $mode){
 			return rcms_parse_text($str, false, true, false, false, true, true);
 			break;
 		case 'htmlbb':
-			return rcms_parse_text($str, true, true, false, false, true, true);
+			return rcms_parse_text($str, true, true, true, false, true, true);;
 			break;
 	}
 }
