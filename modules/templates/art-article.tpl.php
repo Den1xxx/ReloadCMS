@@ -1,6 +1,5 @@
 <table  cellpadding="1" cellspacing="1" class="article-main" style="width:100%">
 <?php
-global $articles_config;
  if(!empty($tpldata['showtitle'])) {?>
 <tr>
 <?php if(!empty($tpldata['linktext']) && !empty($tpldata['linkurl'])) {?>
@@ -17,18 +16,17 @@ global $articles_config;
 <tr>
 <?php 
 $rating='';
-if (!empty($articles_config['code_rating'])) {
+if (!empty($tpldata['rating'])) {
 if(!empty($tpldata['linkurl'])) $url='/' . $tpldata['linkurl'];
 else $url=$_SERVER['REQUEST_URI'];
 $urlcode = crc32(str_replace('&amp;','&',$url));
-$RW_UID = html_entity_decode($articles_config['code_rating']); 
-// replace number of widjet to unique ID 
-$RW_UID = str_replace('rw-urid-1','rw-urid-'.$urlcode,$RW_UID);
-$rating='<br/><br/>
-'. $RW_UID . '
+// replace number of widjet to unique ID, 
+//this hack added rating to all pages of site;)
+$rating = '<br/><br/>
+'.str_replace('rw-urid-1','rw-urid-'.$urlcode,$tpldata['rating']). '
 ';
-}
-$social = (!empty($articles_config['social'])?html_entity_decode($articles_config['social']):'');
+} else $rating = '';
+$social = (!empty($tpldata['social'])?$tpldata['social']:'');
 ?>
 	<td colspan="3" style="width: 100%;padding-left:20px;padding-right:7px;">
         <?php echo ((empty($tpldata['text'])) ? $tpldata['desc'] : $tpldata['text'].$rating.$social);?>

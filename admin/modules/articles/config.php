@@ -4,22 +4,35 @@
 //   http://reloadcms.com                                                     //
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
+?>
+<script script type="text/javascript">
+<!--
+function selChange(seln) {
+selNum = seln.files.selectedIndex;
+Isel = seln.files.options[selNum].value;
+document.forms['mainfrm'].elements['nconfig[news]'].value = Isel;
+}
+//-->
+</script> 
+<?
 
 if(!empty($_POST['nconfig'])) {
-write_ini_file($_POST['nconfig'], CONFIG_PATH . 'articles.ini');
+file_write_contents(CONFIG_PATH . 'articles.ini',serialize($_POST['nconfig']));
+//write_ini_file($_POST['nconfig'], CONFIG_PATH . 'articles.ini');
 rcms_showAdminMessage(__('Configuration updated'));
 }
-
-$articles->config = parse_ini_file(CONFIG_PATH . 'articles.ini');
+$file = file_get_contents(CONFIG_PATH . 'articles.ini');
+if (substr($file,0,2)!='a:') $articles->config = parse_ini_file(CONFIG_PATH . 'articles.ini');
+else $articles->config = unserialize($file);
 $config = &$articles->config;
 
 // Interface generation
-$frm =new InputForm ('', 'post', __('Submit'));
+$frm = new InputForm ('', 'post', __('Submit'), '', '', '', 'mainfrm');
 
 //Containers configuration
 $frm->addbreak(__('Containers'));
 $articles = new articles();
-$frm->addrow(__('News container ID'), $frm->select_tag('nconfig[news]', $articles->getContainers(0)), 'top');
+$frm->addrow(__('News container ID'), $frm->text_box('nconfig[news]', @$config['news'],24).$frm->select_tag('files', $articles->getContainers(0),@$config['news'],' onchange="selChange(this.form)"'), 'top');
 
 //Categories configuration
 $frm->addbreak(__('Categories'));

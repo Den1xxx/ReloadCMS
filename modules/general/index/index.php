@@ -5,9 +5,9 @@
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
 
+if(empty($system->config['wmh'])){
 $intro = file_get_contents(DATA_PATH . 'intro.html');
-if(!empty($intro) && !@$system->config['wmh']){
-	show_window('', $intro, 'left');
+if (!empty($intro)) 	show_window('', $intro, 'left');
 }
 
 if(!empty($menu_points['index-menus'])){
@@ -64,6 +64,7 @@ if(empty($system->config['index_module']) || $system->config['index_module'] == 
 			for ($a = $start; $a < $end; $a++){
 				$time = &$list[$keys[$a]];
 				$id = explode('.', $keys[$a]);
+				//var_dump($id);
 				if(($category = $articles->getCategory($id[0], true)) !== false && ($article = $articles->getArticle($id[0], $id[1], true, true, false, false)) !== false){
 					$result .= rcms_parse_module_template('art-article.tpl', $article + array('showtitle' => true,
 					'linktext' => $articles->linktextArticle($article['text_nonempty'], $article['comcnt'], $article['views']),
@@ -72,9 +73,10 @@ if(empty($system->config['index_module']) || $system->config['index_module'] == 
 					'cat_data' => $category));
 				}
 			}
-			$result .= '<div align="right">' . rcms_pagination(sizeof($list), $system->config['perpage'], $page + 1, '?module=' . $module) . '</div>';
-		}
-		show_window($category['title'], $result);
+			$title = isset($category['title'])?$category['title']:__(file_get_contents(ARTICLES_PATH . $news_container . '/title'));
+			if (!empty($list)) $result .= '<div align="right">' . rcms_pagination(sizeof($list), $system->config['perpage'], $page + 1, '?module=' . $module) . '</div>'; else $result = __('Nothing founded');
+		} 
+		show_window($title, $result);
 	}
 	$system->config['pagename'] = __('Latest news');
 } elseif ($system->config['index_module'] != 'empty' && !empty($system->modules['main'][$module])){

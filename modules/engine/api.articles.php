@@ -17,7 +17,7 @@ class articles{
 
 	//--------------------------Loading configuration-----------------------//
 	function articles(){
-	$this->config = @parse_ini_file(CONFIG_PATH . 'articles.ini');
+	$this->config = $articles->config = unserialize(file_get_contents(CONFIG_PATH . 'articles.ini'));
 	if (empty ($this->config['count_views'])) $this->config['count_views']='';
 	if (empty ($this->config['count_comments'])) $this->config['count_comments']='';
 	}

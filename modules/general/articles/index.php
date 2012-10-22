@@ -9,21 +9,7 @@ $articles = new articles();
 $c = (empty($_GET['c']) || $_GET['c'] == '#hidden') ? null : $_GET['c'];
 $b = (empty($_GET['b'])) ? null : (int)$_GET['b'];
 $a = (empty($_GET['a'])) ? null : (int)$_GET['a'];
-$code_addon = '';
-//add rating
-if (!empty($articles->config['code_rating'])) {
-if(!empty($tpldata['linkurl'])) $url='/' . $tpldata['linkurl'];
-else $url=$_SERVER['REQUEST_URI'];
-$urlcode = crc32(str_replace('&amp;','&',$url));
-$RW_UID = html_entity_decode($articles->config['code_rating']); 
-// replace number of widjet to unique ID 
-$RW_UID = str_replace('rw-urid-1','rw-urid-'.$urlcode,$RW_UID);
-$code_addon .= '<br/><br/>
-'. $RW_UID . '
-';
-}
-//add social button
-$code_addon .= (!empty($articles->config['social'])?html_entity_decode($articles->config['social']):'');
+
 
 if(!empty($a) && ((!empty($b) && !empty($c)) || $c == '#root')){
 	if(!$articles->setWorkContainer($c)){
@@ -87,8 +73,7 @@ rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'
 			$system->addInfoToHead('<meta name="Description" content="' . $article['sef_desc'] . '">' . "\n");
 		}
 		$article['container'] = $c; 	
-		$article['text'] .= $code_addon;
-		show_window($title, rcms_parse_module_template('art-article.tpl', $article));
+		show_window($title, rcms_parse_module_template('art-article.tpl', $article + array('rating'=>$articles->config['code_rating'],'social'=>$articles->config['social'])));
 
 		/* If comments are enabled in this article, show form */
 		if($article['comments'] == 'yes') {
