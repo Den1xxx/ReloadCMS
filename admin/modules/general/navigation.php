@@ -18,6 +18,7 @@ if(!empty($_POST['urls']) && !empty($_POST['names']) && is_array($_POST['urls'])
 					$ins['url'] = $url;
 				}
 				$ins['name'] = $_POST['names'][$i];
+				$ins['desc'] = $_POST['desc'][$i];
 				$result[] = $ins;
 			}
 		}
@@ -47,7 +48,7 @@ $frm->addrow(__('Off for ').'"'. __('Member list').'"',$frm->checkbox('dy[use_me
 $frm->addrow(__('Off for ').'"'. __('FilesDB').'"',$frm->checkbox('dy[use_fdb]', '1', '', @$dyna['use_fdb']));
 $frm->addrow(__('Off for ').'"'. __('Forum').'"',$frm->checkbox('dy[use_for]', '1', '', @$dyna['use_for']));
 $frm->addbreak(__('Navigation editor'));
-$frm->addrow(__('Link'), __('Title'));
+$frm->addrow(__('Link'), __('Title').', '.__('Description'));
 $i = 0;
 $config = &$system->config;
 $avaible_modules = array();
@@ -66,7 +67,12 @@ foreach ($links as $link){
 	if($checked){
 		$link['url'] = $tmp[1];
 	}
-	$frm->addrow($frm->text_box('urls[' . $i . ']', $link['url']).'&nbsp;&darr;&uarr;&nbsp;', $frm->text_box('names[' . $i . ']', $link['name']) . $frm->checkbox('ext[' . $i . ']', '1', __('Open in new window').'&nbsp;&nbsp;&nbsp;', $checked)
+	$frm->addrow(
+	$frm->text_box('urls[' . $i . ']', $link['url']).'&nbsp;&darr;&uarr;&nbsp;', 
+	$frm->text_box('names[' . $i . ']', $link['name']) . 
+	@$frm->text_box('desc[' . $i . ']', $link['desc']) . 
+	//@$frm->textarea('desc[' . $i . ']', $link['desc'], 30, 1) .
+	$frm->checkbox('ext[' . $i . ']', '1', __('Open in new window').'&nbsp;&nbsp;&nbsp;', $checked)
 .$frm->select_tag('modules',$avaible_modules,-1,'onChange="
 document.addnav[\''.'urls[' . $i . ']'.'\'].value = \'module:\'+ this.value;
 ">\n
@@ -74,7 +80,8 @@ document.addnav[\''.'urls[' . $i . ']'.'\'].value = \'module:\'+ this.value;
 	);
 	$i++;
 } 
-$frm->addrow($frm->text_box('urls[' . $i . ']', ''), $frm->text_box('names[' . $i . ']', '') . $frm->checkbox('ext[' . $i . ']', '1', __('Open in new window').'&nbsp;&nbsp;&nbsp;')				
+
+$frm->addrow($frm->text_box('urls[' . $i . ']', ''), $frm->text_box('names[' . $i . ']', '') . $frm->text_box('desc[' . $i . ']', '') . $frm->checkbox('ext[' . $i . ']', '1', __('Open in new window').'&nbsp;&nbsp;&nbsp;')				
 .$frm->select_tag('modules',$avaible_modules,-1,'onChange="
 document.addnav[\''.'urls[' . $i . ']'.'\'].value = \'module:\'+ this.value;
 ">\n

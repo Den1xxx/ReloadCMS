@@ -58,6 +58,12 @@ function rcms_pagination($total, $perpage, $current, $link){
     return $return;
 }
 
+function show_icon ($module) {
+return ((is_file(RCMS_ROOT_PATH.'skins/icons/'.$module.'.png'))?
+'<img src="' . RCMS_ROOT_PATH . 'skins/icons/'.$module.'.png" alt="'.$module.'"/>':
+'<img src="' . RCMS_ROOT_PATH . 'skins/icons/default.png " alt="'.$module.'"/>');
+}
+
 function rcms_parse_menu($format) {
 	global $system;
 	$navigation = parse_ini_file(CONFIG_PATH . 'navigation.ini', true);
@@ -78,13 +84,14 @@ function rcms_parse_menu($format) {
 		}
 		if(!empty($value) && !empty($system->navmodifiers[$modifier])){
 			if($clink = call_user_func($system->navmodifiers[$modifier]['m'], $value)){
-				$result[] = array($clink[0], (empty($link['name'])) ? $clink[1] : __($link['name']), $target);
+				$result[] = array($clink[0], (empty($link['name'])) ? $clink[1] : __($link['name']), $target, '', !empty($link['desc'])?$link['desc']:'');
 			}
 		} else {
 			$result[] = array($link['url'], __($link['name']));
 		}
 	}
 	$menu = '';
+	//var_dump($navigation);
 	foreach ($result as $item){
 		if(empty($item[2])) {
 			$item[2] = '_top';
@@ -96,7 +103,8 @@ function rcms_parse_menu($format) {
 		else 	$item[3] = '<img src="skins/icons/default.png " alt="'.@$item[3].'"/>';
 		}
 		else $item[3]='';
-		$menu .= str_replace('{link}', $item[0], str_replace('{title}', $item[1], str_replace('{target}', @$item[2], str_replace('{icon}', $item[3], $format))));
+		$menu .= str_replace(array('{link}','{title}','{target}','{icon}','{desc}'),$item,$format);
+		//$menu .= str_replace('{link}', $item[0], str_replace('{title}', $item[1], str_replace('{target}', @$item[2], str_replace('{icon}', $item[3], $format))));
 	}
 	$result = $menu;
 	return $result;
@@ -400,7 +408,7 @@ function rcms_parse_module_template_path($module) {
 }
 
 function rcms_show_element($element, $parameters = ''){
-    global $system;
+    global $system,$lightbox_config;
     switch($element){
         case 'title':
             if(!@$system->config['hide_title']) {
@@ -443,7 +451,7 @@ function rcms_show_element($element, $parameters = ''){
 				echo $den1xxx;
             break;
         case 'meta':
-            @readfile(DATA_PATH . 'meta_tags.html');
+            if (!function_exists('rcms_loadAdminLib')) @readfile(DATA_PATH . 'meta_tags.html');
             echo '<meta http-equiv="Content-Type" content="text/html; charset=' . $system->config['encoding'] . '" />' . "\r\n";
             if(!empty($system->config['enable_rss'])){
                 foreach ($system->feeds as $module => $d) {
@@ -456,7 +464,7 @@ echo '
 <script type="text/javascript" src="' . RCMS_ROOT_PATH . 'tools/js/ajaxupload.js"></script>
 <script type="text/javascript" src="' . RCMS_ROOT_PATH . 'tools/js/editor.js"></script>
 ';
-
+if (!empty($lightbox_config['code'])) echo $lightbox_config['code'];
 echo '<script type="text/javascript" src="tools/js/limit.js"></script>'. "\r\n";        //  Limit post addon 
 
             if(!empty($system->config['meta'])) echo $system->config['meta'];
