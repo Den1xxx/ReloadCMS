@@ -10,7 +10,9 @@
 define('RCMS_ROOT_PATH', './');
 require_once(RCMS_ROOT_PATH . 'common.php');
 mb_internal_encoding($system->config['encoding']);
- 
+if (date_default_timezone_set(date_default_timezone_get()) === FALSE)
+    date_default_timezone_set('UTC');
+
 //API
 function rcms_start(){
 global $menu_points, $starttime, $system;
@@ -40,9 +42,9 @@ if(!empty($menu_points)){
                    	$file = file(DF_PATH . substr($menu, 4) . '.ucm');
                    	$title = preg_replace("/[\n\r]+/", '', $file[0]);
                    	if($system->checkForRight('GENERAL'))  {
-					$add = ' <a href="admin.php?show=module&id=general.ucm&edit='.substr($menu, 4).'"><img src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'"></a>';
+					$add = '&nbsp;<a href="admin.php?show=module&id=general.ucm&edit='.substr($menu, 4).'"><img src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'"></a>';
 					if (!empty($title)) $title .= $add; 
-					else $file['2'] .= $add;
+					else $file[] = $add;
 					}
                    	$align = preg_replace("/[\n\r]+/", '', $file[1]);
                    	unset($file[0]);

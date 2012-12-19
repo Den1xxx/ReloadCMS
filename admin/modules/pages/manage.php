@@ -136,11 +136,13 @@ $frm->addrow(__('Mode'), $frm->select_tag('mode', array('html' => __('HTML'), 't
 } elseif(!empty($_POST['edit'])){
     if($page = page_get($_POST['edit'])){
 		$frm = new InputForm ('', 'post', __('Submit'), '', '', '', 'edit');
-        $frm->addmessage('<a href="">&lt;&lt;&lt; ' . __('Back') . '</a>');
+if (!empty($_GET['page']))  $frm->addmessage('&lt;&lt;&lt; <a href="'.RCMS_ROOT_PATH.'?module=pages&id='.$_GET['page'].'">'.__('Return to').' '.__('site index').'</a>');
+else  $frm->addmessage('<a href="">&lt;&lt;&lt; ' . __('Back') . '</a>');
         $frm->addbreak(__('Edit article'));
         $frm->hidden('edit', $_POST['edit']);
         $frm->hidden('save', '1');
-        $frm->addrow('<abbr title="' . __('Use only small Latin letters and digits') . '">' . __('MenuID') . '</abbr>', $frm->text_box('id', $_POST['edit']));
+if (empty($_GET['page'])) $frm->addrow('<abbr title="' . __('Use only small Latin letters and digits') . '">' . __('MenuID') . '</abbr>', $frm->text_box('id', $_POST['edit']));
+else $frm->addrow('<abbr title="' . __('Use only small Latin letters and digits') . '">' . __('MenuID') . '</abbr>', $_GET['page'].$frm->hidden('id', $_GET['page']));
         $frm->addrow(__('Title'), $frm->text_box('title', $page['title']));
     if (empty ($page['description'])) $page['description'] = $page['title'];
 	$frm->addrow(__('Description for search engines'), $frm->text_box('description', $page['description']));
