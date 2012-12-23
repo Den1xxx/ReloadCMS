@@ -91,7 +91,6 @@ function rcms_parse_menu($format) {
 		}
 	}
 	$menu = '';
-	//var_dump($navigation);
 	foreach ($result as $item){
 		if(empty($item[2])) {
 			$item[2] = '_top';
@@ -104,7 +103,6 @@ function rcms_parse_menu($format) {
 		}
 		else $item[3]='';
 		$menu .= str_replace(array('{link}','{title}','{target}','{icon}','{desc}'),$item,$format);
-		//$menu .= str_replace('{link}', $item[0], str_replace('{title}', $item[1], str_replace('{target}', @$item[2], str_replace('{icon}', $item[3], $format))));
 	}
 	$result = $menu;
 	return $result;
