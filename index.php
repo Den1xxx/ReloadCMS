@@ -82,5 +82,4 @@ if ($system->user['username'] == 'guest' && !empty($system->config['cache']) && 
  } else {
  rcms_start();
  }
- 
  ?>
