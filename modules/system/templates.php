@@ -164,7 +164,7 @@ function rcms_parse_dynamik_menu($format) {
 		// Begin of Icons support by Migel
 		//$arr = array();
 		if ($item[0] == '?module=articles') {
-		if (!isset($dyna['use_art'])){
+		if (class_exists('articles')&&!isset($dyna['use_art'])){
 			$articles = new articles();
 			$containers = $articles -> getContainers();
 			$count = 0;
@@ -458,7 +458,7 @@ function rcms_show_element($element, $parameters = ''){
             }
 echo '
 <link type="text/css" href="' . SKIN_PATH . 'main.css" rel="stylesheet" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"  type="text/javascript"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript" src="' . RCMS_ROOT_PATH . 'tools/js/ajaxupload.js"></script>
 <script type="text/javascript" src="' . RCMS_ROOT_PATH . 'tools/js/editor.js"></script>
 ';

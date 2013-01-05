@@ -112,5 +112,5 @@ function statistic_clean(){
     return rcms_delete_files(DATA_PATH . 'stats.dat');
 }
                                   
-if(basename($_SERVER['SCRIPT_FILENAME']) == 'index.php' && !empty($system->config['disable_stats'])) statistic_register();
+if(basename($_SERVER['SCRIPT_FILENAME']) == 'index.php' && empty($system->config['disable_stats'])) statistic_register();
 ?>

@@ -10,12 +10,14 @@ $this->registerModule($module, 'main', __('Articles'), 'ReloadCMS Team', array(
 'ARTICLES-EDITOR' => __('Right to post and edit articles'),
 ));
 
+if (is_file(ENGINE_PATH . 'api.articles.php')) {
 include_once(ENGINE_PATH . 'api.articles.php');
 $articles = new articles();
 foreach ($articles->getContainers() as $c_id => $c_title){
 	if(substr($c_id, 0, 1) !== '#') {
 		$this->registerFeed($module . '@' . $c_id, $c_title, __('Feed for section') . ' ' . $c_title, $module);
 	}
+}
 }
 
 $this->registerNavModifier('article', '_nav_modifier_article_m', '_nav_modifier_article_h');

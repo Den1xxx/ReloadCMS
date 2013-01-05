@@ -1,12 +1,11 @@
-<?php 
+<?php
 ////////////////////////////////////////////////////////////////////////////////
 //   Copyright (C) ReloadCMS Development Team                                 //
-//   http://reloadcms.com                                                     //
+//   http://reloadcms.sf.net                                                  //
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
-$MODULES[$category][0] = __('Polls');
-if($system->checkForRight('POLL')) {
-    $MODULES[$category][1]['polls'] = __('Polls control');
-    $MODULES[$category][1]['archive'] = __('Archive');
+$MODULES[$category][0] = __('Google');
+if($system->checkForRight('GENERAL')) {
+$MODULES[$category][1]['sitemap'] = __('Site map');
 }
 ?>

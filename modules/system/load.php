@@ -9,9 +9,8 @@
 // Ban check function                                                         //
 ////////////////////////////////////////////////////////////////////////////////
 function ifbanned($ip){
-    if(!$banlist = @file(CONFIG_PATH . 'bans.ini')){
-        $banlist = array();
-    }
+if (!is_file(CONFIG_PATH . 'bans.ini')) return false;
+$banlist = file(CONFIG_PATH . 'bans.ini'); 
     foreach ($banlist as $banstring){
         $ban = '/^' . str_replace('*', '(\d*)', str_replace('.', '\\.', trim($banstring))) . '$/';
         if(preg_match($ban, $ip)){
@@ -47,9 +46,9 @@ include_once(SYSTEM_MODULES_PATH . 'formsgen.php');
 ////////////////////////////////////////////////////////////////////////////////
 // Initializing session                                                       //
 ////////////////////////////////////////////////////////////////////////////////
-$system = new rcms_system(@$_POST['lang_form'], @$_POST['user_selected_skin']);
+$system = new rcms_system(post('lang_form'), post('user_selected_skin'));
 if(!empty($_POST['login_form'])) {
-    $system->logInUser(@$_POST['username'], @$_POST['password'], !empty($_POST['remember']) ? true : false);
+    $system->logInUser(post('username'), post('password'), !empty($_POST['remember']) ? true : false);
 }
 if(!empty($_POST['logout_form'])) {
     $system->logOutUser();

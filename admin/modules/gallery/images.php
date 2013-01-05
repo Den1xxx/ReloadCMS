@@ -69,8 +69,8 @@ $files = $gallery->getFullImagesList();
 
 $frm =new InputForm ('', 'post', __('Submit'));
 $frm->addbreak(__('Uploaded images'));
-$frm->addmessage(__('To divide keywords use ; symbol'));
 if(!empty($files)) {
+$frm->addmessage(__('To divide keywords use ; symbol'));
 	// Pagination
 	if(!empty($system->config['perpage'])) {
 		$perpage = $system->config['perpage'] * 3;
@@ -97,7 +97,7 @@ if(!empty($files)) {
 		$total--;
 		$c++;
 	}
-}
 $frm->addmessage(__('To divide keywords use ; symbol'));
+} else $frm->addmessage(__('Nothing founded'));
 $frm->show();
 ?>

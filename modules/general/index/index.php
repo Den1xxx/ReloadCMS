@@ -36,6 +36,7 @@ if(!empty($menu_points['index-menus'])){
 
 
 if(empty($system->config['index_module']) || $system->config['index_module'] == 'news' || $system->config['index_module'] == 'default'){
+if (class_exists('articles')) {
 	$articles = new articles();
 	$news_container = (!empty($articles->config['news'])?$articles->config['news']:'news');
 	if(!$articles->setWorkContainer($news_container)){
@@ -79,6 +80,7 @@ if(empty($system->config['index_module']) || $system->config['index_module'] == 
 		show_window($title, $result);
 	}
 	$system->config['pagename'] = __('Latest news');
+	}
 } elseif ($system->config['index_module'] != 'empty' && !empty($system->modules['main'][$module])){
 	$my_module = $module;
 	$module = $system->config['index_module'];

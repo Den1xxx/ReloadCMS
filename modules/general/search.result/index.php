@@ -38,6 +38,7 @@ return $start_.str_replace(strtolower($word),'<u><b>'.strtolower($word).'</b></u
 //Func for search in article
 function search_in_article($article, $find)
 {
+if (!class_exists('articles')) return false;
 $out = array();
 $articles = new articles();
 $articles -> setWorkContainer($article);
@@ -68,6 +69,7 @@ return $out;
 //Func for search in files
 function search_in_files($find)
 {
+if (!class_exists('linksdb')) return false;
 $out = array();
 $filesdb = new linksdb(DOWNLOADS_DATAFILE);
 if (!empty($filesdb)) {
@@ -94,6 +96,7 @@ return $out;
 //Func for search in forum
 function search_in_forum($find)
 {
+if (!is_file(FORUM_PATH . 'topic_index.dat')) return false;
 $out = array();
 $topics = @unserialize(@file_get_contents(FORUM_PATH . 'topic_index.dat'));
     if(!is_array($topics)) $topics = array();
@@ -113,12 +116,12 @@ return $out;
 
 //Main logic
 $find = '';
-if (isset($_GET['search'])) $find = trim(rcms_parse_text($_GET['search']));
-if ((strlen($_GET['search']) >= $config['min']) and (strlen($_GET['search']) <= $config['max'])) {
+if (isset($_GET['search'])) $find = trim(rcms_parse_text($_GET['search'])); else $find='';
+if ((strlen($find) >= $config['min']) and (strlen($find) <= $config['max'])) {
     $content = '<table width=100%>';
 
     //articles
-    if (isset($_GET['articles']))
+    if (class_exists('articles')&&isset($_GET['articles']))
     {
     $articles = new articles();
     $containers = $articles -> getContainers();

@@ -497,6 +497,25 @@ function rcms_remove_index($key, &$array, $preserve_keys = false) {
 }
 
 /*
+* Function for Get, Post, Request, Cookie method
+*/
+function post($value,$no_value=''){
+return (!empty($_POST[$value])?$_POST[$value]:$no_value);
+}
+
+function get($value,$no_value=''){
+return (!empty($_GET[$value])?$_GET[$value]:$no_value);
+}
+
+function request($value,$no_value=''){
+return (!empty($_REQUEST[$value])?$__REQUEST[$value]:$no_value);
+}
+
+function cookie($value,$no_value=''){
+return (!empty($_COOKIE[$value])?$_COOKIE[$value]:$no_value);
+}
+
+/*
 * code from http://detectmobilebrowsers.com/
 * checks whether the mobile browser
 *

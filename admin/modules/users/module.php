@@ -9,5 +9,6 @@ if($system->checkForRight('USERS')) {
     $MODULES[$category][1]['fields'] = __('Additional profile fields');
     $MODULES[$category][1]['profiles'] = __('Manage users');
 	$MODULES[$category][1]['bans'] = __('Manage bans');
+	$MODULES[$category][1]['sendmail'] = __('Send e-mail');
 }
 ?>

@@ -14,7 +14,12 @@ function rcms_loadAdminLib($lib){
 
 //------------------------------------------------------------------------------------------------------//
 // preparations...
-
+if (post('admin_selected_skin')) {
+setcookie('admin_skin',$_POST['admin_selected_skin'], FOREVER_COOKIE);
+rcms_redirect('');
+}
+$admin_skin = cookie('admin_skin','default');
+define('ADMIN_SKIN', ADMIN_PATH.'skins/'.$admin_skin.'/');
 $rights = &$system->rights;
 $root   = &$system->root;
 if(!LOGGED_IN){
@@ -55,60 +60,11 @@ if(!LOGGED_IN){
 	    	include_once(ADMIN_PATH . 'modules/' . $category . '/module.php');
 		}
 	}
+	$title = __('Administration');
+	if (!empty($_GET['id'])) {
+	$arr=explode('.',$_GET['id']);
+	$title.=' - '.$MODULES[$arr[0]][0];
+	}  
+ require_once(ADMIN_SKIN . 'skin.general.php');
+}
 ?>
-<!doctype html>
-<html>
-<head>     
-    <title><?=__('Administration')?></title>
-    <?rcms_show_element('meta')?>
-<meta http-equiv="Content-Type" content="text/html; charset=<?=$system->config['encoding']?>">
-<link rel="stylesheet" href="<?=ADMIN_PATH?>style.css" type="text/css">
-<style type="text/css">
-#layout-center{
-	position: absolute;
-	left: 210px;
-	top: 0px;
-	bottom: 0px;
-	right: 0px;
-	height: 100%;
-	overflow-y:auto;
-}
-#layout-left{
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	bottom: 0px;
-	right: 0px;
-	width: 210px;
-	height: 100%;
-	overflow-y:auto;
-}
-</style>
-<!--[if IE]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-<script type="text/javascript" src="<?=RCMS_ROOT_PATH?>tools/js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
-</head>
-<body>
-    <div id="layout-center">
-	<?php
-	if(!empty($_GET['show'])) {
-			$module = (!empty($_GET['id'])) ? basename($_GET['id']) : '.index';
-			$module = explode('.', $module, 2);
-			if(!is_file(ADMIN_PATH . 'modules/' . $module[0] . '/' . $module[1] . '.php')) {
-				$message = __('Module not found') . ': ' . $module[0] . '/' . $module[1];
-				include(ADMIN_PATH . 'error.php');
-			} elseif($module[1] != 'index' && empty($MODULES[$module[0]][1][$module[1]])) {
-				$message = __('Access denied') . ': ' . $module[0] . '/' . $module[1];
-				include(ADMIN_PATH . 'error.php');
-			} else include(ADMIN_PATH . 'modules/' . $module[0] . '/' . $module[1] . '.php');
-		} else include(ADMIN_PATH . 'modules/index.php');
-	?>   
-	</div>
-    <div id="layout-left">
-		<?php include(ADMIN_PATH . 'navigation.php'); ?>
-    </div>
-</body>
-</html>	
-<?}?>

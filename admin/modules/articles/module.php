@@ -4,10 +4,12 @@
 //   http://reloadcms.com                                                     //
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
-$MODULES[$category][0] = __('Articles');
+$MODULES[$category][0] = __('Publications');
 if($system->checkForRight('ARTICLES-ADMIN')) $MODULES[$category][1]['containers'] = __('Manage sections');
 if($system->checkForRight('ARTICLES-ADMIN')) $MODULES[$category][1]['categories'] = __('Manage categories');
 if($system->checkForRight('ARTICLES-EDITOR')) $MODULES[$category][1]['articles'] = __('Manage articles');
 if($system->checkForRight('ARTICLES-EDITOR')) $MODULES[$category][1]['post'] = __('Post article');
 if($system->checkForRight('ARTICLES-ADMIN')) $MODULES[$category][1]['config'] = __('Configuration');
+if($system->checkForRight('ARTICLES-EDITOR')) $MODULES[$category][1]['pages'] = __('Static pages');
+if($system->checkForRight('GENERAL')) $MODULES[$category][1]['comments'] = __('Comments configuration');
 ?>

@@ -16,7 +16,7 @@ bbtags = new Array('[b]','[/b]','[i]','[/i]','[u]','[/u]','[quote]','[/quote]','
 $(document).ready(function() {
 			var button = $('#uploadButton<?=$rand?>'), interval;
 			$.ajax_upload(button, {
-						action : 'picloader.php',
+						action : '<?=RCMS_ROOT_PATH?>picloader.php',
 						name : 'uploadfile',
 						onSubmit : function(file, ext) {
 							$("img#load<?=$rand?>").attr("src", "<?=RCMS_ROOT_PATH?>tools/js/images/load.gif");
@@ -28,7 +28,7 @@ $(document).ready(function() {
 							$("#uploadButton<?=$rand?> span").text('<?=__('Upload image')?>');
 							this.enable();
 if (response.substr(0,5)=='[img]') {//sucess
-insert_text(document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'],  response);
+document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'].value += response;
 $("#answer<?=$rand?>").text('<?=__('Uploaded')?> ' + file);
 } else {
 $("#answer<?=$rand?>").text(response);}
@@ -38,7 +38,7 @@ $("#answer<?=$rand?>").text(response);}
 
 <?php }?>
 </script>
-<table cellspacing="0" class="bb_editor" cellpadding="0" border="0" align="center">
+<table cellspacing="0" cellpadding="0" border="0" align="center" class="bb_editor">
 <tr align="center" valign="middle">
     <td>
         <input type="button" accesskey="b" name="addbbcode0" value="B" style="font-weight:bold;" onclick="bbstyle(document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'], 0, '<?=$tpldata['textarea']?>')"/>
@@ -50,10 +50,11 @@ $("#answer<?=$rand?>").text(response);}
 		<?	if ($img) {//enable all bbcodes ?>
         <input type="button" accesskey="p" name="addbbcode10" value="<?=__('Image')?>" onclick="bbstyle(document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'], 10, '<?=$tpldata['textarea']?>')" />
         <input type="button" accesskey="w" name="addbbcode12" value="<?=__('URL')?>" onclick="bbstyle(document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'], 12, '<?=$tpldata['textarea']?>')" />
-        <?}?>
+        <input type="button" accesskey="r" name="addbbcode16" value="<?=__('Offtop')?>" onclick="bbstyle(document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'], 16, '<?=$tpldata['textarea']?>')" />
+		<?}?>
 <input type="button" accesskey="Q" name="addbbcode17" value="<?=__('Clear')?>" onclick="document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'].value='';" />
 <?php if ($system->checkForRight('GENERAL')) {?>
-<button id="uploadButton<?=$rand?>" >
+<button id="uploadButton<?=$rand?>" onclick="return false;">
 <span><?=__('Upload image')?></span>
 <img id="load<?=$rand?>" src="<?=RCMS_ROOT_PATH?>tools/js/images/blank.gif"/>
 </button>
@@ -67,5 +68,40 @@ $("#answer<?=$rand?>").text(response);}
 </td>
 </tr>
 </table>
+
+<div class="popUpBox"><?=__('Quote')?></div>
+<!-- Begin JavaScript -->
+<script type="text/javascript">
+jQuery(function($) {
+ 
+    var $txt = '';
+     
+    $('.window-main').bind("mouseup", function(e){
+        if (window.getSelection){
+            $txt = window.getSelection();
+        }
+        else if (document.getSelection){
+            $txt = document.getSelection();
+        }
+        else if (document.selection){
+            $txt = document.selection.createRange().text;
+        }
+        else return;
+        if    ($txt!=''){
+            $('.popUpBox').css({'display':'block', 'left':e.pageX-70+'px', 'top':e.pageY+5+'px'});
+        }
+    });
+     
+    $(document).bind("mousedown", function(){
+        $('.popUpBox').css({'display':'none'});
+    });
+     
+    $('.popUpBox').bind("mousedown", function(){
+			insert_text(document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'], '[quote]' + $txt + '[/quote]');
+    });
+     
+});
+</script>
+
 <?} ?>
 

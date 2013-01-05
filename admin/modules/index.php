@@ -66,7 +66,7 @@ $frm->addrow(__('Backups'), format_size(get_dir_size(BACKUP_PATH)));
 $frm->addrow(__('Skins'), format_size(get_dir_size(SKIN_PATH)));
 $frm->addrow(__('All'), format_size(get_dir_size(RCMS_ROOT_PATH)));
 
-if($system->checkForRight('ARTICLES-EDITOR')){
+if(class_exists('articles')&&$system->checkForRight('ARTICLES-EDITOR')){
 	$frm->addbreak(__('Information from users'));
 	$articles = new articles();
 	$articles->setWorkContainer('#hidden');

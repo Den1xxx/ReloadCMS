@@ -5,6 +5,24 @@
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
 //Add by Den1xxx 
+$lang['def']['Developer'] = 'Разработчик';
+$lang['def']['Create a new template to send letters'] = 'Создать новый шаблон отправки писем';
+$lang['def']['Create static page'] = 'Создать статическую страницу';
+$lang['def']['Forum configuration'] = 'Настройка форума';
+$lang['def']['Save'] = 'Сохранить';
+$lang['def']['Tools'] = 'Инструменты';
+$lang['def']['Site map'] = 'Карта сайта';
+$lang['def']['Communion'] = 'Общение';
+$lang['def']['Modules'] = 'Модули';
+$lang['def']['Publications'] = 'Публикации';
+$lang['def']['Javascript'] = 'Яваскрипт';
+$lang['def']['Start'] = 'Начало';
+$lang['def']['Hide'] = 'Скрыть';
+$lang['def']['status'] = 'статус';
+$lang['def']['Color'] = 'Цвет';
+$lang['def']['Top'] = 'Наверх';
+$lang['def']['special'] = 'специальный';
+$lang['def']['Subtitle'] = 'Подзаголовок';
 $lang['def']['Editor'] = 'Редактор';
 $lang['def']['Rename'] = 'Переименовать';
 $lang['def']['Static pages'] = 'Статические страницы';
