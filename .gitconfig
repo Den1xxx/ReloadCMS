@@ -1,1 +1,1 @@
---global core.autocrlf false
+*.ini -crlf -diff
