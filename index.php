@@ -8,10 +8,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Initializations                                                            //
 define('RCMS_ROOT_PATH', './');
+if (date_default_timezone_set(date_default_timezone_get()) === FALSE)
+    date_default_timezone_set('Europe/Moscow');
 require_once(RCMS_ROOT_PATH . 'common.php');
 mb_internal_encoding($system->config['encoding']);
-if (date_default_timezone_set(date_default_timezone_get()) === FALSE)
-    date_default_timezone_set('UTC');
 
 //API
 function rcms_start(){
