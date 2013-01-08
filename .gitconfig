@@ -1,5 +1,3 @@
 *.png binary
 *.jpg binary
 *.ini binary
-[core]
-autocrlf = false
