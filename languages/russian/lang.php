@@ -5,6 +5,7 @@
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
 //Add by Den1xxx 
+$lang['def']['as default'] = 'по умолчанию';
 $lang['def']['Developer'] = 'Разработчик';
 $lang['def']['Create a new template to send letters'] = 'Создать новый шаблон отправки писем';
 $lang['def']['Create static page'] = 'Создать статическую страницу';
@@ -723,7 +724,8 @@ $lang['def']['Loading'] = 'Загрузка';
 $lang['def']['Logs'] = 'Логи';
 $lang['def']['Config'] = 'Конфигурация';
 $lang['def']['Backups'] = 'Резервные копии';
-$lang['def']['Skins'] = 'Скины';
+$lang['def']['Skins'] = 'Шаблоны';
+$lang['def']['Skins configuration'] = 'Управление шаблонами';
 $lang['def']['Disallow guest post to Articles'] = 'Запретить гостям писать в Статьи';
 $lang['def']['Disallow guest post comments to Guestbook'] = 'Запретить гостям писать в Гостевую';
 $lang['def']['Disallow guest post to Forum'] = 'Запретить гостям писать на Форуме';

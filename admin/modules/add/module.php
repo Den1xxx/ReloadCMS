@@ -13,5 +13,6 @@ if($system->checkForRight('GENERAL')) {
     $MODULES[$category][1]['search'] = __('Search configuration');
     $MODULES[$category][1]['avatars'] = __('Avatars configuration');
     $MODULES[$category][1]['smiles'] = __('Smiles configuration');
+    $MODULES[$category][1]['skins'] = __('Skins');
 }
 ?>

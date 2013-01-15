@@ -7,7 +7,7 @@
 $max_len=$config['max_message_len']; ?>
 <? echo __('Maximum message length').'<br />[<script type="text/javascript">displaylimit("document.minichat.mctext", "",'.$max_len.') </script>]'?><br />
 
- <textarea id="mctext" name="mctext" rows="3" cols="10"></textarea><br />
+ <textarea id="mctext" style="width:90%" name="mctext" rows="3" cols="10"></textarea><br />
 <?php 
 	if(!LOGGED_IN) {
     $rand=rand(0,777); 

@@ -1,9 +1,10 @@
 <form method="post" action="">
 <?php if(!LOGGED_IN) {?>
 <input type="hidden" name="login_form" value="1" />
+<a name="top_login"></a>
 <table cellpadding="2" cellspacing="1" style="width: 100%;">
 <tr>
-    <td class="row2" colspan="2"><a href="#" onclick="document.getElementById('tablelogin').style.display = showhide(document.getElementById('tablelogin').style.display)"><?=__('Log in')?></a></td>
+    <td class="row2" colspan="2"><a href="#top_login" onclick="document.getElementById('tablelogin').style.display = showhide(document.getElementById('tablelogin').style.display)"><?=__('Log in')?></a></td>
 </tr>
 </table>
 <table cellpadding="2" cellspacing="1" id="tablelogin" style="display: none; width: 100%;">
@@ -29,7 +30,7 @@
 <form method="post" action="">
 <table cellpadding="2" cellspacing="1" style="width: 100%;">
 <tr>
-    <td class="row2" colspan="2"><a href="#" onclick="document.getElementById('ident').style.display = showhide(document.getElementById('ident').style.display)"><?=__('Identify myself')?></a></td>
+    <td class="row2" colspan="2"><a href="#top_login" onclick="document.getElementById('ident').style.display = showhide(document.getElementById('ident').style.display)"><?=__('Identify myself')?></a></td>
 </tr>
 </table>
 <table cellpadding="2" cellspacing="1" id="ident" style="display: none; width: 100%;">
@@ -85,7 +86,6 @@
 <?php }?>
 </table>
 </form>
-<hr />
 <?php if(!empty($system->config['allowchskin'])){?>
 <form name="skin_select" method="post" action="">
     <?=user_skin_select(SKIN_PATH, 'user_selected_skin', $system->skin, 'font-size: 90%; width: 100%', 'onchange="document.forms[\'skin_select\'].submit()" title="' . __('Skin') . '"')?>

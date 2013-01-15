@@ -1,0 +1,3 @@
+<Files ~ "style.css.php">
+allow from all
+</Files>
