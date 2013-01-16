@@ -51,7 +51,7 @@ $frm->show();
 </div>
 
 <hr/>
-<iframe id="site" src="<?=RCMS_ROOT_PATH?>index.php?module=index&skin=<?=$skin?>" width="100%" style='width: 100%;' frameborder=0 marginheight=0 marginwidth=0 onload="$(this).height($(this).contents().find('html').height());">
+<iframe id="site" name="site" src="<?=RCMS_ROOT_PATH?>index.php?module=index&skin=<?=$skin?>" width="100%" style='width: 100%;' frameborder=0 marginheight=0 marginwidth=0 onload="$(this).height($(this).contents().find('html').height());" >
 <?=__('Your browser don\'t support frames');?>
 </iframe>
 
@@ -68,7 +68,23 @@ if (parseInt($(this).val())) $(this).css('border','none').css('box-shadow','none
 });
 $( "#dialog" ).dialog({width:400,height:500});
 $("#navigation").resizable();
-//$("input[type=text]").change(function(){});
-//$(".ui-icon").click(function(){});
+
+$("input[type=text]").change(function(){
+var body_bg_color=$('input[name="css_config[Body background color]"]').val();
+$('#site').contents().find('body').css('background',body_bg_color);
+});
+
+$(".ui-icon").click(function(){
+var font_size=$('input[name="css_config[Primary font size, px]"]').val();
+$('#site').contents().find('body').css('font-size',font_size+'px');
+var menu_width=$('input[name="css_config[Skin width, px]"]').val();
+$('#site').contents().find('#menu').css('width',menu_width+'px');
+var sidebar_width=$('input[name="css_config[Sidebar width, px]"]').val();
+$('#site').contents().find('#sidebar').css('width',sidebar_width+'px');
+
+var h1_font=$('input[name="css_config[H1 font size, px]"]').val();
+$('#site').contents().$('h1').css('font-size',h1_font+'px');
+
+});
 //$("input[type='text']:not([name*='color'])").add(this).css('border','none').css('box-shadow','none').css('width','50px').spinner();
 </script>

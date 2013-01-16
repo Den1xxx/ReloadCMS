@@ -22,15 +22,15 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: '.$css_config['H1 font size, px'].'px;
+    font-size: 24px;
 }
 
 h2 {
-    font-size: '.$css_config['H2 font size, px'].'px;
+    font-size: 20px;
 }
 
 h3 {
-    font-size: '.$css_config['H3 font size, px'].'px;
+    font-size: 18px;
 }
 
 p, ul, ol {
@@ -70,13 +70,13 @@ input, textarea, select, button {
     border-radius: '.$css_config['Input border radius, px'].'px; 
 }
 
-input[type="text"]:hover,input[type="password"]:hover,textarea:hover {
+input[type="password"]:hover,input[type="text"]:hover,textarea:hover {
 	color: '.$css_config['Input text hover color'].';
     background-color: #fff;
     border: '.$css_config['Input border thickness, px'].'px solid '.$css_config['Input border hover color'].';
 }
 
-input[type="text"]:focus,input[type="password"]:focus,textarea:focus{
+input[type="password"]:focus,input[type="text"]:focus,textarea:focus{
 	color: '.$css_config['Input text hover color'].';
     background-color: #fff;
     border: '.$css_config['Input border thickness, px'].'px solid '.$css_config['Input border hover color'].';
