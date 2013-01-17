@@ -204,7 +204,7 @@ input[type="submit"]:visited,input[type="reset"]:visited,input[type="button"]:vi
 
 #menu {
     width: '.$css_config['Skin width, px'].'px;
-    height: 36px;
+    height: '.ceil($css_config['Padding links menu, px']*3.6).'px;
     margin: 0 auto;
     padding: 0;
 	color: '.$css_config['Menu text color'].'; 
@@ -220,7 +220,7 @@ input[type="submit"]:visited,input[type="reset"]:visited,input[type="button"]:vi
 }
 
 #menu ul {
-    margin: 0px 0px 0px 10px;
+    margin-left: '.($css_config['Menu radius, px']-$css_config['The thickness of the border of the menu, px']).'px;
     padding: 0;
     list-style: none;
     line-height: normal;
@@ -232,9 +232,9 @@ input[type="submit"]:visited,input[type="reset"]:visited,input[type="button"]:vi
 
 #menu a {
     display: block;
-    height: 26px;
+    height: '.ceil($css_config['Padding links menu, px']*2.6).'px;
     margin-bottom: 10px;
-    padding: 10px '.$css_config['Padding links menu, px'].'px 0px '.$css_config['Padding links menu, px'].'px;
+    padding: '.$css_config['Padding links menu, px'].'px '.ceil($css_config['Padding links menu, px']*1.7).'px 0px '.$css_config['Padding links menu, px'].'px;
     text-decoration: none;
     text-align: center;
     vertical-align: middle;

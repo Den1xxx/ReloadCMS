@@ -57,7 +57,7 @@ $frm->show();
 
 
 <script type="text/javascript">
-$("input[name*='color']").spectrum({
+$("#dialog input[name*='color']").spectrum({
 cancelText: "<?=__('Cancel')?>",
 chooseText: "<?=__('Select')?>",
 showInitial: true,
@@ -69,21 +69,41 @@ if (parseInt($(this).val())) $(this).css('border','none').css('box-shadow','none
 $( "#dialog" ).dialog({width:400,height:500});
 $("#navigation").resizable();
 
-$("input[type=text]").change(function(){
-var body_bg_color=$('input[name="css_config[Body background color]"]').val();
+$("#dialog input[type=text]").change(function(){
+var body_bg_color=$('#dialog input[name="css_config[Body background color]"]').val();
 $('#site').contents().find('body').css('background',body_bg_color);
+var body_text_color=$('#dialog input[name="css_config[Text color]"]').val();
+$('#site').contents().find('body').css('color',body_text_color);
+var title_text_color=$('#dialog input[name="css_config[Title color]"]').val();
+$('#site').contents().find('#page div.post h2.window-title').css('color',title_text_color);
+var menu_text_color=$('#dialog input[name="css_config[Menu text color]"]').val();
+$('#site').contents().find('#menu a').css('color',menu_text_color);
+$('#site').contents().find('#sidebar h2.window-title').css('color',menu_text_color);
+
+
 });
 
-$(".ui-icon").click(function(){
-var font_size=$('input[name="css_config[Primary font size, px]"]').val();
+$("#dialog .ui-icon").click(function(){
+var font_size=$('#dialog input[name="css_config[Primary font size, px]"]').val();
 $('#site').contents().find('body').css('font-size',font_size+'px');
-var menu_width=$('input[name="css_config[Skin width, px]"]').val();
+var menu_width=$('#dialog input[name="css_config[Skin width, px]"]').val();
 $('#site').contents().find('#menu').css('width',menu_width+'px');
-var sidebar_width=$('input[name="css_config[Sidebar width, px]"]').val();
+var sidebar_width=$('#dialog input[name="css_config[Sidebar width, px]"]').val();
 $('#site').contents().find('#sidebar').css('width',sidebar_width+'px');
+var menu_font_size=$('#dialog input[name="css_config[Menu font size, px]"]').val();
+$('#site').contents().find('#menu a').css('font-size',menu_font_size+'px');
+var menu_border_width=$('#dialog input[name="css_config[The thickness of the border of the menu, px]"]').val();
+$('#site').contents().find('#menu').css('border-width',menu_border_width+'px');
+$('#site').contents().find('#sidebar h2').css('border-width',menu_border_width+'px');
+var menu_border_radius=$('#dialog input[name="css_config[Menu radius, px]"]').val();
+$('#site').contents().find('#menu').css('border-radius',menu_border_radius+'px');
+var menu_padding=$('#dialog input[name="css_config[Padding links menu, px]"]').val();
+$('#site').contents().find('#menu a')
+.css('padding',menu_padding+'px '+Math.floor(menu_padding*1.7)+'px 0px '+menu_padding+'px ')
+.css('height',Math.floor(menu_padding*2.6)+'px');
+$('#site').contents().find('#menu').css('height',Math.floor(menu_padding*3.6)+'px');
+$('#site').contents().find('#menu ul').css('margin-left',(menu_border_radius-menu_border_width)+'px');
 
-var h1_font=$('input[name="css_config[H1 font size, px]"]').val();
-$('#site').contents().$('h1').css('font-size',h1_font+'px');
 
 });
 //$("input[type='text']:not([name*='color'])").add(this).css('border','none').css('box-shadow','none').css('width','50px').spinner();
