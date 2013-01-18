@@ -1,4 +1,4 @@
-<script src="tools/js/colorpicker/spectrum.js"></script>
+<script type="text/javascript" src="tools/js/colorpicker/spectrum.js"></script>
 <link rel="stylesheet" href="tools/js/colorpicker/spectrum.css" />
 <?php
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,6 +37,12 @@ else include(SKIN_PATH.$skin.'/style.default.php');
 $frm =new InputForm ('', 'post', __('Save'));
 $frm->hidden('edit', $skin.'.php');
 foreach ($css_config as $key=>$value) {
+switch($key){
+		case 'Skin width, px': $frm->addbreak(__('General configuration')); 	break;
+		case 'Menu text color': $frm->addbreak(__('Menu')); 	break;
+		case 'Sidebar position': $frm->addbreak(__('Sidebar')); 	break;
+		case 'Input text color': $frm->addbreak(__('Forms')); 	break;
+		default: break;}
 $frm->addrow(__($key), $frm->text_box('css_config['.$key.']', $css_config[$key],9));
 }
 $frm->show();
@@ -57,6 +63,15 @@ $frm->show();
 
 
 <script type="text/javascript">
+function show_gradient(selector,start_color,end_color){
+$('#site').contents().find(selector)
+.css('background-image', '-webkit-linear-gradient('+start_color+', '+end_color+')')
+.css('background-image', '-moz-linear-gradient('+start_color+', '+end_color+')')
+.css('background-image', '-o-linear-gradient('+start_color+', '+end_color+')')
+.css('background-image', 'linear-gradient('+start_color+', '+end_color+')')
+.css('border-color', end_color);
+}
+$('#site').contents().find('a').attr('href','http://www.google.com');
 $("#dialog input[name*='color']").spectrum({
 cancelText: "<?=__('Cancel')?>",
 chooseText: "<?=__('Select')?>",
@@ -69,19 +84,43 @@ if (parseInt($(this).val())) $(this).css('border','none').css('box-shadow','none
 $( "#dialog" ).dialog({width:400,height:500});
 $("#navigation").resizable();
 
+var gradient_menu_hover=
+$('#dialog input[name="css_config[Start menu gradient color hover]"]').val()+', '+
+$('#dialog input[name="css_config[End menu gradient color hover]"]').val();
+
 $("#dialog input[type=text]").change(function(){
 var body_bg_color=$('#dialog input[name="css_config[Body background color]"]').val();
-$('#site').contents().find('body').css('background',body_bg_color);
 var body_text_color=$('#dialog input[name="css_config[Text color]"]').val();
-$('#site').contents().find('body').css('color',body_text_color);
+$('#site').contents().find('body').css('background',body_bg_color).css('color',body_text_color);
 var title_text_color=$('#dialog input[name="css_config[Title color]"]').val();
 $('#site').contents().find('#page div.post h2.window-title').css('color',title_text_color);
+$('#site').contents().find('#logo a').css('color',title_text_color);
 var menu_text_color=$('#dialog input[name="css_config[Menu text color]"]').val();
 $('#site').contents().find('#menu a').css('color',menu_text_color);
 $('#site').contents().find('#sidebar h2.window-title').css('color',menu_text_color);
+var start_gr_menu=$('#dialog input[name="css_config[Start menu gradient color]"]').val();
+var end_gr_menu=$('#dialog input[name="css_config[End menu gradient color]"]').val();
+var gradient_menu=start_gr_menu+', '+end_gr_menu;
+show_gradient('#menu',start_gr_menu,end_gr_menu);
+show_gradient('#sidebar h2.window-title',start_gr_menu,end_gr_menu);
+
+var link_color=$('#dialog input[name="css_config[Link color]"]').val();
+$('#site').contents().find('#content a').css('color',link_color);
+//var link_color_hover=$('#dialog input[name="css_config[Link color when hovering]"]').val();
+//$('#site').contents().find('#content a:hover').css('color',link_color_hover);
+var sidebar_position=$('#dialog input[name="css_config[Sidebar position]"]').val();
+var content_position='';
+if (sidebar_position=='left') {sidebar_position='left';content_position='right'} else {sidebar_position='right';content_position='left'};
+$('#site').contents().find('#content').css('float',content_position);
+$('#site').contents().find('#sidebar').css('float',sidebar_position);
+var font_family=$('#dialog input[name="css_config[Font family]"]').val();
+$('#site').contents().find('body').css('font-family',font_family);
+
+
 
 
 });
+
 
 $("#dialog .ui-icon").click(function(){
 var font_size=$('#dialog input[name="css_config[Primary font size, px]"]').val();
@@ -103,7 +142,6 @@ $('#site').contents().find('#menu a')
 .css('height',Math.floor(menu_padding*2.6)+'px');
 $('#site').contents().find('#menu').css('height',Math.floor(menu_padding*3.6)+'px');
 $('#site').contents().find('#menu ul').css('margin-left',(menu_border_radius-menu_border_width)+'px');
-
 
 });
 //$("input[type='text']:not([name*='color'])").add(this).css('border','none').css('box-shadow','none').css('width','50px').spinner();

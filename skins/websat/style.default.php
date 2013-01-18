@@ -5,6 +5,12 @@ array (
 'Sidebar width, px'=>'280',
 'Primary font size, px'=>'12',
 'Body background color'=>'#FFFFFF',
+'Text color'=>'#464032',
+'Title color'=>'#6E146B',
+'Link color'=>'#651262',
+'Link color when hovering'=>'#000000',
+'Font family'=>'Arial, Helvetica, sans-serif',
+
 'Menu text color'=>'#FFFFFF',
 'Menu font size, px'=>'12',
 'The thickness of the border of the menu, px'=>'3',
@@ -12,16 +18,12 @@ array (
 'Padding links menu, px'=>'10',
 'Start menu gradient color'=>'#B495B5',
 'End menu gradient color'=>'#6E146B',
-'Start menu gradient color hover'=>'#6E146B',
-'End menu gradient color hover'=>'#B495B5',
-'Text color'=>'#464032',
-'Title color'=>'#221D1D',
-'Link color'=>'#651262',
-'Link color when hovering'=>'#000000',
+
 'Sidebar position'=>'right',
 'Sidebar title font size, px'=>'14',
 'Sidebar title radius, px'=>'11',
 'Sidebar title padding, px'=>'15',
+
 'Input text color'=>'#333',
 'Input text hover color'=>'#000',
 'Input border thickness, px'=>'1',
@@ -33,7 +35,6 @@ array (
 'Button end gradient color'=>'#6E146B',
 'Button start gradient color hover'=>'#9D7200',
 'Button end gradient color hover'=>'#B5902D',
-'Button padding, px'=>'5',
-'Font family'=>'Arial, Helvetica, sans-serif'
+'Button padding, px'=>'5'
 );
 ?>
