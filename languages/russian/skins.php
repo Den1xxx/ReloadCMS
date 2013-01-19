@@ -1,11 +1,13 @@
 <?php
+$lang['def']['This option can not be changed interactively'] = 'Этот параметр нельзя менять интерактивно';
+$lang['def']['Changes can be seen only after saving configuration and reloading the page'] = 'Изменения можно увидеть только после сохранения конфигурации и перезагрузки страницы';
 $lang['def']['Skin width, px'] = 'Ширина шаблона, px';
 $lang['def']['Sidebar width, px'] = 'Ширина боковой панели, px';
+$lang['def']['Header height, px'] = 'Высота шапки, px';
+$lang['def']['Logo padding, px'] = 'Отступ логотипа, px';
 $lang['def']['Primary font size, px'] = 'Основной размер шрифта, px';
 $lang['def']['Font family'] = 'Семейство шрифта';
-$lang['def']['H1 font size, px'] = 'H1 размер шрифта, px';
-$lang['def']['H2 font size, px'] = 'H2 размер шрифта, px';
-$lang['def']['H3 font size, px'] = 'H3 размер шрифта, px';
+$lang['def']['Button text color'] = 'Цвет кнопки';
 $lang['def']['Body background color'] = 'Основной цвет фона';
 $lang['def']['Text color'] = 'Цвет текста';
 $lang['def']['Title color'] = 'Цвет заголовков';
@@ -18,7 +20,7 @@ $lang['def']['Menu text color'] = 'Цвет текста меню';
 $lang['def']['Menu font size, px'] = 'Размер текста меню, px';
 $lang['def']['Sidebar position'] = 'Расположение боковой панели';
 $lang['def']['Sidebar title font size, px'] = 'Размер шрифта заголовка боковой панели, px';
-$lang['def']['Sidebar title radius, px'] = 'Размер заголовка боковой панели, px';
+$lang['def']['Sidebar title radius, px'] = 'Радиус заголовка боковой панели, px';
 $lang['def']['Sidebar title padding, px'] = 'Размер отступа боковой панели, px';
 $lang['def']['Start menu gradient color'] = 'Начальный цвет градиента меню';
 $lang['def']['End menu gradient color'] = 'Конечный цвет градиента меню';

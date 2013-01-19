@@ -50,7 +50,7 @@ $(function() {
     <!-- end #header -->
     <div id="menu" class="navigation">
         <ul>
-            <?rcms_show_element('navigation', '<li><a href="{link}" target="{target}" >{title}</a></li>')?>
+            <?rcms_show_element('navigation', '<li><a href="{link}">{title}</a></li>')?>
 			<li id="last"><span></span></li>
         </ul>
     </div>

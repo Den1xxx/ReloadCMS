@@ -89,7 +89,7 @@ input[type="password"]:focus,input[type="text"]:focus,textarea:focus{
 }
 
 input[type="submit"],input[type="reset"],input[type="button"],input[type="file"],button{
-	color:white;
+	color:'.$css_config['Button text color'].';
 	cursor:pointer;
     background: '.$css_config['Button end gradient color'].';
     background: -webkit-gradient(linear, left top, left bottom, from('.$css_config['Button start gradient color'].'), to('.$css_config['Button end gradient color'].')); 
@@ -119,15 +119,15 @@ input[type="submit"]:visited,input[type="reset"]:visited,input[type="button"]:vi
 
 #header {
     width: '.$css_config['Skin width, px'].'px;
-    height: 70px;
+    height: '.$css_config['Header height, px'].'px;
     margin: 0 auto;
 }
 
 /* Logo */
 
 #logo {
-    height: 50px;
-    margin: 0;
+	padding-top: '.$css_config['Logo padding, px'].'px;
+    margin-top: 0;
     color: #651262;
 }
 
@@ -441,10 +441,10 @@ a.btn-scroll-top.fixed{position:absolute;bottom:-20px;}
 }
 
 #sidebar h2 {
-    padding-left: '.$css_config['Sidebar title padding, px'].'px;
-	padding-top: '.round($css_config['Sidebar title padding, px']/2).'px;
-	padding-bottom: '.round($css_config['Sidebar title padding, px']/2).'px;
-    font-size: 15px;
+    padding-left: '.($css_config['Sidebar title padding, px']+$css_config['Sidebar title radius, px']).'px;
+	padding-top: '.$css_config['Sidebar title padding, px'].'px;
+	padding-bottom: '.$css_config['Sidebar title padding, px'].'px;
+    font-size: '.$css_config['Sidebar title font size, px'].'px;
     font-weight: bold;
 	color: '.$css_config['Menu text color'].'; 
     text-decoration: none; 
@@ -457,7 +457,6 @@ a.btn-scroll-top.fixed{position:absolute;bottom:-20px;}
     background: gradient(linear, top,  '.$css_config['Start menu gradient color'].',  '.$css_config['End menu gradient color'].'); 
     border: '.$css_config['The thickness of the border of the menu, px'].'px solid '.$css_config['End menu gradient color'].'; 
     border-radius: '.$css_config['Sidebar title radius, px'].'px; 
-    font-size: '.$css_config['Sidebar title font size, px'].'px;
 }
 
 #sidebar p {

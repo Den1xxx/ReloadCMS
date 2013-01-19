@@ -5,6 +5,9 @@
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
 //Add by Den1xxx 
+$lang['def']['Sidebar'] = 'Боковая панель';
+$lang['def']['Forms'] = 'Формы';
+$lang['def']['Menu'] = 'Меню';
 $lang['def']['as default'] = 'по умолчанию';
 $lang['def']['Developer'] = 'Разработчик';
 $lang['def']['Create a new template to send letters'] = 'Создать новый шаблон отправки писем';
