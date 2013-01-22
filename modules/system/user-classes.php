@@ -319,7 +319,7 @@ class rcms_user extends rcms_access {
 		$username = basename($username);
 		if($username == 'guest') return false;
 		if(!$this->logged_in && $this->checkUserData($username, $password, 'user_login', false, $userdata)){
-			rcms_log_put('Notification', $this->user['username'], 'Logged in as ' . $username);
+			rcms_log_put(__('Notification'), $this->user['username'], 'Logged in as ' . $username);
 			// OK... Let's allow user to log in :)
 			setcookie($this->cookie_user, $username . ':' . $userdata['password'], ($remember) ? time()+3600*24*365 : null);
 			$_COOKIE[$this->cookie_user] = $username . ':' . $userdata['password'];
@@ -327,7 +327,7 @@ class rcms_user extends rcms_access {
 			return true;
 		} else {
 			if(!$this->logged_in) {
-				rcms_log_put('Notification', $this->user['username'], 'Attempted to log in as ' . $username);
+				rcms_log_put(__('Notification'), $this->user['username'], 'Attempted to log in as ' . $username);
 			}
 			return false;
 		}
@@ -339,7 +339,7 @@ class rcms_user extends rcms_access {
      */
 	function logOutUser(){
 		if($this->logged_in){
-			rcms_log_put('Notification', $this->user['username'], 'Logged out');
+			rcms_log_put(__('Notification'), $this->user['username'], 'Logged out');
 			setcookie($this->cookie_user, '', time()-3600);
 			$_COOKIE[$this->cookie_user] = '';
 			$this->initializeUser(false);
@@ -433,7 +433,7 @@ class rcms_user extends rcms_access {
 		}
 
 		$this->results['registration'] = __('Registration complete. You can now login with your username and password.');
-		rcms_log_put('Notification', $this->user['username'], 'Registered account ' . $username);
+		rcms_log_put(__('Notification'), $this->user['username'], 'Registered account ' . $username);
 		return true;
 	}
 
@@ -511,7 +511,7 @@ class rcms_user extends rcms_access {
 		if($this->user['username'] == $username) {
 			$this->user = $_userdata;
 		}
-		rcms_log_put('Notification', $this->user['username'], 'Updated userinfo for ' . $username);
+		rcms_log_put(__('Notification'), $this->user['username'], 'Updated userinfo for ' . $username);
 		return true;
 	}
 
@@ -534,7 +534,7 @@ class rcms_user extends rcms_access {
 			if(!file_write_contents(USERS_PATH . $username, serialize($data))) {
 				$this->results['passrec'] .= '<br />' . __('Cannot save profile');
 			}
-			rcms_log_put('Notification', $this->user['username'], 'Attempted to recover password for ' . $username);
+			rcms_log_put(__('Notification'), $this->user['username'], 'Attempted to recover password for ' . $username);
 			return false;
 		}
 
@@ -547,10 +547,10 @@ class rcms_user extends rcms_access {
 				return false;
 			}
 			$this->results['passrec'] = __('New password has been sent to your e-mail');
-			rcms_log_put('Notification', $this->user['username'], 'Recovered password for ' . $username);
+			rcms_log_put(__('Notification'), $this->user['username'], 'Recovered password for ' . $username);
 			return true;
 		} else {
-			rcms_log_put('Notification', $this->user['username'], 'Recovered password for ' . $username . '" (BUT E-MAIL WAS NOT SENT)');
+			rcms_log_put(__('Notification'), $this->user['username'], 'Recovered password for ' . $username . '" (BUT E-MAIL WAS NOT SENT)');
 			$this->results['passrec'] = __('Cannot send e-mail');
 			return false;
 		}

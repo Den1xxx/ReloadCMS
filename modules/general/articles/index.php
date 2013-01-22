@@ -36,6 +36,13 @@ if($defcatp==$intcapt)	{
 					show_error($articles->last_error);
 					$com_text = $_POST['comtext'];
 				}
+if (@rcms_is_valid_email($articles->config['email'])) rcms_send_mail($articles->config['email'],
+'no_reply@' . $_SERVER['HTTP_HOST'],
+__('Comments'),
+$system->config['encoding'],
+__('Notification'),
+__('Comment') . ': http://'.$_SERVER['HTTP_HOST']. '?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'&a='.$_GET['a']);
+
 rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'&a='.$_GET['a']);//f5 hack
 }
 else {
@@ -46,6 +53,13 @@ show_window(__('Error'),__('Invalid form data'));
 					show_error($articles->last_error);
 					$com_text = $_POST['comtext'];
 				}
+if (@rcms_is_valid_email($articles->config['email'])) rcms_send_mail($articles->config['email'],
+'no_reply@' . $_SERVER['HTTP_HOST'],
+__('Comments'),
+$system->config['encoding'],
+__('Notification'),
+__('Comments') . ': http://'.$_SERVER['HTTP_HOST']. '?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'&a='.$_GET['a']);
+
 rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'&a='.$_GET['a']);//f5 hack
 }
 			}

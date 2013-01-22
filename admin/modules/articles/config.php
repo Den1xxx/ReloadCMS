@@ -51,6 +51,8 @@ $frm->addrow(__('Author'), $frm->checkbox('nconfig[show_author]', '1', __('Show'
 
 //Articles configuration
 $frm->addbreak(__('Articles'));
+//Send mail when user write comment
+$frm->addrow(__('E-mail for notification of the comments') , $frm->text_box('nconfig[email]', @$config['email']));
 $frm->addrow(__('Length limit for title') . ' ' .  __('Categories'), $frm->text_box('nconfig[category]', @$config['category'],4));
 $frm->addrow(__('Length limit for title') . ' ' . __('Articles'), $frm->text_box('nconfig[title]', @$config['title'],4));
 $frm->addrow('<a href="http://rating-widget.com/" title="Get new code" target="_blank">'.__('Rating').'</a> ', $frm->textarea('nconfig[code_rating]', @$config['code_rating'],80,7));

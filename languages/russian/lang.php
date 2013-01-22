@@ -5,6 +5,10 @@
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
 //Add by Den1xxx 
+$lang['def']['E-mail for notification of the comments'] = 'E-mail для оповещения о комментариях';
+$lang['def']['Comment'] = 'Комментарии';
+$lang['def']['Comment'] = 'Комментарий';
+$lang['def']['Notification'] = 'Уведомление';
 $lang['def']['Sidebar'] = 'Боковая панель';
 $lang['def']['Forms'] = 'Формы';
 $lang['def']['Menu'] = 'Меню';
