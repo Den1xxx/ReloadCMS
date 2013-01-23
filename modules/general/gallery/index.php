@@ -153,6 +153,6 @@ show_window(__('Error'),__('Invalid form data'));
 	}
 	$data['linkdata'] = $linkdata;
 	
-	show_window(__('Gallery'), rcms_parse_module_template('gallery.tpl', $data), 'center');
+	show_window(__('Gallery'), !empty($images)?rcms_parse_module_template('gallery.tpl', $data):__('Nothing founded'), 'center');
 }
 ?>
