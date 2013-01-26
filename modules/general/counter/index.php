@@ -1,5 +1,5 @@
 <?php
-if(!$system->config['disable_stats'] && $stats = statistic_get()){
+if(empty($system->config['disable_stats']) && $stats = statistic_get()){
     $guests_count = 0;
     foreach ($stats['online'] as $ip => $data){
         if($data['name'] == 'guest'){
