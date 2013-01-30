@@ -324,6 +324,8 @@ class message{
 		"#\[i\](.*?)\[/i\]#is" => '<span style="font-style: italic">\\1</span>',
 		"#\[u\](.*?)\[/u\]#is" => '<span style="text-decoration: underline">\\1</span>',
 		"#\[del\](.*?)\[/del\]#is" => '<span style="text-decoration: line-through">\\1</span>',
+		"#\[\[ul\]\](.*?)\[/\[ul\]\]#is"     => '<ul>\\1</ul>',
+		"#\[\*\](.*?)\[/\*\]#is"             => '<li>\\1</li>',
 		"#\[url\][\s\n\r]*(((https?|ftp|ed2k|irc)://|" . RCMS_ROOT_PATH . ")[^ \"\n\r\t\<]*)[\s\n\r]*\[/url\]#is" => '<a href="\\1" >\\1</a>',
 		"#\[url\][\s\n\r]*(www\.[^ \"\n\r\t\<]*?)[\s\n\r]*\[/url\]#is" => '<a href="http://\\1" >\\1</a>',
 		"#\[url\][\s\n\r]*((ftp)\.[^ \"\n\r\t\<]*?)[\s\n\r]*\[/url\]#is" => '<a href="\\2://\\1" target="_blank">\\1</a>',
