@@ -115,6 +115,8 @@ input[type="submit"]:visited,input[type="reset"]:visited,input[type="button"]:vi
 	outline: none;
 }
 
+h2.window-title input{border:0;}
+
 /* Header */
 
 #header {

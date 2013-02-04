@@ -142,7 +142,33 @@ if(!empty($_POST['tc']) && !empty($_POST['tb']) && !empty($_POST['ms']) && $_POS
 	<option value="-1">'. __('Select file').'</option')
 	.'&nbsp;&nbsp;&nbsp;'.__('You entered filename of file uploaded through upload interface'), 'top');
 	}																		//End Insert list uploaded files
-	$frm->addrow(__('Mode'), $frm->select_tag('mode', array('html' => __('HTML'), 'text' => __('Text'), 'htmlbb' => __('bbCodes') . '+' . __('HTML')), 'text','onchange="if (this.options[selectedIndex].value==\'html\') { 	
+	$frm->addrow(__('Mode'), 
+			($article['mode']='html' ?
+		'<script>
+		tinyMCE.init({
+        mode : \'exact\',
+        elements : \'description,text\',
+        theme : \'advanced\',
+        language : \'ru\',
+        plugins : \'paste,table,cyberim\',
+        theme_advanced_buttons2_add : \'pastetext,pasteword,selectall,|,forecolor,backcolor\',
+        theme_advanced_buttons3_add : \'tablecontrols\',
+        theme_advanced_toolbar_location : \'top\',
+        theme_advanced_toolbar_align : \'left\',
+        theme_advanced_statusbar_location : \'bottom\',
+        theme_advanced_resizing : true,
+        paste_auto_cleanup_on_paste : true,
+        content_css: \'/css/tinymce.css\',
+        extended_valid_elements : \'script[type|language|src]\',
+        forced_root_block : \'\', 
+        force_br_newlines : true,
+        force_p_newlines : false
+        });
+        $(\'table.bb_editor\').hide();
+		</script>
+		' : '').
+	$frm->select_tag('mode', array('html' => __('HTML'), 'text' => __('Text'), 'htmlbb' => __('bbCodes') . '+' . __('HTML')), $article['mode'],
+	'onchange="if (this.options[selectedIndex].value==\'html\') { 	
 		tinyMCE.init({
 		mode : \'exact\',
 		elements : \'description,text\',

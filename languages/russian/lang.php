@@ -7,7 +7,7 @@
 //Add by Den1xxx 
 $lang['def']['E-mail for notification of the comments'] = 'E-mail для оповещения о комментариях';
 $lang['def']['Comment'] = 'Комментарии';
-$lang['def']['Comment'] = 'Комментарий';
+$lang['def']['Redirect'] = 'Перенаправление';
 $lang['def']['Notification'] = 'Уведомление';
 $lang['def']['Sidebar'] = 'Боковая панель';
 $lang['def']['Forms'] = 'Формы';

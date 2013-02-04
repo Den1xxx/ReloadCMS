@@ -53,7 +53,7 @@ $social = (!empty($tpldata['social'])?$tpldata['social']:'');
 ?> 
 	<tr>  
 			   <td class="row2">
-                <form action="admin.php?show=module&id=articles.post" method="post">
+                <form action="admin.php?show=module&id=articles.post&tab=2" method="post">
                  <input type="hidden" name="c" value="<?=$tpldata['container']?>" />
                  <input type="hidden" name="b" value="<?=$tpldata['catid']?>" />
                  <input type="hidden" name="save" value="0" />
@@ -61,7 +61,7 @@ $social = (!empty($tpldata['social'])?$tpldata['social']:'');
                 </form>
 				</td>
 				<td class="row2">
-                <form action="admin.php?show=module&id=articles.articles" method="post">
+                <form action="admin.php?show=module&id=articles.articles&tab=2" method="post">
                  <input type="hidden" name="c" value="<?=$tpldata['container']?>" />
                  <input type="hidden" name="b" value="<?=$tpldata['catid']?>" />
                  <input type="hidden" name="save" value="0" />
@@ -69,7 +69,7 @@ $social = (!empty($tpldata['social'])?$tpldata['social']:'');
                 </form>
 				</td>
 				<td class="row2">
-                <form action="admin.php?show=module&id=articles.articles" method="post">
+                <form action="admin.php?show=module&id=articles.articles&tab=2" method="post">
                  <input type="hidden" name="c" value="<?=$tpldata['container']?>" />
                  <input type="hidden" name="b" value="<?=$tpldata['catid']?>" />
                  <input type="hidden" name="a" value="<?=$tpldata['id']?>" />
@@ -82,4 +82,3 @@ $social = (!empty($tpldata['social'])?$tpldata['social']:'');
       }?>
 
 </table>
-

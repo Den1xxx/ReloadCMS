@@ -44,7 +44,11 @@ $(function() {
     <div id="header">
         <div id="logo">
             <h1><a name="top" href="<?=RCMS_ROOT_PATH?>" ><?=$system->config['title'];?></a></h1>
-            <p> <?=$system->config['slogan'];?></p>
+            <p><?
+			echo ($system->config['slogan']);
+			if($system->checkForRight('GENERAL'))
+			echo '&nbsp;<a href="admin.php?show=module&id=add.config&tab=1"><img src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'"></a>';
+			?></p>
         </div>
     </div>
     <!-- end #header -->

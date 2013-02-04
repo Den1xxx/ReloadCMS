@@ -50,7 +50,8 @@ if(!empty($c)){
 			$frm->addbreak(__('Post article'));
 			$frm->hidden('save', '1');
 			$frm->hidden('c', $c);
-			if($c !== '#root' && $c !== '#hidden') $frm->addrow(__('Select category'), $frm->select_tag('b', $categories_list), 'top');
+			if($c !== '#root' && $c !== '#hidden') 
+			$frm->addrow(__('Select category'), $frm->select_tag('b', $categories_list,(!empty($b)?$b:'')), 'top');
 			$frm->addrow(__('Title'), $frm->text_box('title', ''), 'top');
 			$frm->addrow(__('Author/source'), $frm->text_box('source', ''), 'top');
 			$frm->addrow(__('Keywords'), $frm->text_box('keywords', ''), 'top');

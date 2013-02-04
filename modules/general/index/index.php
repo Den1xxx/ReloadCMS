@@ -7,7 +7,11 @@
 
 if(empty($system->config['wmh'])){
 $intro = file_get_contents(DATA_PATH . 'intro.html');
-if (!empty($intro)) 	show_window('', $intro, 'left');
+if (!empty($intro)) {	
+if ($system->checkForRight('GENERAL')) 
+$intro.='&nbsp;<a href="admin.php?show=module&id=add.config&tab=1"><img src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'"></a>';
+show_window('', $intro, 'left');
+}
 }
 
 if(!empty($menu_points['index-menus'])){

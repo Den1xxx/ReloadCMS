@@ -67,6 +67,17 @@ if(!empty($menu_points)){
  }
  
 //Main process
+if (is_file(CONFIG_PATH.'redirect.ini')) {
+$redirect = unserialize(file_get_contents(CONFIG_PATH.'redirect.ini'));
+if (in_array('?'.$_SERVER['QUERY_STRING'],$redirect['from_arr'])) {
+$key=array_search('?'.$_SERVER['QUERY_STRING'],$redirect['from_arr']);
+if (!empty($redirect['to_arr'][$key])) {
+header('HTTP/1.1 301 Moved Permanently');
+header('Location: '.$redirect['to_arr'][$key]);
+exit();
+}
+}
+}
 if (isset($_GET['module'])) $mod = $_GET['module']; else $mod = '';
 if (empty($system->config['disable_cache'])) $system->config['disable_cache'] = '';
 if ($system->user['username'] == 'guest' && !empty($system->config['cache']) && !in_array($mod,explode("\n",str_replace("\r", '', $system->config['disable_cache'])))){
