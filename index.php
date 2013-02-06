@@ -42,7 +42,7 @@ if(!empty($menu_points)){
                    	$file = file(DF_PATH . substr($menu, 4) . '.ucm');
                    	$title = preg_replace("/[\n\r]+/", '', $file[0]);
                    	if($system->checkForRight('GENERAL'))  {
-					$add = '&nbsp;<a href="admin.php?show=module&id=modules.ucm&edit='.substr($menu, 4).'&tab=6"><img src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'"></a>';
+					$add = '&nbsp;<a href="admin.php?show=module&id=modules.ucm&edit='.substr($menu, 4).'&tab=6"><img class="edit" src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'"></a>';
 					if (!empty($title)) $title .= $add; 
 					else $file[] = $add;
 					}
