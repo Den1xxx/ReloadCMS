@@ -69,7 +69,6 @@ if (class_exists('articles')) {
 			for ($a = $start; $a < $end; $a++){
 				$time = &$list[$keys[$a]];
 				$id = explode('.', $keys[$a]);
-				//var_dump($id);
 				if(($category = $articles->getCategory($id[0], true)) !== false && ($article = $articles->getArticle($id[0], $id[1], true, true, false, false)) !== false){
 					$result .= rcms_parse_module_template('art-article.tpl', $article + array('showtitle' => true,
 					'linktext' => $articles->linktextArticle($article['text_nonempty'], $article['comcnt'], $article['views']),
