@@ -12,6 +12,7 @@
 	
 //Save in archive ./content	and ./config
 if (!empty($_POST['backupit'])) {
+set_time_limit(0);
 	rcms_clear_directory(CACHE_DIR);
 	if(!empty($_POST['gzip'])) $suffix = '.gz';
 	else $suffix = '';
@@ -23,11 +24,15 @@ else $backup->isGzipped = false;
 	if (empty($_POST['all'])) 
 	$success = $backup->createArchive(array(DATA_PATH,CONFIG_PATH));
 	else {	//All files to archive, except 'backups','uploads'
+	
 	$dir_list = rcms_scandir(RCMS_ROOT_PATH);
 	unset($dir_list[array_search('backups', $dir_list)]);
 	unset($dir_list[array_search('uploads', $dir_list)]);
-	$dir_list = array_values($dir_list);
-	$success = $backup->createArchive($dir_list);
+	foreach ($dir_list as $file) {
+	if (!empty($file)) $files[]=$file;
+	}
+	clearstatcache();
+	$success = $backup->createArchive($files);
 	}
 if (!$success) $Errors = $backup->showErrors(basename($bkupfilename));
 		if(!empty($Errors)) $result .= $Errors;

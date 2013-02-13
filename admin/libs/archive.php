@@ -42,36 +42,36 @@ class archiveTar
 		if ($this->isGzipped){
 			$this->closeTmpFile();
 
-			if (!@rename($this->archive_name, $this->archive_name.'.tmp')){
+			if (!rename($this->archive_name, $this->archive_name.'.tmp')){
 				$this->errors[] = __('Cannot rename').' '.$this->archive_name.__(' to ').$this->archive_name.'.tmp';
 				return false;
 			}
 
-			$tmpArchive = @gzopen($this->archive_name.'.tmp', 'rb');
+			$tmpArchive = gzopen($this->archive_name.'.tmp', 'rb');
 			if (!$tmpArchive){
 				$this->errors[] = $this->archive_name.'.tmp '.__('is not readable');
-				@rename($this->archive_name.'.tmp', $this->archive_name);
+				rename($this->archive_name.'.tmp', $this->archive_name);
 				return false;
 			}
 
 			if (!$this->openWrite()){
-				@rename($this->archive_name.'.tmp', $this->archive_name);
+				rename($this->archive_name.'.tmp', $this->archive_name);
 				return false;
 			}
 
-			$buffer = @gzread($tmpArchive, 512);
-			if (!@gzeof($tmpArchive)){
+			$buffer = gzread($tmpArchive, 512);
+			if (!gzeof($tmpArchive)){
 				do {
 					$binaryData = pack('a512', $buffer);
 					$this->writeBlock($binaryData);
-					$buffer = @gzread($tmpArchive, 512);
+					$buffer = gzread($tmpArchive, 512);
 				}
-				while (!@gzeof($tmpArchive));
+				while (!gzeof($tmpArchive));
 			}
-			@gzclose($tmpArchive);
-			@unlink($this->archive_name.'.tmp');
+			gzclose($tmpArchive);
+			unlink($this->archive_name.'.tmp');
 		} else {
-		$this->tmp_file = @fopen($this->archive_name, 'r+b');
+		$this->tmp_file = fopen($this->archive_name, 'r+b');
 		if (!$this->tmp_file)	return false;
 		}
 		}
@@ -90,7 +90,7 @@ class archiveTar
 
 		if ($newArchive && !$result){
 		$this->closeTmpFile();
-		@unlink($this->archive_name);
+		unlink($this->archive_name);
 		}
 		return $result;
 	}
@@ -107,8 +107,8 @@ class archiveTar
 		$fileName = $this->archive_name;
 		
 		if (!$this->isGzipped){
-			if (@file_exists($fileName)){
-				if ($fp = @fopen($fileName, 'rb')){
+			if (file_exists($fileName)){
+				if ($fp = fopen($fileName, 'rb')){
 					$data = fread($fp, 2);
 					fclose($fp);
 					if ($data == '\37\213'){
@@ -122,9 +122,9 @@ class archiveTar
 		$result = true;
 
 		if ($this->isGzipped)
-			$this->tmp_file = @gzopen($fileName, 'rb');
+			$this->tmp_file = gzopen($fileName, 'rb');
 		else
-			$this->tmp_file = @fopen($fileName, 'rb');
+			$this->tmp_file = fopen($fileName, 'rb');
 
 		if (!$this->tmp_file){
 			$this->errors[] = $fileName.' '.__('is not readable');
@@ -196,7 +196,7 @@ class archiveTar
 		$keep_filename = $this->makeGoodPath($filename);
 
 		if (is_file($filename)){
-			if (($file = @fopen($filename, 'rb')) == 0){
+			if (($file = fopen($filename, 'rb')) == 0){
 				$this->errors[] = __('Mode ').__('is incorrect');
 			}
 			
@@ -214,7 +214,7 @@ class archiveTar
 			fclose($file);
 		}	else $this->writeHeader($filename, $keep_filename);
 
-			if (@is_dir($filename)){
+			if (is_dir($filename)){
 				if (!($handle = opendir($filename))){
 					$this->errors[] = __('Error').': '.__('Directory ').$filename.__('is not readable');
 					continue;
@@ -292,7 +292,7 @@ class archiveTar
 				}
 				
 				if (file_exists($header['filename'])){
-					if ((@is_dir($header['filename'])) && ($header['typeflag'] == '')){
+					if ((is_dir($header['filename'])) && ($header['typeflag'] == '')){
 						$this->errors[] =__('File ').$header['filename'].__(' already exists').__(' as folder');
 						return false;
 					}
@@ -312,15 +312,15 @@ class archiveTar
 				}
 
 					if ($header['typeflag'] == '5'){
-						if (!@file_exists($header['filename']))		{
-							if (!@mkdir($header['filename'], 0777))	{
+						if (!file_exists($header['filename']))		{
+							if (!mkdir($header['filename'], 0777))	{
 								
 								$this->errors[] = __('Cannot create directory').' '.$header['filename'];
 								return false;
 							} 
 						}
 					} else {
-						if (($destination = @fopen($header['filename'], 'wb')) == 0)
+						if (($destination = fopen($header['filename'], 'wb')) == 0)
 						{
 							$this->errors[] = __('Cannot write to file').' '.$header['filename'];
 							return false;
@@ -337,9 +337,9 @@ class archiveTar
 								fwrite($destination, $content, ($header['size'] % 512));
 							}
 
-							@fclose($destination);
+							fclose($destination);
 
-							@touch($header['filename'], $header['time']);
+							touch($header['filename'], $header['time']);
 						}
 
 						clearstatcache();
@@ -369,13 +369,13 @@ class archiveTar
 	function dirCheck($dir){
 		$parent_dir = dirname($dir);
 
-		if ((@is_dir($dir)) or ($dir == ''))
+		if ((is_dir($dir)) or ($dir == ''))
 			return true;
 
 		if (($parent_dir != $dir) and ($parent_dir != '') and (!$this->dirCheck($parent_dir)))
 			return false;
 
-		if (!@mkdir($dir, 0777)){
+		if (!mkdir($dir, 0777)){
 			$this->errors[] = __('Cannot create directory').' '.$dir;
 			return false;
 		}
@@ -436,7 +436,7 @@ class archiveTar
 
 		if (strlen($filename_ready) > 99){							//write long header
 
-		$dataFirst = pack($packF, '././@LongLink', 0, 0, 0, sprintf('%11s ', DecOct(strlen($filename_ready))), 0);
+		$dataFirst = pack($packF, '././LongLink', 0, 0, 0, sprintf('%11s ', DecOct(strlen($filename_ready))), 0);
 		$dataLast = pack($packL, 'L', '', '', '', '', '', '', '', '', '');
 
         //  Calculate the checksum
@@ -470,7 +470,7 @@ class archiveTar
 		}
 		$file_info = stat($filename);
 
-		if (@is_dir($filename)){
+		if (is_dir($filename)){
 			$typeflag = '5';
 			$size = sprintf('%11s ', DecOct(0));
 		} else {
@@ -505,9 +505,9 @@ class archiveTar
 	function openWrite(){
 	
 		if ($this->isGzipped)
-			$this->tmp_file = @gzopen($this->archive_name, 'wb9f');
+			$this->tmp_file = gzopen($this->archive_name, 'wb9f');
 		else
-			$this->tmp_file = @fopen($this->archive_name, 'wb');
+			$this->tmp_file = fopen($this->archive_name, 'wb');
 
 		if (!($this->tmp_file)){
 			$this->errors[] = __('Cannot write to file').' '.$this->archive_name;
@@ -520,9 +520,9 @@ class archiveTar
 
 		if (is_resource($this->tmp_file)){
 			if ($this->isGzipped)
-				$block = @gzread($this->tmp_file, 512);
+				$block = gzread($this->tmp_file, 512);
 			else
-				$block = @fread($this->tmp_file, 512);
+				$block = fread($this->tmp_file, 512);
 		} else	$block = '';
 
 		return $block;
@@ -533,14 +533,14 @@ class archiveTar
 		
 			if ($length === 0){
 				if ($this->isGzipped)
-					@gzputs($this->tmp_file, $data);
+					gzputs($this->tmp_file, $data);
 				else
-					@fputs($this->tmp_file, $data);
+					fputs($this->tmp_file, $data);
 			} else {
 				if ($this->isGzipped)
-					@gzputs($this->tmp_file, $data, $length);
+					gzputs($this->tmp_file, $data, $length);
 				else
-					@fputs($this->tmp_file, $data, $length);
+					fputs($this->tmp_file, $data, $length);
 			}
 		}
 	}
@@ -549,9 +549,9 @@ class archiveTar
 	
 		if (is_resource($this->tmp_file)){
 			if ($this->isGzipped)
-				@gzclose($this->tmp_file);
+				gzclose($this->tmp_file);
 			else
-				@fclose($this->tmp_file);
+				fclose($this->tmp_file);
 
 			$this->tmp_file = 0;
 		}

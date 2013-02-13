@@ -14,7 +14,7 @@ Bugs reported here - http://reloadcms.com/main/?module=forum&action=topic&id=132
 Installation.
 For Windows. Upload files to the server. Go to the home page and register the first user. He is the administrator.
 For Unix. Upload files to the server. Set the permissions 777 on the root directory (non-recursively) and folders "backups", "config", "content", "uploads" (recursively). Go to the home page and register the first user. He is the administrator.
-After the launch of the site in operation not forget to remove the tags, prohibiting indeskatsiyu of Administration - Site Configuration - Additional meta tags: <META NAME="ROBOTS" CONTENT="NOINDEX,NOFOLLOW"/>
+After the launch of the site in operation not forget to remove the tags, prohibiting indexing of Administration - Site Configuration - Additional meta tags: <META NAME="ROBOTS" CONTENT="NOINDEX,NOFOLLOW"/>
 
 Learn more about settings see here: http://reloadcms.com/wiki/doku.php?id=reloadcms:en:start
 Later will be paved with an installer that will do everything for you.
