@@ -6,6 +6,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 //Add by Den1xxx 
 $lang['def']['E-mail for notification of the comments'] = 'E-mail для оповещения о комментариях';
+$lang['def']['To restore all your data, select archive and press "Submit" button.'] = 'Чтобы восстановить данные, выберите архив и нажмите кнопку "Отправить"';
+$lang['def']['Success'] = 'Успешно';
+$lang['def']['Files'] = 'Файлы';
 $lang['def']['Comment'] = 'Комментарии';
 $lang['def']['Redirect'] = 'Перенаправление';
 $lang['def']['Notification'] = 'Уведомление';

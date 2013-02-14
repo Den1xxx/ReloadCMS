@@ -85,13 +85,12 @@ $frm->show();
 $frm =new InputForm ('', 'post', __('Submit'));
 $frm->addbreak( __('Restore data'));
 $frm->hidden('browse_archive', '1');
-$backups='';
 $backups = rcms_scandir(RCMS_ROOT_PATH . 'backups');
 	foreach ($backups as $backup_entry){
 		if(preg_match("/^((.*?)-(.*?))\.tar(|.gz)$/i", $backup_entry, $matches)){
-			$frm->addrow($frm->radio_button('restore', array($backup_entry => $backup_entry), '-1').'&nbsp;&nbsp;['.__('Size of file').'&nbsp;'.filesize(RCMS_ROOT_PATH . 'backups'.'/'.$backup_entry). __(' bytes in size').']&nbsp;&nbsp;', $frm->checkbox('delete[' . $backup_entry. ']', 'true', __('Delete')));
+			$frm->addrow($frm->radio_button('restore', array($backup_entry => $backup_entry), '-1').'&nbsp;&nbsp;['.filesize(RCMS_ROOT_PATH . 'backups'.'/'.$backup_entry). __(' bytes in size').']&nbsp;&nbsp;', $frm->checkbox('delete[' . $backup_entry. ']', 'true', __('Delete')));
 		}
 	}
-$frm->addrow(__('To restore all your data, select archive and press "Submit" button. Your directory "config" and "content" may be permanently overwritten'));
+$frm->addrow(__('To restore all your data, select archive and press "Submit" button.'));
 $frm->show();
 ?>
