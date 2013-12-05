@@ -265,6 +265,7 @@ class gallery{
 	}
 
 	function getImage($filename){
+	global $lightbox_config,$system;
 	if(empty($this->indexes['main'][$filename]) || !is_file(GALLERY_IMAGES_DIR . $filename)) return false;
 	$lightbox_config = unserialize(@file_get_contents(CONFIG_PATH . 'lightbox.ini'));
 		if (@$lightbox_config['gallery']) {
