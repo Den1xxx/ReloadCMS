@@ -6,7 +6,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 $name_module = __('Articles');
 $articles = new articles();
- foreach (array_keys($articles->getContainers()) as $c){
+$containers=$articles->getContainers();
+if (!empty($containers)&&is_array($containers)) {
+ foreach (array_keys($containers) as $c){
   if ($c!='#hidden') {
    if($articles->setWorkContainer($c)){
     if (is_array($articles->getCategories())){
@@ -24,6 +26,6 @@ $articles = new articles();
    };
   };
  };
-
+}
 
 ?>

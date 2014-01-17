@@ -1,3 +1,5 @@
+html,body{height:100%}
+
 body {
 	background-color:	#F9F9FF;
 	font-family:		Verdana, Arial, Helvetica, sans-serif;
@@ -108,6 +110,7 @@ input[type="submit"]:hover,input[type="reset"]:hover,input[type="button"]:hover,
 input[type="submit"]:visited,input[type="reset"]:visited,input[type="button"]:visited,input[type="file"]:visited{
 	outline: none;
 }
+
 .btnmain {
 	background-color: #FAFAFA;
 	border-width: 1px;

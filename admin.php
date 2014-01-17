@@ -8,6 +8,12 @@ define('RCMS_ROOT_PATH', './');
 
 include(RCMS_ROOT_PATH . 'common.php');
 
+//load files
+if (get('download')&&$system->checkForRight('GENERAL')) {
+$file=base64_decode(get('download'));
+download_file($file);	
+}
+
 function rcms_loadAdminLib($lib){
 	require_once(ADMIN_PATH . 'libs/' . $lib . '.php');
 }
@@ -52,7 +58,7 @@ if(!LOGGED_IN){
     $message = __('You are not administrator of this site');
 	include(ADMIN_PATH . 'error.php');
 } else {
-	
+
 	$categories = rcms_scandir(ADMIN_PATH . 'modules', '', 'dir');
 	$MODULES = array();
 	foreach ($categories as $category){

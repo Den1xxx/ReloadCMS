@@ -1,0 +1,405 @@
+/*   
+Theme Name:Piano Black
+Theme URI:
+Description:This theme supports widget, threaded-comments, theme-options,and translation is ready. Also including page-navigation and multi level dropdown menu.You can see live demo including more information here http://www.mono-lab.net/demo3/
+Author:mono-lab
+Author URI:http://www.mono-lab.net
+Version:1.4
+Tags: black, two-columns, fixed-width, theme-options, threaded-comments, translation-ready
+Adapted for ReloadCMS 128-x by MYST http://mznetwork.homelinux.org
+*/
+/*  ------ basic ------------------- */
+body { margin:0; padding:0; background:url(images/back1.gif);
+       font-family: Arial, Consolas, "Segoe UI", Calibri "Trebuchet MS", Helvetica; 
+       font-size:12px; color:#b8babb;}
+a img { border:none; }
+a, a:visited { color:#7f8e91; text-decoration:none; outline:none; }
+a:hover { color:#81c8d5; text-decoration:underline; }
+p { margin:0 0 1em 0; padding:0; line-height:160%; }
+ul { list-style:none; margin:0 0 0 0; padding:0; line-height:0%; }
+ul li { margin:0; padding:0; line-height:normal; }
+
+h1, h2, h3 {}
+h1 {	font-size: 13px;}
+h2 {	color: white; font-size: 0.9em;}
+h3 {	font-size: 12px;}
+form,table,dl,dt,dd { margin:0; padding:0;}
+input { padding: 2px 3px; margin:0; background-color: black; border:1px solid #333; color:#7f8e91; height:20px;}
+input:hover { background-color: #222;}
+textarea { width: 90%; background-color: black; border: 1px solid #333;color:#b8babb; overflow : auto !important; }
+table { border-collapse:collapse; border:0; width:100%; }
+blockquote { margin:0 0 1em 0; padding:15px 20px 0 20px; border:1px solid #333; background:#222; }
+blockquote a, blockquote a:visited { text-decoration:underline; }
+pre { border:1px solid #333; background:#222; padding:10px 20px; margin:0 0 1em 0; overflow:auto; }
+object { display:block; margin:0 auto; }
+hr {	display: none;}
+abbr     { border: 0; }
+div      { outline: 0 none; }
+form     { display: block;  margin: 0;}
+fieldset { margin: 10px; }
+img      { border:none;}
+
+th       { color: white; background-color: transparent; padding: 1px; }
+td       { font-family: Arial, Consolas, "Segoe UI", Calibri "Trebuchet MS", Helvetica; }
+
+.section   { margin: 15px; font-size: 12px;  position: relative; }
+#search-boxes { margin: 10px 30px; text-align: left; }
+#upload-img     { padding: 5px 0 0 0; }
+.admin_mess   { background-color: transparent; text-align: center;  color: red;}
+.category     { background-color: transparent; text-align: center; padding: 5px 0;}
+.grayborder   {}
+
+.delbutton  { color: red; }
+.editbutton {}
+
+.delform    { float: right; }
+.editform   { float: right; }
+
+.codetitle  { margin: 10px 0 0 0; padding: 2px; border:1px solid #333; background-color: black; font-size: 8pt; overflow: auto !important; }
+.codetext   { margin: 0; padding: 5px; border: black solid 1px; color: #b8babb; background-color: #222; font-size: 8pt; 
+              font-weight: normal; font-family: Arial, Consolas, "Segoe UI", Calibri; overflow: auto !important; white-space: nowrap; }
+.quotetitle { margin: 10px 0 10px 0; padding: 2px;  border:1px solid #333; background-color: black; font-size: 8pt; overflow: auto !important;}
+.quotetext  { margin: 0; padding: 5px; border: black solid 1px; color: #b8babb;border:1px solid #333; background-color: #222; font-size: 8pt;
+              font-weight: normal; font-family: Arial, Consolas, "Segoe UI", Calibri; }
+.search-error   { margin: 10px; text-align: center; color: red; }
+.search-link    { margin: 10px; text-align: left;  }
+.search-result  { margin: 10px; text-align: justify; }
+.search-section { text-align: center; }
+.hidden     { margin: 0px 5px 10px 5px; padding: 2px; border-color: Navy; border-width: 1px; border-style: dashed; color: #b8babb;
+			font-weight: normal; font-size: 8pt; font-family: "Courier New", Courier, mono; background-color: #c4e6fa;overflow: auto; }
+
+div .back  { text-align:left; }
+.nav    { }
+.row1   { background-color: transparent; padding: 1px; }
+.row2   { background-color: transparent; padding: 1px 5px; }
+.row3   { background-color: transparent; padding: 1px 5px; }
+.row4   { background-color: transparent; padding: 1px 5px; }
+.row4 a { background-color: transparent; padding: 0; color: #ffffff; }
+.row2 ul { margin: 5px 0px; padding: 0; list-style-position: inside; }
+.row3 ul { margin: 5px 0px; padding: 0; list-style-position: inside; }
+
+.special { color: red ! important; }
+.content { padding:5px 0px; text-align:justify; }
+.paper   { background: url(images/paper.gif); width: 80px; height: 81px; font-weight: bold; font-variant: small-caps; font-size: 12px; }
+.cat-item  {}
+.cat-count { text-align: center; }
+
+/* Page layout classes
+----------------------------- */
+/*  ------ layout ------------------------ */
+#wrapper { background:url(images/back2.png) no-repeat center top; }
+#contents { width:959px; margin:0 auto; text-align:left; }
+#header { background:url(images/top.png) no-repeat bottom; height:160px; }
+#middle-contents { background:url(images/side.png) repeat-y; padding-bottom:50px; }
+#left-col { float:left; width:584px; margin:0 0 0 15px; }
+#right-col { float:right; display:block; width:330px; margin:30px 2px 0 0; }
+#footer { background:url(images/bottom.png) no-repeat top; height:114px; margin-bottom:50px; text-align:center; }
+
+/*  ------ header ---------------------- */
+/* site title */
+#logo { float:left; display:inline; margin:64px 0 0 40px; }
+#logo a, #logo a:visited { color:#ccc; font-size:22px; }
+#logo a:hover { text-decoration:none; color:#83bac4; }
+#logo h1 { font-weight:normal; line-height:100%; margin:0; padding:6px 0; color:#666; font-size:11px; }
+
+#rss-feed { font-size:11px; float:right; margin:62px 15px 0 0; display:inline; color:#777; background:url(images/rss.gif) no-repeat left top; height:25px; width:80px; padding:18px 0 0 60px; }
+#rss-feed:hover { background:url(images/rss.gif) no-repeat left bottom; color:#83bac4; text-decoration:none; }
+
+/*  ------ header-menu ------------------------ */
+.header-navbox{ height:61px; }
+#pngfix-right { background:url(images/menu_right.png) no-repeat right top; display:block; width:10px; height:60px; float:right; }
+#pngfix-left { background:url(images/menu_left.png) no-repeat left top; display:block; width:10px; height:60px; float:right; }
+
+.menu_wrapper {float:right;width: 77%;height: 61px; vertical-align: top; font-size: 13px;background: url(images/menu_middle.png) repeat-x left top; line-height:1; margin:0; padding:0;}
+.menu {width: 100%;height: 40px;margin: 0 auto;padding: 0;line-height:1; }
+.menu ul {width: 100%;padding: 0;margin: 24px 0 0 0;list-style: none;}
+.menu ul li {position:relative; float:left; height:40px; padding:0 18px; z-index:100;}
+.menu ul li a {float: left; display: block; height: 25px;width: 80px;padding: 5px 5px 0 0;margin: 0; text-align: center;font-weight: normal;text-decoration: none;color:#888; }
+.menu li a:hover {color:#83bac4; border-bottom:2px solid #83bac4; text-decoration:none;}
+/*ѕочему не работает динамическое меню? ≈сли раскоментировать указанные строчки внизу и закомментировать вверху,
+динамическое меню будет работать, и старый и новый стиль, но если вы не используете как € динамическое меню,
+при замене строк, и отключении динамик-меню в админке, все пункты меню съедут в кучу, это из за float: left. 
+я пыталс€ что-то с этоим сделать, но не получилось. ≈сли вы знаете как решить проблему
+Ќапишите мне сюда: magicunit@yandex.ru Ќе забудьте помен€ть так-же в forum.css
+*/
+/*
+.menu_wrapper {float:right;width: 77%;height: 61px; vertical-align: top; font-size: 13px;background: url(images/menu_middle.png) repeat-x left top; line-height:1; margin:0; padding:0;}
+.menu {width: 100%;height: 40px;margin: 0 auto;padding: 0; }
+.menu ul {width: 100%;margin: 20px 0 0 0;padding: 0;list-style: none;}
+.menu ul li {padding:0 0 0 2px; z-index:100; }
+.menu ul li a {height: 30px;font-weight: normal;text-decoration: none;color:#b8babb;}
+.menu li a:hover {color:#83bac4; border-bottom:2px solid #83bac4; text-decoration:none;}
+*/
+/*  ------ left-col ------------- */
+.post { margin:20px 0 5px 0; }
+/*если карта сайта больша€ измените следующие 2 строчки*/
+.post ul {padding:0 0 0 30px;}
+.post ul li {padding:0;}
+.post-content { clear:both; padding:15px 5px 20px 0; line-height:160%; }
+.post-content p { margin:0 0 1em 0; line-height:160%; }
+.post-content a,.post-content a:visited { text-decoration:none; }
+.post img, .post a img { border:none; padding:5px; margin:0; }
+.post table { margin:0 0 1em 0; }
+.post td, .post th { padding:5px; }
+.post th { background-color:#000; font-weight:normal; }
+.post-content input { margin:5px 0; }
+
+/*  ------ right-col ------------- */
+#information-title { background:url(images/info-box.gif) no-repeat left top; padding:25px 20px 5px 20px; width:232px; margin:0 0 0 30px; }
+#information-contents { height: auto;font-size:11px; color:#868a8d; background:url(images/info-boy.gif) no-repeat left bottom; padding:12px 20px 20px 20px; margin:0 0 20px 30px; width:232px; }
+
+.side-title { margin:0 0 20px 0; font-size:11px; text-transform:uppercase; color:#999; font-weight:normal; line-height:100%; }
+#side-top {}
+#side-box { color:#aaa; margin:0 10px 50px 18px; font-size:11px; width:270px; }
+#side-bottom { clear:both; }
+
+#copy-box { background:url(images/info-box.gif) no-repeat left top; padding:25px 20px 5px 20px; width:232px; margin:0 0 0 30px; }
+#copyrights { text-align:center; height: auto;font-size:11px; color:#868a8d; background:url(images/info-boy.gif) no-repeat left bottom; padding:12px 20px 20px 20px; margin:0 0 0 -20px; width:232px;}
+/* end */
+#return_top a { position:absolute; position:fixed; right:0; bottom:15px;
+    display:block; height:138px; width:38px; background:url(images/return-top.png) no-repeat left top; }
+#return_top a:hover { background:url(images/return-top.png) no-repeat right top; text-decoration:none; }
+
+/* ---------- clearfix hack ---------- */
+.clearfix:after { content: "."; display: block; clear: both; height: 0; visibility: hidden; }
+.clearfix { display: inline-block; }
+/* exlude MacIE5 \*/
+* html .clearfix { height: 1% }
+.clearfix {display:block;}
+/* end MacIE5 */
+
+/* Main windows styles
+----------------------------- */
+.main-window-title { background: url(images/mwbg.gif) no-repeat right top; padding:20px 0 0 0; margin: 0; height: 40px;
+ line-height: normal; color: #999999; font-family: Arial, Consolas, "Segoe UI", Calibri "Trebuchet MS", Helvetica; font-size: 13px;
+ text-transform:uppercase; text-align: left; text-indent:35px; }
+.window-title { width: 255px; height: 20px; padding: 13px 20px; color: #999999; font-size: 14px; text-transform: uppercase; font-weight: normal; text-decoration: none; text-align: left; }
+.window-main  {font-size: 12px; text-decoration: none; margin: 5px 0px 10px 0; padding: 0 0 0 20px; background-color: transparent; text-align: left;}
+
+/* Dinamic menu
+----------------------------- */
+div.dhtml_menu div.vert_menu   { position: absolute; visibility: hidden; z-index: 2; background: url(images/sub-back.png); font-size:12px;}
+/*first line*/
+div.dhtml_menu div.horz_menu a { display: block; float: left; margin: 2px 0 0 15px; padding: 0 5px;}
+/*2-line*/
+div.dhtml_menu div.vert_menu a { display: block; float: none; margin: 1px 2px; padding: 2px 5px;min-width: 80px;}
+div.dhtml_menu div.vert_menu   { border:1px solid #222;}
+
+div.dhtml_menu div.horz_menu a,
+div.dhtml_menu div.vert_menu a { background-color: transparent; color: white; height: 20px; line-height: 20px; text-align: left; text-decoration: none; }
+div.dhtml_menu div.horz_menu a {  height: 20px; line-height: 20px; }
+div.dhtml_menu div.vert_menu a { margin-bottom: 2px; min-width: 185px;}
+
+div.dhtml_menu div.horz_menu a:hover,
+div.dhtml_menu div.vert_menu a:hover { color: #81c8d5; }
+
+div.dhtml_menu div.horz_menu a.parent,
+div.dhtml_menu div.vert_menu a.parent { color: #b8babb; }
+div.dhtml_menu div.horz_menu a.parent { background-color: transparent; }
+
+div.dhtml_menu div.horz_menu a.active,
+div.dhtml_menu div.vert_menu a.active,
+div.dhtml_menu div.horz_menu a.active:hover,
+div.dhtml_menu div.vert_menu a.active:hover { color: #81c8d5; }
+
+/* Dinamic menu II
+----------------------------- */
+#dropline               { position: relative;  height: 30px; }
+#dropline, #dropline ul {display: block; padding: 2px; margin: 0; list-style: none; width: 100%;font-size: 12px; }
+
+#dropline table           { border-collapse: collapse; margin: -1px -10px 0 0; padding: 0; width: 0; height: 0; }
+#dropline li              { height: 30px; float: left; margin: 0 1px 0 0; padding: 2px;}
+#dropline li a            { height: 30px; display: block; line-height: 30px;padding: 0 20px 2px 10px; font-family: Arial, Consolas, "Segoe UI", Calibri "Trebuchet MS", Helvetica; font-size: 12px;text-decoration: none; font-weight: normal;}
+#dropline li a.down       { background: url(images/down.gif) no-repeat right center; }
+#dropline li ul li a.down { font-size: 12px; color: #81c8d5; font-weight: normal; }
+
+#dropline li a:hover      { white-space: nowrap;}
+#dropline li a.down:hover { white-space: nowrap; background: url(images/down-ove.gif) no-repeat right center;}
+
+#dropline li:hover > a      { color: #81c8d5; padding-bottom:2px;}
+#dropline li:hover > a.down { color: #81c8d5; background: url(images/down-ove.gif) no-repeat right center; }
+/*2-line*/
+#dropline li ul               { position: absolute; margin: 35px -9999px 0 0; top: 35px; left: -9999px; z-index: 10; background: transparent; }
+#dropline li ul.floatRight li { float: right; }
+
+#dropline :hover ul,
+#dropline :hover ul :hover ul,
+#dropline :hover ul :hover ul :hover ul,
+#dropline :hover ul :hover ul :hover ul :hover ul,
+#dropline :hover ul :hover ul :hover ul :hover ul :hover ul { margin: 0; left: 0; background: url(images/sub-back.png) left bottom; z-index: 10; }
+/*3-line*/
+#dropline :hover ul ul,
+#dropline :hover ul :hover ul ul,
+#dropline :hover ul :hover ul :hover ul ul,
+#dropline :hover ul :hover ul :hover ul :hover ul ul {margin: 30px -9999px 0 0; left: -9999px; top: 36px; background: transparent; z-index: 10; }
+
+/* Articles, messages, topics, replies
+----------------------------- */
+.article            { background-color: transparent; margin: 0 0 5px 0; padding: 0 0 15px 0; font-family: Arial, Consolas, "Segoe UI", Calibri "Trebuchet MS", Helvetica;}
+.article .author    { font-style: italic; text-align: left; color: white; vertical-align: bottom; position: relative; left: 5px; font-family: Arial, Consolas, "Segoe UI", Calibri "Trebuchet MS", Helvetica;}
+.article .date      { position: relative; left: 8px; font-size: 12px; text-align: left; vertical-align: middle; height: 25px; }
+.article .last      { background-color: transparent; text-align: left; top: 10px;  padding: 10px 0; }
+.article .menu      { text-align: right; vertical-align: bottom; padding: 5px 5px 0 5px; }
+.article .rate      { top: 100px; }
+.article .text      { padding: 0 5px 5px 5px; text-align: justify; font-size: 12px; vertical-align: top; width: 98%; position: relative;overflow: auto !important; }
+.article .title     { background-color: transparent;font-size: 13px; padding: 10px 0; text-align: center; }
+
+.article-short         { margin: 0 0 0 -15px;font-family: Arial, Consolas, "Segoe UI", Calibri "Trebuchet MS", Helvetica; }
+.article-short .author { font-style: italic; float: right; font-family: Arial, Consolas, "Segoe UI", Calibri "Trebuchet MS", Helvetica;}
+.article-short .icon   { width: 8%;  height:7%;float: left; margin: 0 2% 0 0; }
+.article-short .title  { padding: 10px 0; text-align: left; font-size: 13px; font-family: Arial, Consolas, "Segoe UI", Calibri "Trebuchet MS", Helvetica; }
+.article-short .text {padding: 0 5px 5px 0; text-align: justify; font-size: 12px; }
+.article-short .codetitle { margin: 5px 0; padding: 2px; }
+.article-short .codetext { padding: 5px;}
+.article-short .quotetitle { margin: 5px 0; padding: 2px; }
+.article-short .quotetext{ padding: 5px;}
+
+.gallery            { background-color: transparent; padding: 5px;}
+.article .info      { background-color: transparent; text-align: left; top: 10px;  padding: 10px 0; }
+.gallery .rate      {  top: 100px; }
+.gallery .title     { background-color: transparent; font-size: 13px;  padding: 10px 0; text-align: center; }
+.gallery .title a { color: #7f8e91; text-decoration: none;}
+.gallery .title a:hover { color: #81c8d5; text-decoration: underline;}
+
+/*PM*/
+.message            { padding: 0; text-align: left; vertical-align: top; }
+.message .author    { text-align: center;  vertical-align: top; float: left; width: 120px; }
+.message .name      { text-align: center; padding: 0 0 5px 0; }
+.message .date      { text-align: left; padding: 2px 0 5px 5px; min-height: 20px; }
+.message .info      { }
+.message .menu      { text-align: right;   padding: 5px; height: 30px; position: relative; top: -20px; }
+.message .text      { text-align: justify; padding: 5px; min-height: 100px; background-color: transparent; overflow: auto !important; }
+.message .mctext    { text-align: justify; padding: 5px; background-color: transparent; overflow: auto !important; }
+.message .codetitle { }
+.message .quotetitle { }
+/*Comments*/
+.reply            { text-align: left; vertical-align: top; }
+.reply  .author    { text-align: center;  vertical-align: top; float: left; width: 120px; }
+.reply .name      { text-align: center; padding: 0 0 6px 0; }
+.reply .date      { text-align: left; padding: 2px 0 5px 5px; min-height: 20px; }
+.reply  .info      { }
+.reply  .menu      { text-align: right;   padding: 5px; height: 20px; position: relative; top: -20px; }
+.reply  .text      { text-align: justify; padding: 5px; min-height: 100px; background-color: transparent;  }
+.reply  .mctext    { text-align: justify; padding: 5px; background-color: transparent; }
+.reply  .codetitle { }
+
+.catalog              { padding: 10px 30px;  }
+.catalog .title       { margin: 10px; color: #7f8e91; }
+.catalog .title a     { color: #7f8e91; text-decoration: none;  font-size: 1.2em; font-family: Arial, Consolas, "Segoe UI", Calibri "Trebuchet MS", Helvetica;}
+.catalog .title a:hover { color: #81c8d5; text-decoration: underline;}
+.catalog .description { color: #7f8e91; font-weight: normal; font-size: 12px; font-family: Arial, Consolas, "Segoe UI", Calibri "Trebuchet MS", Helvetica; text-align: left; }
+.catalog .content     { text-align: left; }
+
+/* Forum
+----------------------------- */
+.topic            { border: 0; min-height: 200px; }
+.topic .head      { background-color: transparent; width: 100%; text-align: right; }
+.topic .author    { text-align: center;  vertical-align: top; float: left; width: 120px; }
+.topic .date      { text-align: left;    vertical-align: top; float: left; }
+.topic .menu      { text-align: right;   vertical-align: bottom; padding: 1px 5px; }
+.topic .text      { text-align: justify; vertical-align: top;    padding: 5px; min-height: 130px;}
+.topic .codetitle {  }
+
+.forum                  { padding: 5px 0; }
+.forum .category        { background-color: transparent; margin: 5px; padding: 2px 0; min-height: 40px; text-align: left;font-weight: normal; }
+.forum .cat             { float: left; width: 80%; vertical-align: middle;}
+.forum .description,
+.forum .description a   { text-align: left;   font-size: 11px; min-height: 20px; width: 100%; }
+.forum .icon            { text-align: center; width: 7%;  float: left; min-height: 40px; }
+.forum .section-title   { text-align: center; width: 100%; height: 25px;  font-size: 13px; background-color: transparent; }
+.forum .section-title a { vertical-align: middle; }
+.forum .topics          { text-align: center; width: 10%; float: right; min-height: 40px; line-height: 40px; }
+
+.frrow1         { background-color: transparent; }
+.frrow2         { background-color: transparent; }
+.frrow3         { background-color: transparent; }
+.topics_cat     { background-color: transparent; text-align: center;  }
+.topics_list    { background-color: transparent; text-align: left; }
+
+.adm-prevention { border: 1px solid #333; background-color: transparent; color: red; font-family: Arial, Consolas, "Segoe UI", Calibri "Trebuchet MS", Helvetica; font-size: 30px; font-weight: bold; text-align: center;}
+.mod-prevention { background-color: transparent; color:#81c8d5; font-family: Arial, Consolas, "Segoe UI", Calibri "Trebuchet MS", Helvetica; font-size: 30px; font-weight: bold; text-align: center; }
+.prevention     { background-color: transparent; border-top: 1px solid #333; border-bottom: 1px solid #333; border-right: 1px solid #333; padding: 0 10px; }
+
+/* Poll
+----------------------------- */
+.poll           { }
+.poll .question { }
+.poll .left     { background-color: transparent; padding: 1px 5px; }
+.poll .right    { background-color: transparent ; padding: 1px 5px; }
+
+/* Sitemap
+----------------------------- */
+.sitemap           { text-indent: 20px; font-size: 12px; }
+.sitemap .section  {}
+.sitemap .category {}
+.sitemap .item     {}
+
+.photo { margin: 10px 0; }
+
+/* Progress bar
+----------------------------- */
+.pass_img#progresbar-2-0,   .pass_img#passbar-0   { background:transparent url(../icons/pass_0.gif)   no-repeat; height:7px; width:138px; }
+.pass_img#progresbar-2-10,  .pass_img#passbar-10  { background:transparent url(../icons/pass_10.gif)  no-repeat; height:7px; width:138px; }
+.pass_img#progresbar-2-20,  .pass_img#passbar-20  { background:transparent url(../icons/pass_20.gif)  no-repeat; height:7px; width:138px; }
+.pass_img#progresbar-2-30,  .pass_img#passbar-30  { background:transparent url(../icons/pass_30.gif)  no-repeat; height:7px; width:138px; }
+.pass_img#progresbar-2-40,  .pass_img#passbar-40  { background:transparent url(../icons/pass_40.gif)  no-repeat; height:7px; width:138px; }
+.pass_img#progresbar-2-50,  .pass_img#passbar-50  { background:transparent url(../icons/pass_50.gif)  no-repeat; height:7px; width:138px; }
+.pass_img#progresbar-2-60,  .pass_img#passbar-60  { background:transparent url(../icons/pass_60.gif)  no-repeat; height:7px; width:138px; }
+.pass_img#progresbar-2-70,  .pass_img#passbar-70  { background:transparent url(../icons/pass_70.gif)  no-repeat; height:7px; width:138px; }
+.pass_img#progresbar-2-80,  .pass_img#passbar-80  { background:transparent url(../icons/pass_80.gif)  no-repeat; height:7px; width:138px; }
+.pass_img#progresbar-2-90,  .pass_img#passbar-90  { background:transparent url(../icons/pass_90.gif)  no-repeat; height:7px; width:138px; }
+.pass_img#progresbar-2-100, .pass_img#passbar-100 { background:transparent url(../icons/pass_100.gif) no-repeat; height:7px; width:138px; }
+
+/* Advansed Pagination
+----------------------------- */
+#pagination             { padding: 0 0 10px 0; display: block; float: left; }
+#pagination li          { border: 0; margin: 0; font-size: 11px; list-style: none; }
+#pagination a           { padding: 2px 6px; border: 0; margin-right: 2px; }
+#pagination .title      { padding: 2px 6px; display: block; float: left; color: #7f8e91; border: 0; }
+#pagination .next a,
+#pagination .previous a { border: solid 1px white; font-weight: bold; }
+#pagination .active     { padding: 2px 6px; display: block; float: left; color: black; font-weight: bold; border: 1px solid #333; background: #81c8d5; }
+#pagination a:link,
+#pagination a:visited   { display: block; float: left; color: #7f8e91; text-decoration: none; border: 1px solid #333;}
+#pagination a:hover     { border: 1px solid #333; background: #81c8d5; color:black;}
+
+/* Rating
+----------------------------- */
+.star          { position: relative; float: right; margin: 3px 0 0 3px; width: 200px; }
+.star ul.star  { position: relative; float: right; margin: 0 40px 0 0; padding: 0; width: 85px; height: 25px; left: 0px; top: -5px; background: url("../icons/stars.gif") repeat-x; cursor: pointer; list-style: none; }
+.star li       { position: absolute; float: right; margin: 0; padding: 0; width: 85px; height: 20px; display: block; text-decoration: none; text-indent: -9000px; z-index: 20; }
+.star li.curr  { background: url("../icons/stars.gif") left 25px; font-size: 1px; }
+.star div.user { position: relative; float: right; left: 120px; font-size: 13px; font-family: Arial, Consolas, "Segoe UI", Calibri "Trebuchet MS", Helvetica; color: #888; width: 20px; }
+
+/* Tabs
+----------------------------- */
+/*tabs and all content*/
+div.tabs      { background: transparent; padding: 0; }
+div.container { width: 100%; margin: 5px 0;}
+/* text content only*/
+div.tabs div                         { margin: 2px 0; padding: 0; }
+
+ul.tabNavigation      { list-style:none; margin: 0; padding: 0; text-align: right;}
+ul.tabNavigation li   { display: inline; padding: 0 2px; }
+/* date links*/
+ul.tabNavigation li a { border: 1px solid #333; padding: 0 2px; color: #7f8e91; text-decoration: none; }
+/* selected date links*/
+ul.tabNavigation li a.selected,
+ul.tabNavigation li a.selected:hover { background: transparent; color: #81c8d5; border: 0; padding: 0 2px; }
+ul.tabNavigation li a:hover          { color: #81c8d5; padding: 0 2px;}
+ul.tabNavigation li a:focus          { outline: 0; padding: 0 2px;}
+/* Rcms style classes */
+.row1 {
+	background-color: #191F1F;
+	color: inherit;
+}
+
+.row2 {
+	background-color: #191F1F;
+	color: inherit;
+}
+
+.row3 {
+        background-color: #101010;
+	color: inherit;
+}

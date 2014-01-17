@@ -6,7 +6,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 if (!isset($_POST['nconfig'])) $_POST['nconfig'] = array();
-if (!empty($_POST['save'])) write_ini_file($_POST['nconfig'], CONFIG_PATH . 'smiles.ini');
+if (!empty($_POST['save'])&&write_ini_file($_POST['nconfig'], CONFIG_PATH . 'smiles.ini')) rcms_showAdminMessage(__('Configuration updated'));
 
 
 $system->config = parse_ini_file(CONFIG_PATH . 'smiles.ini');

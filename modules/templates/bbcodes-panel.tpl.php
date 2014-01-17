@@ -27,7 +27,7 @@ $(document).ready(function() {
 							$("img#load<?=$rand?>").attr("src", "<?=RCMS_ROOT_PATH?>tools/js/images/blank.gif");
 							$("#uploadButton<?=$rand?> span").text('<?=__('Upload image')?>');
 							this.enable();
-if (response.substr(0,5)=='[img]') {//sucess
+if (response.substr(0,5)=='[img]') {//success
 document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'].value += response;
 $("#answer<?=$rand?>").text('<?=__('Uploaded')?> ' + file);
 } else {

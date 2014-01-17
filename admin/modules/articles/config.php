@@ -18,7 +18,6 @@ document.forms['mainfrm'].elements['nconfig[news]'].value = Isel;
 
 if(!empty($_POST['nconfig'])) {
 file_write_contents(CONFIG_PATH . 'articles.ini',serialize($_POST['nconfig']));
-//write_ini_file($_POST['nconfig'], CONFIG_PATH . 'articles.ini');
 rcms_showAdminMessage(__('Configuration updated'));
 }
 $file = file_get_contents(CONFIG_PATH . 'articles.ini');

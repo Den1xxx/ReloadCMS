@@ -5,7 +5,7 @@
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
 
-if(!empty($_POST['nconfig'])) write_ini_file($_POST['nconfig'], CONFIG_PATH . 'avatars.ini');
+if(!empty($_POST['nconfig'])&&write_ini_file($_POST['nconfig'], CONFIG_PATH . 'avatars.ini')) rcms_showAdminMessage(__('Configuration updated'));
 
 $system->config = parse_ini_file(CONFIG_PATH . 'avatars.ini');
 $config = &$system->config;

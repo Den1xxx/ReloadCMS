@@ -5,8 +5,8 @@
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
 $articles = new articles();
-$current_year  = rcms_format_time('Y', mktime());    
-$current_month = rcms_format_time('n', mktime()); 
+$current_year  = rcms_format_time('Y', rcms_get_time());    
+$current_month = rcms_format_time('n', rcms_get_time()); 
 if (!empty($_POST['cal-year']) && $_POST['cal-year'] >= $current_year - 6 && $_POST['cal-year'] <= $current_year)
      $selected_year = $_POST['cal-year'];             
 else $selected_year = $current_year;                  
@@ -26,7 +26,7 @@ foreach ($articles->getContainers(0) as $container => $null) {
         }
     }
 }
-$calendar->highlightDay(rcms_format_time('d', mktime()));
+$calendar->highlightDay(rcms_format_time('d', time()));
 $date_pick = '<form action="" method="post" style="text-align: center">
                <select name="cal-month">';
 foreach (array('January', 'February', 'March', 'April', 'May',

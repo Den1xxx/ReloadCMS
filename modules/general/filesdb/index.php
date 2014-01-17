@@ -32,7 +32,7 @@ if(!empty($_GET['get']) && $cid >= 0 && $fid >= 0 && !empty($filesdb->data[$cid]
             $fdata['down_url'] = '?module=' . $module . '&amp;id=' . ($cid+1) . '&amp;fid=' . ($fid+1) . '&amp;get=1';
             $result .= rcms_parse_module_template('fdb-file.tpl', $fdata);
         }
-        show_window('<a href="?module=' . $module .  '">' . __('Categories of files') . '</a> -&gt; ' . '<a href="?module=' . $module . '&amp;id=' . ($cid + 1) . '">' . $filesdb->data[$cid]['name'] . '</a>', $result, 'center');
+        show_window('<a href="?module=' . $module .  '">' . __('Categories of files') . '</a> &rarr; ' . '<a href="?module=' . $module . '&amp;id=' . ($cid + 1) . '">' . $filesdb->data[$cid]['name'] . '</a>', $result, 'center');
     }
 } elseif($cid >= 0 && !empty($filesdb->data[$cid])) {
     $cdata = &$filesdb->data[$cid];
@@ -69,7 +69,7 @@ if(!empty($_GET['get']) && $cid >= 0 && $fid >= 0 && !empty($filesdb->data[$cid]
                 if(!empty($fdata)) $result .= rcms_parse_module_template('fdb-file.tpl', $fdata);
             }
         }
-        show_window('<a href="?module=' . $module .  '">' . __('Categories of files') . '</a> -&gt; ' . $filesdb->data[$cid]['name'], $result, 'center');
+        show_window('<a href="?module=' . $module .  '">' . __('Categories of files') . '</a> &rarr; ' . $filesdb->data[$cid]['name'], $result, 'center');
     }
 } else {
     $system->config['pagename'] = __('Categories of files');

@@ -48,30 +48,9 @@ if(!empty($_POST['new'])){
     $frm->addrow('<abbr title="' . __('Use only small Latin letters and digits') . '">' . __('MenuID') . '</abbr>', $frm->text_box('id', ''));
     $frm->addrow(__('Title'), $frm->text_box('title', ''));
     $frm->addrow(__('Alignment'), $frm->select_tag('align', array('center' => __('Center'), 'left' => __('Left'), 'right' => __('Right'), 'justify' => __('Justify'))));
-    $frm->addrow(__('Text') . '<br/>' .  __('All HTML is allowed in this field and line breaks will not be transformed to &lt;br&gt; tags!'), $frm->textarea('text', '', 70, 25), 'top');
-		$frm->addrow(__('Editor'), $frm->select_tag('mode', array('html' => __('Enable'), 'text' => __('Disable')), 'text','onchange="if (this.options[selectedIndex].value==\'html\') { 	
-		tinyMCE.init({
-		mode : \'exact\',
-		elements : \'text\',
-		theme : \'advanced\',
-		language : \'ru\',
-        plugins : \'paste,table,cyberim\',
-        theme_advanced_buttons2_add : \'pastetext,pasteword,selectall\',
-        theme_advanced_buttons3_add : \'tablecontrols\',
-		theme_advanced_toolbar_location : \'top\',
-        theme_advanced_toolbar_align : \'left\',
-        theme_advanced_statusbar_location : \'bottom\',
-        theme_advanced_resizing : true,
-        paste_auto_cleanup_on_paste : true,
-		content_css: \'/css/tinymce.css\',
-		extended_valid_elements : \'script[type|language|src]\',
-		forced_root_block : \'\', 
-		force_br_newlines : true,
-		force_p_newlines : false
-		});
-		} else {
-		tinyMCE.get(\'text\').hide();
-		}"'), 'top');		
+    $frm->addrow(__('Text') 
+	.tinymce_selector('text')
+	.'<br/>' .  __('All HTML is allowed in this field and line breaks will not be transformed to &lt;br&gt; tags!'), $frm->textarea('text', '', 70, 25), 'top');
     $frm->show();
 } elseif(!empty($_REQUEST['edit'])){
     if($menu = ucm_get($_REQUEST['edit'])){
@@ -85,30 +64,9 @@ if (empty($_GET['edit'])) $frm->addrow('<abbr title="' . __('Use only small Lati
 else $frm->addrow('<abbr title="' . __('Use only small Latin letters and digits') . '">' . __('MenuID') . '</abbr>', $_REQUEST['edit'].$frm->hidden('id', $_REQUEST['edit']));
         $frm->addrow(__('Title'), $frm->text_box('title', $menu[0]));
         $frm->addrow(__('Alignment'), $frm->select_tag('align', array('center' => __('Center'), 'left' => __('Left'), 'right' => __('Right'), 'justify' => __('Justify')), $menu[2]));
-        $frm->addrow(__('Text') . '<br/>' . __('All HTML is allowed in this field and line breaks will not be transformed to &lt;br&gt; tags!'), $frm->textarea('text', $menu[1], 70, 25), 'top');
-	$frm->addrow(__('Editor'), $frm->select_tag('mode', array('html' => __('Enable'), 'text' => __('Disable')), 'text','onchange="if (this.options[selectedIndex].value==\'html\') { 	
-		tinyMCE.init({
-		mode : \'exact\',
-		elements : \'text\',
-		theme : \'advanced\',
-		language : \'ru\',
-        plugins : \'paste,table,cyberim\',
-        theme_advanced_buttons2_add : \'pastetext,pasteword,selectall\',
-        theme_advanced_buttons3_add : \'tablecontrols\',
-		theme_advanced_toolbar_location : \'top\',
-        theme_advanced_toolbar_align : \'left\',
-        theme_advanced_statusbar_location : \'bottom\',
-        theme_advanced_resizing : true,
-        paste_auto_cleanup_on_paste : true,
-		content_css: \'/css/tinymce.css\',
-		extended_valid_elements : \'script[type|language|src]\',
-		forced_root_block : \'\', 
-		force_br_newlines : true,
-		force_p_newlines : false
-		});
-		} else {
-		tinyMCE.get(\'text\').hide();
-		}"'), 'top');		
+        $frm->addrow(__('Text') 
+		.tinymce_selector('text')
+		. '<br/>' . __('All HTML is allowed in this field and line breaks will not be transformed to &lt;br&gt; tags!'), $frm->textarea('text', $menu[1], 70, 25), 'top');	
         $frm->show();
     } else rcms_showAdminMessage(__('Cannot open menu for editing'));
 } else {

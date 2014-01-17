@@ -29,10 +29,13 @@ function get_dir_size($dir){
   return $size;
 }
 
-function get_user_count()
-{
+function get_user_count()	{
 	global $system;
-	$userlist = $system->getUserList('*', 'username');
+	if (defined('USERS_MYSQL')&&USERS_MYSQL){
+    $query='SELECT COUNT(`username`) from `users`';
+    $result=simple_query($query);
+    return($result['COUNT(`username`)']);
+	} else	$userlist = $system->getUserList('*', 'username');
 	return count($userlist);
 }
 

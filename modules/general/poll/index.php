@@ -4,6 +4,8 @@
 //   http://reloadcms.com                                                     //
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
+if ($system->current_point!='__MAIN__'){
+//Show current polls
 $cpolls = new polls;
 $cpolls->openCurrentPolls();
 
@@ -23,6 +25,24 @@ if($polls = $cpolls->getCurrentPolls()){
         $result .= rcms_parse_module_template('poll.tpl', $poll);
     }
 }
-$result .= '[<a href="?module=poll.archive">' .__('Old polls') . '</a>]';
+$result .= '[<a href="?module=poll">' .__('Old polls') . '</a>]';
 show_window(__('Poll'), $result, 'center');
+} else {
+//Show Archive of Polls
+$polls = new polls;
+$polls->openCurrentPolls();
+
+$result = '';
+$cpolls = array_reverse($polls->getArchivedPolls());
+if(!empty($cpolls)){
+	foreach ($cpolls as $poll){
+    	$poll['voted'] = true;
+    	$result .= rcms_parse_module_template('poll.tpl', $poll);
+	}
+} else {
+	$result = __('Archive poll is empty');
+}
+$system->config['pagename'] = __('Polls archive');
+show_window(__('Polls archive'), $result);
+}
 ?>

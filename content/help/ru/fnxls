@@ -1,0 +1,7 @@
+<p><strong>Экспорт/импорт xls</strong></p>
+<p>Используется для быстрого обновления большого количества информации на сайте.</p>
+<p><span style="text-decoration: underline;"><a class="active" href="?module=fnxls&amp;action=info">Информация</a></span> &mdash; ниформация&nbsp; по работе с модулем</p>
+<p><span style="text-decoration: underline;"><a href="?module=fnxls&amp;action=import">Экспорт</a></span> &mdash; экспорт данных из любой таблицы базы данных SQL в формат Excel. Файл при этом сохраняется на сервере. Потом его можно скачать или удалить на вкладке <span style="text-decoration: underline;"><a href="?module=fnxls&amp;action=manage">Управление файлами</a></span>&nbsp;</p>
+<p><span style="text-decoration: underline;"><a href="?module=fnxls&amp;action=upload">Импорт</a></span> &mdash; импорт загружаемого файла XLS в таблицу SQL</p>
+<p><span style="text-decoration: underline;"><a href="?module=fnxls&amp;action=upload">Загрузка</a></span> &mdash; загрузка файла на сервер для последующих манипуляций.</p>
+<p><span style="text-decoration: underline;"><a href="?module=fnxls&amp;action=manage">Управление файлами</a></span> &mdash; выводится список сохраненных файлов. Можно импортировать, скачать на компьютер, удалить файл. А также очистить папку сохранения, удалив все файлы.</p>

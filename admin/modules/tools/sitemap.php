@@ -1,7 +1,8 @@
 <?php
 /////////////////////////////////////////API///////////////////////////////////////////////
  rcms_loadAdminLib('sitemap');
- $directory = 'http://'.$_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME'] . basename($_SERVER['SCRIPT_NAME']));
+ //$directory = 'http://'.$_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME'] . basename($_SERVER['SCRIPT_NAME']));
+ $directory = 'http://'.$_SERVER['HTTP_HOST'] .'/';
  $priority	= array('0.1'=>'0.1','0.2'=>'0.2','0.3'=>'0.3','0.4'=>'0.4','0.5'=>'0.5','0.6'=>'0.6','0.7'=>'0.7','0.8'=>'0.8','0.9'=>'0.9','1'=>'1');
  $changefreq	= array('always'=>'always','hourly'=>'hourly','daily'=>'daily','weekly'=>'weekly','monthly'=>'monthly','yearly'=>'yearly','never'=>'never');
 	if (!empty ($_POST['names']) && is_array($_POST['names'])){
@@ -12,7 +13,7 @@
 				$config [$name]['priority'] = $_POST['priority'][$name];
 				}
 		}
-	write_ini_file($config, CONFIG_PATH . 'sitemap.ini',true) ;
+	if (write_ini_file($config, CONFIG_PATH . 'sitemap.ini',true)) rcms_showAdminMessage(__('Configuration updated')) ;
 	}
 	$config = @parse_ini_file(CONFIG_PATH . 'sitemap.ini',true);
 	
@@ -43,7 +44,7 @@ if(!empty($_POST['create']) && !empty($_POST['filename'])){
   
   if (!empty($_POST['gz'])) {
   $sitemap->createGZipFile = true;
-  $result = $_POST['filename'].'.gz&nbsp;'.__('added successfully').'<br/>';
+  $result .= $_POST['filename'].'.gz&nbsp;'.__('added successfully').'<br/>';
  }
     $sitemap->createSitemap();								// create sitemap in memory
 	$sitemap->writeSitemap();								// write sitemap as file

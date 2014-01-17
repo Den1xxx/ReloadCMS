@@ -24,9 +24,9 @@ if (!empty($_POST['new_letter'])) {
                         } else show_window(__('Error'), __('Letter is empty'), 'center');
                     } else show_window(__('Error'), __('Subject of your letter'), 'center');
                 } else show_window(__('Error'), __('Error in email field'), 'center');
-            }
+            } else show_window(__('Error'), __('Sender name').__(' is empty') , 'center');
         } else show_window(__('Error'), __('Error of a control code'), 'center');
-    }
+    } else show_window(__('Error'), __('Error of a control code'), 'center');
 }
 if (!empty($_GET['get'])) 
 if (is_file(DATA_PATH . 'sendmail/'.$_GET['get'])) $data = unserialize(file_get_contents(DATA_PATH . 'sendmail/'.$_GET['get']));
@@ -41,7 +41,15 @@ $data['important'] = __('It is important!');
 $data['important_text'] = __('Your letter will be sent to admin and it will not be kept on a site. Admin will answer to you as soon as he will have a possibility.');
 }
 $system->config['pagename'] = $data['title'];
-show_window($data['title'], 
+//check right to edit
+		$title =  
+		($system->checkForRight('GENERAL')and isset($_GET['get'])) ?  
+		$data['title'].' 
+		<a href="admin.php?show=module&id=tools.sendmail&edit=' . $_GET['get'] . '&tab=8" title="'.__('Edit').'">
+		<img src="' . SKIN_PATH . 'edit_small.gif" alt="'.__('Edit').'">
+		</a>
+		' : $data['title'];
+show_window($title, 
 			rcms_parse_module_template('sendmail.tpl',array(
 			'comment'=>$data['comment'],
 			'sender_name'=>$data['sender_name'],

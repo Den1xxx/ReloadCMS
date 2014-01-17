@@ -24,10 +24,12 @@ class InputForm {
 	}
 
 	function addrow($title, $contents = '', $valign = 'middle', $align = 'left') {
-		@list( $talign, $calign ) = explode( ",", $align );
-		if ( empty( $calign ) ) $calign = $talign;
-		@list( $tvalign, $cvalign ) = explode( ",", $valign );
-		if ( empty( $cvalign ) ) $cvalign = $tvalign;
+		$a = explode( ",", $align );
+		$talign=empty($a[0])?'':$a[0]; 
+		$calign=empty($a[1])?$talign:$a[1]; 
+		$b = explode( ",", $valign );
+		$tvalign=empty($b[0])?'':$b[0]; 
+		$cvalign=empty($b[1])?$talign:$b[1]; 
 		$this->_rows[]=array(
 			'title' => $title,
 			'contents' => $contents,
@@ -86,6 +88,10 @@ class InputForm {
 					$result .= '<tr>' . "\n";
 					$result .= '  <td colspan="2" class="row1">' . $row['message'] . '</td>' . "\n";
 					$result .= '</tr>' . "\n";
+				} elseif (!empty($row['fieldset_start'])){
+				$result .= $row['fieldset_start'];
+				} elseif (!empty($row['fieldset_end'])){
+				$result .= $row['fieldset_end'];
 				} else {
 					$result .= '<tr>' . "\n";
 					$result .= '  <td valign="' . $row['title_valign'] . '" align="' . $row['title_align'] . '" class="row2" ' . ((empty($row['contents'])) ? ' colspan="2"' : '') . '>' . $row['title'] . '</td>' . "\n";
@@ -151,6 +157,17 @@ class InputForm {
 
 	function file($name) {
 		return '<input type="file" name="' . $name . '" value="" />';
+	}
+	function fieldset_start($name,$after='') {
+		$this->_rows[] = array('fieldset_start' => '</table><br /><fieldset><legend>' . $name . '</legend>' . $after . '<table>');
+		end($this->_rows);
+		return key($this->_rows);
+	}
+	
+	function fieldset_end() {
+		$this->_rows[] = array('fieldset_end' => '</table></fieldset><table>');
+		end($this->_rows);
+		return key($this->_rows);
 	}
 }
 ?>

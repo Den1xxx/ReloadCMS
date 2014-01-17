@@ -410,11 +410,8 @@ function rcms_show_element($element, $parameters = ''){
     global $system,$lightbox_config;
     switch($element){
         case 'title':
-            if(!@$system->config['hide_title']) {
-                echo $system->config['title'];
-                if(!empty($system->config['pagename'])) echo ' - ';
-            }
-            echo (!empty($system->config['pagename'])) ? $system->config['pagename'] : '';
+            if(empty($system->config['hide_title'])) echo $system->config['title'];
+            echo (!empty($system->config['pagename'])) ? ' - '.$system->config['pagename'] : '';
             break;
         case 'slogan':
                 if(!empty($system->config['slogan'])) echo $system->config['slogan'];
@@ -454,12 +451,14 @@ function rcms_show_element($element, $parameters = ''){
             echo '<meta http-equiv="Content-Type" content="text/html; charset=' . $system->config['encoding'] . '" />' . "\r\n";
             if(!empty($system->config['enable_rss'])){
                 foreach ($system->feeds as $module => $d) {
-                    echo '<link rel="alternate" type="application/rss+xml" title="RSS ' . $d[0] . '" href="./rss.php?m=' . $module . '" />' . "\r\n";
+                    echo '<link rel="alternate" type="application/rss+xml" title="RSS ' . $d[0] . '" href="' . RCMS_ROOT_PATH . 'rss.php?m=' . $module . '" />' . "\r\n";
                 }
             }
 echo '
 <link type="text/css" href="' . SKIN_PATH . 'main.css" rel="stylesheet" />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 <script type="text/javascript" src="' . RCMS_ROOT_PATH . 'tools/js/ajaxupload.js"></script>
 <script type="text/javascript" src="' . RCMS_ROOT_PATH . 'tools/js/editor.js"></script>
 ';

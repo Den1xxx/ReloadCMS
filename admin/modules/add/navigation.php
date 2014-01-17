@@ -24,11 +24,7 @@ if(!empty($_POST['urls']) && !empty($_POST['names']) && is_array($_POST['urls'])
 		}
 		write_ini_file($result, CONFIG_PATH . 'navigation.ini', true) or rcms_showAdminMessage(__('Error occurred'));
 	}
-} elseif (!empty($_POST['addlink']) && !empty($_POST['addlink']['url'])) {
-	$links = parse_ini_file(CONFIG_PATH . 'navigation.ini', true);
-	$links[] = $_POST['addlink'];
-	write_ini_file($links, CONFIG_PATH . 'navigation.ini', true) or rcms_showAdminMessage(__('Error occurred'));
-}
+} 
 
 if(!empty($_POST['dy'])) write_ini_file($_POST['dy'], CONFIG_PATH . 'dynamik.ini');
 
@@ -76,7 +72,8 @@ foreach ($links as $link){
 .$frm->select_tag('modules',$avaible_modules,-1,'onChange="
 document.addnav[\''.'urls[' . $i . ']'.'\'].value = \'module:\'+ this.value;
 ">\n
-	<option value="">'. __('Add link to module').'</option')	
+	<option value="">'. __('Add link to module').'</option')
+	.'<img src="'.SKIN_PATH.'neok.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;" onClick="$($(this).parents(\'tr\').get(0)).remove();">'	
 	);
 	$i++;
 } 

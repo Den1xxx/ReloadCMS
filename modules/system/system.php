@@ -14,6 +14,7 @@ class rcms_system extends rcms_user {
 	var $data = array();
 	var $modules = array();
 	var $feeds = array();
+	var $disable_feeds = array();
 	var $cookie_lang = 'reloadcms_lang';
 	var $cookie_skin = 'reloadcms_skin';
 	var $output = array('modules' => array(), 'menus' => array());
@@ -22,7 +23,7 @@ class rcms_system extends rcms_user {
 	var $logging_gz = true;
 	var $url = '';
 
-	function rcms_system($language_select_form = '', $skin_select_form = ''){
+	function __construct($language_select_form = '', $skin_select_form = ''){
 		global $lang;
 		
 		// Loading configuration
@@ -46,7 +47,7 @@ class rcms_system extends rcms_user {
 				setcookie($this->cookie_skin, basename($skin_select_form), FOREVER_COOKIE);
 			}
 		}
-		if (isset($_GET['skin'])) $this->skin=$_GET['skin'];
+		if (isset($_GET['skin'])&&is_dir(SKIN_PATH .$_GET['skin'] . '/')) $this->skin=$_GET['skin'];
 		define('CUR_SKIN_PATH', SKIN_PATH . $this->skin . '/');
 		$this->initialiseModules();
 		$this->initializeUser();
@@ -165,6 +166,7 @@ class rcms_system extends rcms_user {
 	}
 
 	function registerFeed($module, $title, $desc, $real = ''){
+	if (!in_array($module,$this->disable_feeds))
 		$this->feeds[$module] = array($title, $desc, $real);
 	}
 

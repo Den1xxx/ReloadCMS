@@ -1,0 +1,260 @@
+/*
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: url(images/img01.png) repeat-y center;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: #9E9D89;
+}
+
+form {
+}
+
+input, textarea {
+	border: 1px solid #DEDED1;
+	font: normal small "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+input.text {
+	padding: .15em;
+	background: #FDFDFB url(images/img06.gif) repeat-x;
+}
+
+input.button {
+	background: #763320 url(images/img07.gif) repeat-x;
+	color: #FFFFFF;
+}
+
+h1, h2, h3 {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #D15803;
+}
+
+h1 {
+	letter-spacing: -.05em;
+	font-size: 2.2em;
+}
+
+h2 {
+	margin-top: 1em;
+	letter-spacing: -.05em;
+	font-size: 1.4em;
+}
+
+h3 {
+	margin-top: 1em;
+}
+
+p, ul, ol {
+	margin-top: 1em;
+	line-height: 160%;
+}
+
+ul {
+	list-style: none;
+}
+
+ul li {
+	margin-left: 1em;
+	padding-left: .75em;
+	background: url(images/img05.gif) no-repeat left center;
+}
+
+ol {
+	margin-left: 1em;
+	list-style-position: inside;
+}
+
+blockquote {
+	margin-left: 1em;
+	padding-left: .75em;
+	border-left: 1px solid #9E9D89;
+}
+
+a {
+	text-decoration: none;
+	color: #D15803;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #827F4F;
+}
+
+/* Header */
+
+#header {
+	width: 860px;
+	height: 100px;
+	margin: 0 auto;
+	padding: 0 40px;
+	background: url(images/img02.png);
+}
+
+#logo {
+	float: left;
+}
+
+#logo h1, #logo p {
+	margin: 0;
+	padding-top: 25px;
+	float: left;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-style: italic;
+	color: #F3F3E9;
+}
+
+#logo h1 {
+	font-size: 3em;
+}
+
+#logo p {
+	padding: 48px 0 0 5px;
+	letter-spacing: -.055em;
+	font-size: 1.4em;
+	font-weight: bold;
+}
+
+#logo a {
+	color: #F3F3E9;
+}
+
+#search {
+	float: right;
+	width: 15em;
+	padding-top: 50px;
+}
+
+#search fieldset {
+	border: none;
+}
+
+#search #s {
+	width: 13em;
+}
+
+/* Page */
+
+#page {
+	width: 940px;
+	margin: 0 auto;
+}
+
+/* Content */
+
+#content {
+	float: right;
+	width: 580px;
+	padding: 35px 50px 0 0;
+	background: url(images/img04.png) no-repeat right top;
+}
+
+.post {
+}
+
+.post .meta {
+	margin: 0 0 1.5em 0;
+	padding: 0 0 1px 10px;
+	background: url(images/img08.png) no-repeat left bottom;
+	line-height: normal;
+}
+
+.post .meta a{
+	padding: 0 3px 0 3px;
+}
+
+.post .meta a.active {
+	background-color: #F3F3E9;
+	text-decoration:underline;
+}
+
+.post .meta small {
+	font-size: 12px;
+}
+
+/* Sidebar */
+
+#sidebar {
+	float: left;
+	width: 240px;
+	padding: 20px 0 0 30px;
+	background: url(images/img03.png) no-repeat;
+	font-size: smaller;
+	color: #E3E3D4;
+}
+
+#sidebar ul {
+	padding: 0;
+	list-style: none;
+}
+
+#sidebar li {
+	margin-bottom: 3em;
+	padding: 0;
+	background: none;
+}
+
+#sidebar li ul {
+}
+
+#sidebar li li {
+	margin: 0 0 0 1em;
+	padding-left: .75em;
+	background: url(images/img09.gif) no-repeat left center;
+}
+
+#sidebar h2 {
+	color: #FFFFFF;
+}
+
+#sidebar a {
+	color: #FFFFFF;
+}
+
+/* Footer */
+
+#footer {
+	width: 860px;
+	margin: 0 auto;
+	padding: 20px 40px;
+	text-align: right;
+}
+
+#footer p {
+	font-size: 10px;
+}
+
+.delete_button {
+   height: 21px;
+   width: 21px;
+	border: solid;
+	border-width: 0px;
+	background-image: url(../delete.gif);	
+}
+
+/* Extended forum stylesheet */
+
+.frrow1	{ background-color: #EFEFEF; }
+.frrow2	{ background-color: #DEE3E7; }
+.frrow3	{ background-color: #D1D7DC; }
+
+.hidden {
+	margin: 0px 5px 10px 5px;
+	padding: 2px 2px 2px 2px;
+	border-color: Navy;
+	border-width: 1px 1px 1px 1px;
+	border-style: dashed;
+	color: black;
+	font-weight: normal;
+	font-size: 8pt;
+	font-family: "Courier New", Courier, mono;
+	overflow: auto;
+}

@@ -8,15 +8,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Initializations                                                            //
 define('RCMS_ROOT_PATH', './');
-if (date_default_timezone_set(date_default_timezone_get()) === FALSE)
+/*if (date_default_timezone_set(date_default_timezone_get()) === FALSE)
     date_default_timezone_set('Europe/Moscow');
+*/
 require_once(RCMS_ROOT_PATH . 'common.php');
 mb_internal_encoding($system->config['encoding']);
 
-//API
+//Main function
 function rcms_start(){
 global $menu_points, $starttime, $system;
 $menu_points = parse_ini_file(CONFIG_PATH . 'menus.ini', true);
+
 // Page gentime start 
 $starttime = explode(' ', microtime());
 $starttime = $starttime[1] + $starttime[0];
@@ -25,24 +27,32 @@ header('Last-Modified: ' . gmdate('r'));
 header('Content-Type: text/html; charset=' . $system->config['encoding']);
 header("Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0"); // HTTP/1.1 
 header("Pragma: no-cache");
-
 // Loading main module
 $system->setCurrentPoint('__MAIN__');
 if(!empty($_GET['module'])) $module = basename($_GET['module']); else $module = 'index';
 if(!empty($system->modules['main'][$module])) include_once(MODULES_PATH . $module . '/index.php');
 
 // Load menu modules
+if (is_file(CONFIG_PATH.'logic.ini'))  $logic = unserialize(file_get_contents(CONFIG_PATH.'logic.ini'));
 include_once(CUR_SKIN_PATH . 'skin.php');
 if(!empty($menu_points)){
    	foreach($menu_points as $point => $menus){
        	$system->setCurrentPoint($point);
        	if(!empty($menus) && isset($skin['menu_point'][$point])){
            	foreach ($menus as $menu){
+			if (isset($logic)&&is_array($logic)) {
+				if (in_array($menu,$logic['modules'])){
+				$expr=array_search($menu,$logic['modules']);
+				$expression=trim($logic['expression'][$expr]);
+				if (stristr($expression,"return")===false) $expression="return (" . $expression . ");";
+				if(!eval($expression)) continue;
+				}
+			}
                	if(substr($menu, 0, 4) == 'ucm:' && is_readable(DF_PATH . substr($menu, 4) . '.ucm')) {
                    	$file = file(DF_PATH . substr($menu, 4) . '.ucm');
                    	$title = preg_replace("/[\n\r]+/", '', $file[0]);
                    	if($system->checkForRight('GENERAL'))  {
-					$add = '&nbsp;<a href="admin.php?show=module&id=modules.ucm&edit='.substr($menu, 4).'&tab=6"><img class="edit" src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'"></a>';
+					$add = '&nbsp;<a href="admin.php?show=module&id=modules.ucm&edit='.substr($menu, 4).'&tab=6" style="position:relative;z-index:999;" onclick="window.location=this.href"><img class="edit" src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'"></a>';
 					if (!empty($title)) $title .= $add; 
 					else $file[] = $add;
 					}
@@ -67,6 +77,9 @@ if(!empty($menu_points)){
  }
  
 //Main process
+
+if (post('lang_form')) rcms_redirect(RCMS_ROOT_PATH);
+
 if (is_file(CONFIG_PATH.'redirect.ini')) {
 $redirect = unserialize(file_get_contents(CONFIG_PATH.'redirect.ini'));
 if (in_array('?'.$_SERVER['QUERY_STRING'],$redirect['from_arr'])) {
@@ -74,7 +87,7 @@ $key=array_search('?'.$_SERVER['QUERY_STRING'],$redirect['from_arr']);
 if (!empty($redirect['to_arr'][$key])) {
 header('HTTP/1.1 301 Moved Permanently');
 header('Location: '.$redirect['to_arr'][$key]);
-exit();
+exit(0);
 }
 }
 }

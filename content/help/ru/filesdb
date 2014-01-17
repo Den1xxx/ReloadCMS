@@ -1,0 +1,8 @@
+<h3>Файлы</h3>
+<p>Модуль &laquo;Файлы&raquo; позволяет сделать на сайте файловое хранилище.</p>
+<p>Файлы делятся по категориям. Краткое описание файла выводится в каждой категории вместе со ссылкой на скачивание. Скачиванию каждого файла ведется счёт.</p>
+<p>Как и в случае со статьями, прежде чем закачать файл в хранилище, нужно создать категорию файлов.</p>
+<p>&nbsp;</p>
+<h3>Управление файлами и категориями.</h3>
+<p>Администрирование &mdash; Файлы &mdash; <span style="text-decoration: underline;"><a class="active" href="admin.php?show=module&amp;id=filesdb.categories&amp;tab=4">Управление категориями файлов</a></span></p>
+<p>Администрирование &mdash; Файлы &mdash; <span style="text-decoration: underline;"><a href="admin.php?show=module&amp;id=filesdb.files&amp;tab=4">Управление файлами</a></span></p>

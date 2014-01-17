@@ -29,7 +29,7 @@
 	require_once(INCLUDE_PATH.'Manager.php');
 		
 		
-	//загружаем насройки
+	//загружаем настройки
 	require_once(CONF_PATH.'config'.EXT);
 	Manager::$conf = $conf;
 	unset($conf);

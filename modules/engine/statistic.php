@@ -43,7 +43,6 @@ function statistic_register(){
     // Check the last update time
     if(!empty($stats['update']) && $stats['update'] < mktime(0, 0, 0, date('n'), date('j'), date('Y'))) {
      if (!empty($stats['ref']))  { 
-		rcms_log_put(__('Today referers'), 'Last', $stats['ref']); // Save yestarday's referers
         unset($stats['ref']);  // Remove yestarday's referers
 		}         
      unset($stats['todayhits']);     // Remove yestarday's hits

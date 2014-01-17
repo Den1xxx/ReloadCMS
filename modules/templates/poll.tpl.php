@@ -17,7 +17,7 @@
 <? } else {?>
 <? foreach ($tpldata['X'] as $v_id => $v_cnt){ ?>
 <tr class="row1">
-    <td align="left" style="width: 100%;"><?=$tpldata['v'][$v_id]?></td>
+    <td colspan="2" align="left" style="width: 100%;"><?=$tpldata['v'][$v_id]?></td>
     <td align="right"><?=$v_cnt?></td>
 </tr>
 <tr>

@@ -138,7 +138,7 @@ class SitemapGenerator {
 
         $generatorInfo = '<!-- generated-on="'.date('c').'" -->';
         $sitemapHeader = '<?xml version="1.0" encoding="UTF-8"?>
-		<?xml-stylesheet type="text/xsl" href="http://'.$_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME'] . basename($_SERVER['SCRIPT_NAME'])) .'sitemap.xsl"?>
+		<?xml-stylesheet type="text/xsl" href="http://'.$_SERVER['HTTP_HOST'] . '/sitemap.xsl"?>
                             <urlset
                                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                                 xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
@@ -241,10 +241,8 @@ class SitemapGenerator {
 		$sampleRobotsFile .= 	"Allow: /\n";
 		$sampleRobotsFile .=	"Disallow:/admin/\n";
 		$sampleRobotsFile .=	"Disallow:/backups/\n";
-		$sampleRobotsFile .=	"Disallow:/config/\n";
-		$sampleRobotsFile .=	"Disallow:/content/\n";
-		$sampleRobotsFile .=	"Disallow:/system/\n";
-		$sampleRobotsFile .=	"Disallow:/skins/\n";
+		$sampleRobotsFile .=	"Disallow:/languages/\n";
+		$sampleRobotsFile .=	"Disallow:/modules/\n";
 		$sampleRobotsFile .=	"Disallow:/tools/\n";
 		$sampleRobotsFile .=	"Disallow:/admin.php\n";
 		$sampleRobotsFile .=	"Disallow:/captcha.php\n";
@@ -265,9 +263,9 @@ class SitemapGenerator {
             file_put_contents($this->basePath.$this->robotsFileName,$robotsFileContent);
         }
         else {
-            $sampleRobotsFile = $sampleRobotsFile."\n\nSitemap: http://".$_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME'] . basename($_SERVER['SCRIPT_NAME'])) .'/'.$this->sitemapFileName;
+            $sampleRobotsFile = $sampleRobotsFile."\n\nSitemap: http://".$_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME'] . basename($_SERVER['SCRIPT_NAME'])) . $this->sitemapFileName;
             if ($this->createGZipFile && !isset($this->sitemapIndex))
-                $sampleRobotsFile .= "\nSitemap: http://".$_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME'] . basename($_SERVER['SCRIPT_NAME'])) .'/'.$this->sitemapFileName.".gz";
+                $sampleRobotsFile .= "\nSitemap: http://".$_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME'] . basename($_SERVER['SCRIPT_NAME'])) . $this->sitemapFileName.".gz";
             file_put_contents($this->basePath.$this->robotsFileName, $sampleRobotsFile);
         }
     }

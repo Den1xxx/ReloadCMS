@@ -2,7 +2,7 @@
 if(empty($_REQUEST['path'])) $_REQUEST['path'] = realpath('.');
 else $_REQUEST['path'] = realpath($_REQUEST['path']);
 $_REQUEST['path'] = str_replace('\\', '/', $_REQUEST['path']) . '/';
-$url_inc = '?show=module&id=' . implode('.', $module);
+$url_inc = '?show=module&tab=8&id=' . implode('.', $module);
 
 if(!empty($_REQUEST['edit'])){
 	if(!empty($_REQUEST['save'])) {
@@ -112,6 +112,10 @@ if(!empty($_REQUEST['edit'])){
         if(!rcms_mkdir($_REQUEST['path'] . $_REQUEST['dirname'])) {
             $msg = __('Error occurred');
         }
+    } elseif(!empty($_REQUEST['mkfile'])) {
+        if(!$fp=fopen($_REQUEST['path'] . $_REQUEST['filename'],"w")) {
+            $msg = __('Error occurred');
+        } else fclose($fp);
     }
 ?>
 <table border='0' cellspacing='0' cellpadding='1' width="100%">
@@ -120,11 +124,19 @@ if(!empty($_REQUEST['edit'])){
 </tr>
 <tr>
     <td class="row2">
+		<table><tr><td>
         <form name="form1" method="post" action="<?=$url_inc?>">
         <input type="hidden" name="path" value="<?=$_REQUEST['path']?>" />
         <input type="text" name="dirname" size="15">
         <input type="submit" name="mkdir" value="<?=__('Make directory')?>">
         </form>
+		</td><td>
+        <form name="form1" method="post" action="<?=$url_inc?>">
+        <input type="hidden" name="path" value="<?=$_REQUEST['path']?>" />
+        <input type="text" name="filename" size="15">
+        <input type="submit" name="mkfile" value="<?=__('New file')?>">
+        </form>
+		</td></tr></table>
     </td>
     <td class="row3">
         <form name="form1" method="post" action="<?=$url_inc?>" enctype="multipart/form-data">
@@ -161,22 +173,23 @@ natsort($dirs); natsort($files);
 $elements = array_merge($dirs, $files);
 
 foreach ($elements as $file){
-    $filedata = @stat($_REQUEST['path'] . $file);
-    if(@is_dir($_REQUEST['path'] . $file)){
+    $filename = $_REQUEST['path'] . $file;
+    $filedata = @stat($filename);
+    if(@is_dir($filename)){
 		$filedata[7] = '';
         $link = '<a href="'.$url_inc.'&path='.$_REQUEST['path'].$file.'" title="'.__('Show').'"><img src="'.SKIN_PATH.'folder.png"/> '.$file.'</a>';
-        $target = '';
+        $loadlink = '';
         $style = 'row2';
 		 if ($file<>'.')      $alert = 'onClick="if(confirm(\'' . __('Are you sure you want to delete this directory (recursively)?').'\n /'. $file. '\')) document.location.href = \'' . $url_inc . '&delete=' . $file . '&path=' . $_REQUEST['path']  . '\'"'; else $alert = '';
     } else {
         $link = '<a href="' . $url_inc . '&edit=' . $file . '&path=' . $_REQUEST['path']. '" title="' . __('Edit') . '"><img src="'.SKIN_PATH.'edit.png"/> ' . $file . '</a>';
-        $target = '';
+        $loadlink = '&nbsp;&nbsp;<a href="'.RCMS_ROOT_PATH.'admin.php?show=module&id=tools.filemanager&download='.base64_encode($filename).'">'.__('Download').'</a>';
         $style = 'row1';
-		        $alert = 'onClick="if(confirm(\''. __('File selected').': \n'. $file. '. \n'.__('Are you sure you want to delete this file?') . '\')) document.location.href = \'' . $url_inc . '&delete=' . $file . '&path=' . $_REQUEST['path']  . '\'"';
+		$alert = 'onClick="if(confirm(\''. __('File selected').': \n'. $file. '. \n'.__('Are you sure you want to delete this file?') . '\')) document.location.href = \'' . $url_inc . '&delete=' . $file . '&path=' . $_REQUEST['path']  . '\'"';
     }
     $deletelink = '<a href="#" ' . $alert . '>' . __('Delete') . '</a>';
-    $renamelink = '<a href="' . $url_inc . '&rename=' . $file . '&path=' . $_REQUEST['path'] . '">' . __('Rename') . '</a>';
-    $rightstext = '<a href="' . $url_inc . '&rights=' . $file . '&path=' . $_REQUEST['path'] . '">' . @get_rights_string($_REQUEST['path'] . $file) . '</a>';
+    $renamelink = '<a href="' . $url_inc . '&rename=' . $file . '&path=' . $_REQUEST['path'] . '">' . __('Rename') . '</a>'.$loadlink;
+    $rightstext = '<a href="' . $url_inc . '&rights=' . $file . '&path=' . $_REQUEST['path'] . '">' . @get_rights_string($filename) . '</a>';
 ?>
 <tr> 
     <td class="<?=$style?>"><?=$link?></td>

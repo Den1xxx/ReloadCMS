@@ -30,4 +30,7 @@ kbd {
 	-moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px;
 } 
 .fn_category_tree {padding-left:10px;list-style-type:none;line-height:1.1em;}
+.fn_category_tree  a.active{font-weight:bold;}
 a img.edit{border:0;padding:0;margin:0;}
+div.ui-dialog-content p a{text-decoration:underline;}
+a.active{font-weight:bold}

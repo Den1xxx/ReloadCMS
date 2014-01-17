@@ -4,7 +4,7 @@
 //   http://reloadcms.com                                                     //
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
-if(!empty($_POST['forum_config'])) write_ini_file($_POST['forum_config'], CONFIG_PATH . 'forum.ini');
+if(!empty($_POST['forum_config'])&&write_ini_file($_POST['forum_config'], CONFIG_PATH . 'forum.ini')) rcms_showAdminMessage(__('Configuration updated'));
 
 $forum_config = parse_ini_file(CONFIG_PATH . 'forum.ini');
 

@@ -37,9 +37,9 @@ if (isset($_GET['for']))
 {
 $for=$_GET['for'];
 $re='';
-if (isset($_GET['re'])) {$re = '[quote]'.pm_get_msg_by_id(100, true, true, $_GET['re']).'[/quote]';}
+if (isset($_GET['re'])) {$re = '[quote='.$for.']'.pm_get_msg_by_id(100, true, true, $_GET['re']).'[/quote]';}
 $result = '<form method="post" action="" name="form1">'.rcms_show_bbcode_panel('form1.support_req').'<input type="hidden" name="to" value="'.$for.'" />
-' . __('Message text') . ': <br/><textarea name="support_req" width="90%" cols="60" rows="7">'.$re.'</textarea><p align="center"><input type="submit" value="' . __('Submit') . '" /></p></form>';
+' . __('Message text') . ': <br/><textarea name="support_req" style="width: 90%" cols="60" rows="7">'.$re.'</textarea><p align="center"><input type="submit" value="' . __('Submit') . '" /></p></form>';
 if (getUserData($_GET['for'])) show_window(__('Send private message for ').$for, $result, 'center');
 if (!getUserData($_GET['for'])) show_window(__('Error'), __('User not exist'), 'center');
 }
@@ -47,7 +47,7 @@ if (!getUserData($_GET['for'])) show_window(__('Error'), __('User not exist'), '
 if (isset($_POST['to'])) 
 {$to=$_POST['to'];
 if (trim($to) <> '') {
-	pm_post_msg($system->user['username'], $system->user['nickname'], $_POST['support_req'], $_POST['to']);
+	pm_post_msg($system->user['username'], $system->user['nickname'], strip_tags($_POST['support_req']), $_POST['to']);
         show_window('', __('Message sent'), 'center');
 	return false;
 }

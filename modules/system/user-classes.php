@@ -4,9 +4,37 @@
 //   http://reloadcms.com                                                     //
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
+if (defined('DEBUG')) { //MySQL work!
+$db =new MySQLDB();
+//check for existing table `users` in base
+$tableExists = simple_query("SHOW TABLES LIKE 'users'") > 0;
+if (!$tableExists) {
+$query = "CREATE TABLE IF NOT EXISTS `users` (
+  `username` varchar(255) NOT NULL,
+  `userdata` text NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;" ;
+$result=nr_query($query);
+//move users from files to MySQL table `users`
+if (sizeof($users=rcms_scandir(USERS_PATH)) != 0) {
+foreach ($users as $user){
+$query="INSERT INTO `users` (
+`username`,
+`userdata` 
+)
+VALUES (
+'".$user."', 
+'".file_get_contents(USERS_PATH.$user)."'
+);";
+$result.=nr_query($query);
+}
+}
+if (empty($result)) $tableExists = true;
+} 
+if ($tableExists) define('USERS_MYSQL',true); else define('USERS_MYSQL',false);
+} else define('USERS_MYSQL',false);
 
-class rcms_access
-{
+class rcms_access {
 	var $rights_database = array();
 	var $rights = array();
 	var $root = false;
@@ -271,6 +299,31 @@ class rcms_user extends rcms_access {
 
 	/**
      * @return boolean
+     * @desc This function verifies the existence of user.
+     */
+	function is_user($username){
+	if (USERS_MYSQL) {
+	$username=mysql_real_escape_string($username);
+	$query="SELECT * FROM `users` WHERE `username`='$username'";
+    $result=simple_query($query);
+    return (!empty($result['username']));
+	} else return (is_file(USERS_PATH . $username));
+	}
+	
+	/**
+     * @return boolean
+     * @desc This function verifies whether registered users.
+     */
+	function is_empty_users(){
+	if (USERS_MYSQL) {
+	$query='SELECT `username` from `users` LIMIT 1;';
+    $result=simple_query($query);
+    return (empty($result['username'])?true:false);
+	} else return ((sizeof(rcms_scandir(USERS_PATH)) == 0)?true:false);
+	}
+	
+	/**
+     * @return boolean
      * @param string $username
      * @param string $password
      * @param string $report_to
@@ -286,7 +339,7 @@ class rcms_user extends rcms_access {
 			return false;
 		}
 		// If login is not exists - we exiting with error
-		if(!is_file(USERS_PATH . $username)){
+		if(!$this->is_user($username)){
 			$this->results[$report_to] = __('There are no user with this username');
 			return false;
 		}
@@ -359,7 +412,7 @@ class rcms_user extends rcms_access {
 			return false;
 		}
 
-		if(is_file(USERS_PATH . $username)) {
+		if($this->is_user($username)) {
 			$this->results['registration'] = __('User with this username already exists');
 			return false;
 		}
@@ -386,7 +439,7 @@ class rcms_user extends rcms_access {
 		}
 
 		// If our user is first - we must set him an admin rights
-		if (sizeof(rcms_scandir(USERS_PATH)) == 0) {
+		if ($this->is_empty_users()) {
 		$_userdata['admin'] = '*';
 		$arr_conf = parse_ini_file(CONFIG_PATH . 'config.ini');
 		$arr_conf['admin_email'] = $email;
@@ -416,7 +469,7 @@ class rcms_user extends rcms_access {
 			$_userdata[$field] = strip_tags(trim($userdata[$field]));
 		}
 
-		if(!file_write_contents(USERS_PATH . $username, serialize($_userdata))){
+		if(!$this->save_user($username,$_userdata)){
 			$this->results['registration'] = __('Cannot save profile');
 			return false;
 		}
@@ -438,7 +491,6 @@ class rcms_user extends rcms_access {
 	}
 
 	function updateUser($username, $nickname, $password, $confirm, $email, $userdata, $admin = false){
-		$username = basename($username);
 		$nickname = empty($nickname) ? $username : mb_substr(strip_tags($nickname), 0, 20);
 
 		if(empty($username) || preg_replace("/[\d\w]+/i", '', $username) != '') {
@@ -447,7 +499,7 @@ class rcms_user extends rcms_access {
 		}
 		if($username == 'guest') return false;
 
-		if(!is_file(USERS_PATH . $username)) {
+		if(!$this->is_user($username)) {
 			$this->results['profileupdate'] = __('There is no user with this name');
 			return false;
 		}
@@ -501,7 +553,7 @@ class rcms_user extends rcms_access {
 			$_userdata[$field] = strip_tags(trim($userdata[$field]));
 		}
 
-		if(!file_write_contents(USERS_PATH . $username, serialize($_userdata))){
+		if(!$this->save_user($username,$_userdata)){
 			$this->results['profileupdate'] = __('Cannot save profile');
 			return false;
 		}
@@ -516,7 +568,6 @@ class rcms_user extends rcms_access {
 	}
 
 	function recoverPassword($username, $email){
-		$username = basename($username);
 		if(!($data = $this->getUserData($username))) {
 			$this->results['passrec'] = __('Cannot open profile');
 			return false;
@@ -531,7 +582,8 @@ class rcms_user extends rcms_access {
 		if(!empty($data['last_prr']) && !empty($this->config['pr_flood']) && (int)$time <= ((int)$data['last_prr'] + (int)$this->config['pr_flood'])){
 			$this->results['passrec'] = __('Too many requests in limited period of time. Try later.');
 			$data['last_prr'] = time();
-			if(!file_write_contents(USERS_PATH . $username, serialize($data))) {
+			
+			if(!$this->save_user($username,$data)) {
 				$this->results['passrec'] .= '<br />' . __('Cannot save profile');
 			}
 			rcms_log_put(__('Notification'), $this->user['username'], 'Attempted to recover password for ' . $username);
@@ -542,7 +594,7 @@ class rcms_user extends rcms_access {
 		__('Your username at') . ' ' . $site_url['host'] . ': ' . $username . "\r\n" . __('Your new password at') . ' ' . $site_url['host'] . ': ' . $new_password)) {
 			$data['password'] = md5($new_password);
 			$data['last_prr'] = $time;
-			if(!file_write_contents(USERS_PATH . $username, serialize($data))) {
+			if(!$this->save_user($username,$data)) {
 				$this->results['passrec'] = __('Cannot save profile');
 				return false;
 			}
@@ -556,14 +608,36 @@ class rcms_user extends rcms_access {
 		}
 	}
 
+	
+	function save_user($username,$userdata){ 
+	if (USERS_MYSQL) {
+	if ($this->is_user($username))
+	$query="UPDATE `users` SET 
+	`userdata`='".serialize($userdata)."'
+	WHERE `username` ='".$username."';";
+	else 	$query="INSERT INTO `users` (`username`,`userdata`) 
+	VALUES ('".$username."','".serialize($userdata)."');";
+	$result = nr_query($query);
+	return (!empty($result));
+	} elseif(!file_write_contents(USERS_PATH . $username, serialize($userdata))) return false;
+	return true;
+	}
+	
 	function getUserData($username){
-		$result = @unserialize(@file_get_contents(USERS_PATH . basename($username)));
+	if (USERS_MYSQL) {
+	$userdata=simple_query("SELECT `userdata` FROM `users` WHERE `username`='".$username."' LIMIT 1");
+	$result=@unserialize($userdata['userdata']);
+	}	else	$result = @unserialize(@file_get_contents(USERS_PATH . basename($username)));
 		if(empty($result)) return false; else return $result;
 	}
 
 	function getUserList($expr = '*', $id_field = ''){
 		$return = array();
-		$users = rcms_scandir(USERS_PATH, $expr);
+		if (USERS_MYSQL) {
+		$users_array = simple_queryall("SELECT `username` FROM `users`");
+		foreach($users_array as $user)	$users[]=$user['username'];
+		}
+		else $users = rcms_scandir(USERS_PATH, $expr);
 		foreach ($users as $user){
 			if($data = $this->getUserData($user)) {
 				if(!empty($id_field) && !empty($data[$id_field])) {
@@ -577,16 +651,21 @@ class rcms_user extends rcms_access {
 	}
 
 	function changeProfileField($username, $field, $value){
-		$username = basename($username);
+		if (USERS_MYSQL) $value = mysql_real_escape_string($value);
+		else $username = basename($username);
 		if (!($userdata = $this->getUserData($username))) return false;
 		$userdata[$field] = $value;
-		if(!file_write_contents(USERS_PATH . $username, serialize($userdata))) return false;
-		return true;
+		$this->save_user($username,$userdata);
 	}
 
 	function deleteUser($username){
+		if (USERS_MYSQL) { 
+		$username = mysql_real_escape_string($username);
+		nr_query("DELETE FROM `users` WHERE `username`='".$username."'");
+		} else {
 		$username = basename($username);
 		if(!rcms_delete_files(USERS_PATH . $username)) return false;
+		}
 		user_remove_from_cache($username, $cache);
 		return true;
 	}

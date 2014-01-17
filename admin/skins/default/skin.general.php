@@ -2,6 +2,7 @@
 <html>
 <head>     
     <title><?=__('Administration')?></title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
     <?rcms_show_element('meta')?>
 <link rel="stylesheet" href="<?=ADMIN_SKIN?>style.css" type="text/css">
 <!--[if IE]>
@@ -21,6 +22,7 @@
 <body>
     <div id="layout-center">
 	<?php
+	echo '<div style="z-index:1;position:absolute;right:5px;">'.show_help(get('id')).'</div>';
 	if(!empty($_GET['show'])) {
 			$module = (!empty($_GET['id'])) ? basename($_GET['id']) : '.index';
 			$module = explode('.', $module, 2);

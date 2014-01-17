@@ -14,4 +14,5 @@ if($system->checkForRight('GENERAL')) {
     $MODULES[$category][1]['rss_agg'] = __('RSS Aggregator');
     $MODULES[$category][1]['backup'] = __('Backups management');
 }
+if($system->checkForRight('UPLOAD'))    $MODULES[$category][1]['uploads'] = __('Uploads management');
 ?>

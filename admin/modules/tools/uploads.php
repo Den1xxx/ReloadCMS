@@ -44,7 +44,9 @@ $frm =new InputForm ('', 'post', __('Submit'));
 $frm->addbreak(__('Uploaded files'));
 if(!empty($files)) {
     foreach ($files as $file) {
-        $frm->addrow(__('Filename') . ' = <a href="' . FILES_PATH . $file['name'] . '">' . $file['name'] . '</a> [' . __('Size of file') . ' = ' . $file['size'] . '] [' . __('Last modification time') . ' = ' . date("d F Y H:i:s", $file['mtime']) . ']', $frm->checkbox('delete[' . $file['name'] . ']', 'true', __('Delete')), 'top');
+        $loadlink = '&nbsp;&nbsp;<a href="'.RCMS_ROOT_PATH.'admin.php?show=module&id=tools.uploads&download='.base64_encode(FILES_PATH.$file['name']).'">'.__('Download').'</a>';
+		if (!is_dir(FILES_PATH.$file['name']))
+        $frm->addrow(__('Filename') . ' = <a href="' . FILES_PATH . $file['name'] . '" title="'.__('Show').'">' . $file['name'] . '</a> [' . __('Size of file') . ' = ' . $file['size'] . '] [' . __('Last modification time') . ' = ' . date("d F Y H:i:s", $file['mtime']) . ']', $frm->checkbox('delete[' . $file['name'] . ']', 'true', __('Delete')).$loadlink, 'top');
     }
 }
 $frm->show();

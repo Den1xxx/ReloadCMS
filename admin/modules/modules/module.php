@@ -10,6 +10,6 @@ if($system->checkForRight('GENERAL')) {
     $MODULES[$category][1]['ucm'] = __('User-Created-Menus');
     $MODULES[$category][1]['installer'] = __('Install modules');
     $MODULES[$category][1]['uninstaller'] = __('Uninstall modules');
-    $MODULES[$category][1]['module-dis'] = __('Enable').'/'.__('Disable');
+    $MODULES[$category][1]['module_dis'] = __('Enable').'/'.__('Disable');
 }
 ?>

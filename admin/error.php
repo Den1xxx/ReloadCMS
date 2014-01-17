@@ -10,7 +10,7 @@ if(empty($system)) die();
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?=$system->config['encoding']?>">
-<link rel="stylesheet" href="<?=ADMIN_PATH?>style.css" type="text/css">
+<link rel="stylesheet" href="<?=ADMIN_SKIN?>style.css" type="text/css">
 </head>
 <body>
 <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; height: 100%">

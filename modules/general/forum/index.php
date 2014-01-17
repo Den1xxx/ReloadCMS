@@ -37,7 +37,7 @@ if($action == 'new_topic' && !empty($_POST['new_topic_perform'])){
     	show_error(__('You are not logined!'));
     } else {
     if(!empty($new_topic_title) && !empty($new_topic_text)){
-        if(strlen($new_topic_text) <= $max_topic_len && strlen($new_topic_title) <= $max_topic_title){
+        if(mb_strlen(str_replace(array("\n","\r"),array("",""),$new_topic_text)) <= $max_topic_len && mb_strlen($new_topic_title) <= $max_topic_title){
             $time = rcms_get_time();
             if($system->checkForRight('FORUM')){
                 $new_topic_sticky = (empty($_POST['new_topic_sticky'])) ? false : true;
@@ -105,7 +105,7 @@ if(!empty($_POST['new_post_perform'])){
     } else {
     if(!empty($new_post_text)){
         if(!empty($topics[$topic_id])){
-            if(strlen($new_post_text) <= $max_message_len){
+            if(mb_strlen($new_post_text) <= $max_message_len){
                 if(!$topics[$topic_id]['closed']){
                     $time = rcms_get_time();
                     $topics[$topic_id]['replies']++;
@@ -163,7 +163,7 @@ if(!empty($_POST['edit_submit']) && !empty($_GET['p'])){
     $post_id = (int)$_GET['p'] - 2;
     $new_text = (empty($_POST['text'])) ? '' : $_POST['text'];
     if(!empty($new_text)){
-        if(strlen($new_text) <= $max_message_len){
+        if(mb_strlen(str_replace(array("\n","\r"),array("",""),$new_text)) <= $max_topic_len){
             if(!empty($topics[$topic_id])){
                 $posts = @unserialize(@file_get_contents(FORUM_PATH . 'topic.' . $topic_id . '.dat'));
                 if(!empty($posts[$post_id])){
@@ -195,7 +195,7 @@ if(!empty($_POST['edit_submit']) && empty($_GET['p'])){
     $new_title = (empty($_POST['title'])) ? '' : htmlspecialchars($_POST['title']);
     $new_text = (empty($_POST['text'])) ? '' : $_POST['text'];
     if(!empty($new_title) && !empty($new_text)){
-        if(strlen($new_text) <= $max_topic_len && strlen($new_title) <= $max_topic_title){
+        if(mb_strlen(str_replace(array("\n","\r"),array("",""),$new_text)) <= $max_topic_len && mb_strlen($new_title) <= $max_topic_title){
             if(!empty($topics[$topic_id])){
                 if($system->checkForRight('FORUM') || ($system->user['username'] != 'guest' && $system->user['username'] == $topics[$topic_id]['author_name'])){
                     $topics[$topic_id]['text'] = $new_text;

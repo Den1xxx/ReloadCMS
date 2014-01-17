@@ -8,7 +8,9 @@
 
 if(!empty($_POST['nconfig'])) {
 write_ini_file($_POST['nconfig'], CONFIG_PATH . 'config.ini');
+rcms_showAdminMessage(__('Configuration updated'));
 }
+
 if (!empty($_POST['redirect'])) {
 //delete self host
 $_POST['redirect']['from_arr']=str_replace('http://www.'.$_SERVER['HTTP_HOST'].'/','',$_POST['redirect']['from_arr']);
@@ -18,6 +20,7 @@ $_POST['redirect']['to_arr']=str_replace('http://'.$_SERVER['HTTP_HOST'].'/','',
 //safe config to redirecting
 file_write_contents(CONFIG_PATH.'redirect.ini',serialize(str_replace('http://'.$_SERVER['HTTP_HOST'].'/','',$_POST['redirect'])));
 }
+
 //delete redirect file if data empty 
 elseif (isset($_POST['meta_tags'])&&is_file(CONFIG_PATH.'redirect.ini')) rcms_delete_files(CONFIG_PATH.'redirect.ini');
 if(isset($_POST['meta_tags'])) file_write_contents(DATA_PATH . 'meta_tags.html', $_POST['meta_tags']);
@@ -52,23 +55,24 @@ $frm->addrow(__('Number of element that will be considered as latest'), $frm->te
 $frm->addrow(__('Number of elements per page'), $frm->text_box('nconfig[perpage]', @$config['perpage']));
 $frm->addrow(__('Module on index page'), $frm->select_tag('nconfig[index_module]', $avaible_modules, @$config['index_module']));
 $frm->addrow(__('Hide welcome message'), $frm->checkbox('nconfig[wmh]', '1', '', @$config['wmh']));
-$frm->addrow(__('Text of Welcome message'), $frm->textarea('welcome_mesg', file_get_contents(DATA_PATH . 'intro.html'), 90, 20), 'top');
+$frm->addrow(__('Text of Welcome message').tinymce_selector('welcome_mesg'), $frm->textarea('welcome_mesg', file_get_contents(DATA_PATH . 'intro.html'), 90, 20), 'top');
 $frm->addrow(__('Additional meta tags for your site'), $frm->textarea('meta_tags', file_get_contents(DATA_PATH . 'meta_tags.html'), 90, 5), 'top');
+$frm->addrow(__('Add to external link'). '.<br /> ' .__('Example').": rel='nofollow' class='external'", $frm->text_box('nconfig[addtolink]', @$config['addtolink']));
 //Redirect
-$add_redirect ='<div>+ '.__('from')." <input type=\'text\' name=\'redirect[from_arr][]\' size=\'55\' />*"
+$add_redirect ='<div>+'.__(' from ')."<input type=\'text\' name=\'redirect[from_arr][]\' size=\'55\' />*"
 .__(' to ')."<input type=\'text\' name=\'redirect[to_arr][]\' size=\'55\'/>*"
-."<img src=\'".SKIN_PATH."delete.gif\' style=\'cursor:pointer;float:right;\' onClick=\'$($(this).parents().get(0)).remove();\'>"
+."<img src=\'".SKIN_PATH."neok.gif\' title=\'".__('Delete')."\' style=\'cursor:pointer;display:table-cell;vertical-align:middle;\' onClick=\'$($(this).parents().get(0)).remove();\'>"
 .'</div>';
 $frm->addbreak(__('Redirect').
-'&nbsp;&nbsp;&nbsp;<img onClick="$(\'#add_redirect\').append(\''.$add_redirect.'\');" src="'.SKIN_PATH.'plus.gif" style="cursor:pointer;"/>'
+'&nbsp;&nbsp;&nbsp;<img onClick="$(\'#add_redirect\').append(\''.$add_redirect.'\');" title="'.__('Add').'" src="'.SKIN_PATH.'plus.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;"/>'
 );
 if (!empty($redirect['from_arr'])) {
 foreach ($redirect['from_arr'] as $i=>$value)
 if (!empty($redirect['from_arr'][$i]))
 $frm->addrow(
-__('from').' '.$frm->text_box('redirect[from_arr][]', @$redirect['from_arr'][$i], 55),
+__(' from ').' '.$frm->text_box('redirect[from_arr][]', @$redirect['from_arr'][$i], 55),
 __(' to ').$frm->text_box('redirect[to_arr][]', @$redirect['to_arr'][$i], 55)
-.'<img src="'.SKIN_PATH.'delete.gif" style="cursor:pointer;float:right;" onClick="$($(this).parents(\'tr\').get(0)).remove();">'
+.'<img src="'.SKIN_PATH.'neok.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;" onClick="$($(this).parents(\'tr\').get(0)).remove();">'
 );
 }
 $frm->addmessage('<div id="add_redirect"></div>');

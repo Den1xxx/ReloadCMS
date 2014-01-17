@@ -8,7 +8,7 @@
 
 function ucm_create($id, $title, $data, $align = 'left', $mode='html') {
     $id = basename(trim($id));
-    if(preg_replace("/[a-z0-9]*/i", '', $id) != '' || empty($id)) return false;
+    if(preg_replace("/[a-z0-9\-\_]*/i", '', $id) != '' || empty($id)) return false;
     if(is_file(DF_PATH . $id . '.ucm')) return false;
     if(file_write_contents(DF_PATH . $id . '.ucm', $title . "\n" . $align . "\n" . $data)){
         return true;
@@ -18,8 +18,8 @@ function ucm_create($id, $title, $data, $align = 'left', $mode='html') {
 function ucm_change($id, $newid, $title, $data, $align = 'left', $mode='html'){
     $id = basename($id);
     $newid = basename($newid);
-    if(preg_replace("/[a-z0-9]*/i", '', $id) != '' || empty($id)) return false;
-    if(preg_replace("/[a-z0-9]*/i", '', $newid) != '' || empty($newid)) return false;
+    if(preg_replace("/[a-z0-9\-\_]*/i", '', $id) != '' || empty($id)) return false;
+    if(preg_replace("/[a-z0-9\-\_]*/i", '', $newid) != '' || empty($newid)) return false;
     if(!is_file(DF_PATH . $id . '.ucm')) return false;
     if($id != $newid && is_file(DF_PATH . $newid . '.ucm')) return false;
     if(!file_write_contents(DF_PATH . $id . '.ucm', $title . "\n" . $align . "\n" . $data)) return false;

@@ -23,7 +23,7 @@ var $time_file_cache=600;
 
 var $CONTENT;
 
-function CACHE (){
+function __construct(){
 
 if ($this ->enable_cache) return true;
 

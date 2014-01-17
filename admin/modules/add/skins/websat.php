@@ -10,10 +10,6 @@
 //Initialisation
 $skin = str_replace('.php','',basename(__FILE__));
 $css_file = DATA_PATH.'skins/'.$skin.'.ini';
-$system->addInfoToHead(
-'<script src="'.RCMS_ROOT_PATH.'tools/js/colorpicker/spectrum.js"></script>
-<link rel="stylesheet" href="'.RCMS_ROOT_PATH.'tools/js/colorpicker/spectrum.css" />'
-);
 
 //API
 if(!empty($_POST['css_config'])) {
@@ -103,7 +99,7 @@ var content_position='';
 var font_family=$('#dialog input[name="css_config[Font family]"]').val();
 var input_text_color=$('#dialog input[name="css_config[Input text color]"]').val();
 var input_border_color=$('#dialog input[name="css_config[Input border color]"]').val();
-var buttons_selector='input[type=submit],input[type=reset],input[type=button],input[type=file],button';
+var buttons_selector='input[type=submit],input[type=reset],input[type=button],input[type=file]';
 var button_start_color=$('#dialog input[name="css_config[Button start gradient color]"]').val();
 var button_end_color=$('#dialog input[name="css_config[Button end gradient color]"]').val();
 var button_text_color=$('#dialog input[name="css_config[Button text color]"]').val();
@@ -127,7 +123,6 @@ $('#site').contents().find('#sidebar').css('float',sidebar_position);
 $('#site').contents().find('input').css('color',input_text_color).css('border-color',input_border_color);
 $('#site').contents().find('textarea').css('color',input_text_color).css('border-color',input_border_color);
 $('#site').contents().find('select').css('color',input_text_color).css('border-color',input_border_color);
-$('#site').contents().find('button').css('color',input_text_color).css('border-color',input_border_color);
 $('#site').contents().find(buttons_selector).css('color',button_text_color);
 show_gradient(buttons_selector,button_start_color,button_end_color);
 

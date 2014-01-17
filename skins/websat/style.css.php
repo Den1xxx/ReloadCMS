@@ -42,7 +42,7 @@ ul, ol {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: underline;
     color: '.$css_config['Link color'].';
 }
 
@@ -63,56 +63,57 @@ border:0;
 
 /* Form */
 input {
-	text-indent: '.$css_config['Input padding, px'].'px;
+    text-indent: '.$css_config['Input padding, px'].'px;
 }
 
-input, textarea, select, button {
-	color: '.$css_config['Input text color'].';
+input, textarea, select, button, a.button {
+    color: '.$css_config['Input text color'].';
     background-color: #FCFCFC;
     border: '.$css_config['Input border thickness, px'].'px solid '.$css_config['Input border color'].';
-	outline: none;
+    outline: none;
     padding: 3px; 
     border-radius: '.$css_config['Input border radius, px'].'px; 
+	text-decoration:none;
 }
 
 input[type="password"]:hover,input[type="text"]:hover,textarea:hover {
-	color: '.$css_config['Input text hover color'].';
+    color: '.$css_config['Input text hover color'].';
     background-color: #fff;
     border: '.$css_config['Input border thickness, px'].'px solid '.$css_config['Input border hover color'].';
 }
 
 input[type="password"]:focus,input[type="text"]:focus,textarea:focus{
-	color: '.$css_config['Input text hover color'].';
+    color: '.$css_config['Input text hover color'].';
     background-color: #fff;
     border: '.$css_config['Input border thickness, px'].'px solid '.$css_config['Input border hover color'].';
-	box-shadow: 0 0 5px '.$css_config['Input border hover color'].';
+    box-shadow: 0 0 5px '.$css_config['Input border hover color'].';
 }
 
-input[type="submit"],input[type="reset"],input[type="button"],input[type="file"],button{
-	color:'.$css_config['Button text color'].';
-	cursor:pointer;
+input[type="submit"],input[type="reset"],input[type="button"],button,a.button{
+    color:'.$css_config['Button text color'].';
+    cursor:pointer;
     background: '.$css_config['Button end gradient color'].';
     background: -webkit-gradient(linear, left top, left bottom, from('.$css_config['Button start gradient color'].'), to('.$css_config['Button end gradient color'].')); 
     background: -moz-linear-gradient(top,  '.$css_config['Button start gradient color'].',  '.$css_config['Button end gradient color'].'); 
-	background: -o-linear-gradient(top, '.$css_config['Button start gradient color hover'].' 0px, '.$css_config['Button end gradient color'].' 100%);
+    background: -o-linear-gradient(top, '.$css_config['Button start gradient color hover'].' 0px, '.$css_config['Button end gradient color'].' 100%);
     background: gradient(linear, top,  '.$css_config['Button start gradient color'].',  '.$css_config['Button end gradient color'].'); 
     border-color: '.$css_config['Button start gradient color'].'; 
-	margin: 1px;
-	outline: none;
-	text-indent: 0;
+    margin: 1px;
+    outline: none;
+    text-indent: 0;
 } 
 
-input[type="submit"]:hover,input[type="reset"]:hover,input[type="button"]:hover,input[type="file"]:hover,button:hover {
+input[type="submit"]:hover,input[type="reset"]:hover,input[type="button"]:hover,a.button:hover {
     background: '.$css_config['Button end gradient color hover'].';
     background: -webkit-gradient(linear, left top, left bottom, from('.$css_config['Button start gradient color hover'].'), to('.$css_config['Button end gradient color hover'].')); 
     background: -moz-linear-gradient(top,  '.$css_config['Button start gradient color hover'].',  '.$css_config['Button end gradient color hover'].'); 
-	background: -o-linear-gradient(top, '.$css_config['Button start gradient color hover'].' 0px, '.$css_config['Button end gradient color hover'].' 100%);
+    background: -o-linear-gradient(top, '.$css_config['Button start gradient color hover'].' 0px, '.$css_config['Button end gradient color hover'].' 100%);
     background: gradient(linear, top,  '.$css_config['Button start gradient color hover'].',  '.$css_config['Button end gradient color hover'].'); 
     border-color: '.$css_config['Button start gradient color hover'].'; 
 } 
 
-input[type="submit"]:visited,input[type="reset"]:visited,input[type="button"]:visited,input[type="file"]:visited{
-	outline: none;
+input[type="submit"]:visited,input[type="reset"]:visited,input[type="button"]:visited,a.button:visited{
+    outline: none;
 }
 
 h2.window-title input{border:0;}
@@ -128,7 +129,7 @@ h2.window-title input{border:0;}
 /* Logo */
 
 #logo {
-	padding-top: '.$css_config['Logo padding, px'].'px;
+    padding-top: '.$css_config['Logo padding, px'].'px;
     margin-top: 0;
     color: #651262;
 }
@@ -214,14 +215,14 @@ h2.window-title input{border:0;}
     height: '.ceil($css_config['Padding links menu, px']*3.6).'px;
     margin: 0 auto;
     padding: 0;
-	color: '.$css_config['Menu text color'].'; 
+    color: '.$css_config['Menu text color'].'; 
     text-decoration: none; 
     text-shadow: 1px 1px 2px #333; 
     background: '.$css_config['End menu gradient color'].'; 
     background: -webkit-gradient(linear, left top, left bottom, from('.$css_config['Start menu gradient color'].'), to('.$css_config['End menu gradient color'].')); 
     background: -moz-linear-gradient(top, '.$css_config['Start menu gradient color'].',  '.$css_config['End menu gradient color'].'); 
- 	background: -o-linear-gradient(top, '.$css_config['Start menu gradient color'].' 0%,'.$css_config['End menu gradient color'].' 100%); 
- 	background: -ms-linear-gradient(top, '.$css_config['Start menu gradient color'].' 0%,'.$css_config['End menu gradient color'].' 100%); 
+    background: -o-linear-gradient(top, '.$css_config['Start menu gradient color'].' 0%,'.$css_config['End menu gradient color'].' 100%); 
+    background: -ms-linear-gradient(top, '.$css_config['Start menu gradient color'].' 0%,'.$css_config['End menu gradient color'].' 100%); 
    background: gradient(linear, top,  '.$css_config['Start menu gradient color'].',  '.$css_config['End menu gradient color'].'); 
     border: '.$css_config['The thickness of the border of the menu, px'].'px solid '.$css_config['End menu gradient color'].'; 
     border-radius: '.$css_config['Menu radius, px'].'px; 
@@ -251,7 +252,7 @@ h2.window-title input{border:0;}
     font-family: Arial, Helvetica, sans-serif;
     font-size: '.$css_config['Menu font size, px'].'px;
     font-weight: bold;
-	color: '.$css_config['Menu text color'].'; 
+    color: '.$css_config['Menu text color'].'; 
 }
 
 #menu a:hover, #menu .current_page_item a {
@@ -262,9 +263,9 @@ h2.window-title input{border:0;}
     background: '.$css_config['Start menu gradient color'].'; 
     background: -webkit-gradient(linear, left top, left bottom, from('.$css_config['End menu gradient color'].'), to('.$css_config['Start menu gradient color'].')); 
     background: -moz-linear-gradient(top, '.$css_config['End menu gradient color'].',  '.$css_config['Start menu gradient color'].'); 
-	background: -o-linear-gradient(top, '.$css_config['End menu gradient color'].' 0%,'.$css_config['Start menu gradient color'].' 100%); 
- 	background: -ms-linear-gradient(top, '.$css_config['End menu gradient color'].' 0%,'.$css_config['Start menu gradient color'].' 100%); 
-	filter: progid:DXImageTransform.Microsoft.gradient(enabled="true",startColorstr='.$css_config['End menu gradient color'].',endColorstr='.$css_config['Start menu gradient color'].',GradientType=0);
+    background: -o-linear-gradient(top, '.$css_config['End menu gradient color'].' 0%,'.$css_config['Start menu gradient color'].' 100%); 
+    background: -ms-linear-gradient(top, '.$css_config['End menu gradient color'].' 0%,'.$css_config['Start menu gradient color'].' 100%); 
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled="true",startColorstr='.$css_config['End menu gradient color'].',endColorstr='.$css_config['Start menu gradient color'].',GradientType=0);
    background: gradient(linear, top,  '.$css_config['End menu gradient color'].',  '.$css_config['Start menu gradient color'].'); 
 }
 
@@ -273,13 +274,13 @@ h2.window-title input{border:0;}
 }
 
 .fixed {
-	position: fixed;
-	top: -'.($css_config['The thickness of the border of the menu, px']-1).'px;
-	box-shadow: 0px '.$css_config['Padding links menu, px'].'px '.ceil($css_config['Padding links menu, px']/2).'px '.$css_config['Body background color'].';
-	z-index:2;
+    position: fixed;
+    top: -'.($css_config['The thickness of the border of the menu, px']-1).'px;
+    box-shadow: 0px '.$css_config['Padding links menu, px'].'px '.ceil($css_config['Padding links menu, px']/2).'px '.$css_config['Body background color'].';
+    z-index:2;
 }
 #menu.fixed{
-	width:'.(2*$css_config['The thickness of the border of the menu, px']+$css_config['Skin width, px']).'px;
+    width:'.(2*$css_config['The thickness of the border of the menu, px']+$css_config['Skin width, px']).'px;
 }
 
 a.btn-scroll-top{
@@ -444,18 +445,18 @@ a.btn-scroll-top.fixed{position:absolute;bottom:-20px;}
 
 #sidebar h2 {
     padding-left: '.($css_config['Sidebar title padding, px']+$css_config['Sidebar title radius, px']).'px;
-	padding-top: '.$css_config['Sidebar title padding, px'].'px;
-	padding-bottom: '.$css_config['Sidebar title padding, px'].'px;
+    padding-top: '.$css_config['Sidebar title padding, px'].'px;
+    padding-bottom: '.$css_config['Sidebar title padding, px'].'px;
     font-size: '.$css_config['Sidebar title font size, px'].'px;
     font-weight: bold;
-	color: '.$css_config['Menu text color'].'; 
+    color: '.$css_config['Menu text color'].'; 
     text-decoration: none; 
     text-shadow: 1px 1px 2px #333; 
     background: '.$css_config['End menu gradient color'].'; 
     background: -webkit-gradient(linear, left top, left bottom, from('.$css_config['Start menu gradient color'].'), to('.$css_config['End menu gradient color'].')); 
     background: -moz-linear-gradient(top, '.$css_config['Start menu gradient color'].',  '.$css_config['End menu gradient color'].'); 
- 	background: -o-linear-gradient(top, '.$css_config['Start menu gradient color'].' 0%,'.$css_config['End menu gradient color'].' 100%); 
- 	background: -ms-linear-gradient(top, '.$css_config['Start menu gradient color'].' 0%,'.$css_config['End menu gradient color'].' 100%); 
+    background: -o-linear-gradient(top, '.$css_config['Start menu gradient color'].' 0%,'.$css_config['End menu gradient color'].' 100%); 
+    background: -ms-linear-gradient(top, '.$css_config['Start menu gradient color'].' 0%,'.$css_config['End menu gradient color'].' 100%); 
     background: gradient(linear, top,  '.$css_config['Start menu gradient color'].',  '.$css_config['End menu gradient color'].'); 
     border: '.$css_config['The thickness of the border of the menu, px'].'px solid '.$css_config['End menu gradient color'].'; 
     border-radius: '.$css_config['Sidebar title radius, px'].'px; 

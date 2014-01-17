@@ -128,6 +128,7 @@ class articles{
 	// Categories
 
 	function getCategories($short = false, $parse = true, $ret_last_article = false){
+	global $system;
 		if(empty($this->container)){
 			$this->last_error = __('No section selected!');
 			return false;
@@ -172,7 +173,7 @@ class articles{
 
 		// Checking access level
 		$cat_data['accesslevel'] = (!is_file($cat_prefix . 'access')) ? 0 : (int) file_get_contents($cat_prefix . 'access');
-		if($cat_data['accesslevel'] > @$system->user['accesslevel'] && !$system->checkForRight('-any-')) {
+		if($cat_data['accesslevel'] > $system->user['accesslevel'] && !$system->checkForRight('-any-')) {
 			$this->last_error = __('Access denied');
 			return false;
 		}
@@ -396,7 +397,7 @@ class articles{
 		}
 	}
 
-	function saveArticle($cat_id, $art_id, $title, $src, $keywords, $sef_desc, $desc, $text, $mode = 'text', $comments = 'yes') {
+	function saveArticle($cat_id, $art_id, $title, $src, $keywords, $sef_desc, $desc, $text, $mode = 'text', $comments = 'yes', $time = '') {
 		$cat_id = (int) $cat_id;
 		$art_id = (int) $art_id;
 		global $system;
@@ -469,7 +470,7 @@ class articles{
 			$add_data = array(
 			'author_nick' => $old['author_nick'],
 			'author_name' => $old['author_name'],
-			'time' => $old['time'],
+			'time' => empty($time)?$old['time']:$time,
 			);
 		}
 

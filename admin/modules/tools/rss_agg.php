@@ -6,7 +6,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 if(!empty($_POST['rssaggcfg']) && isset($_POST['feeds'])) {
-	write_ini_file(array('config' => $_POST['rssaggcfg'], 'feeds' => explode("\n", str_replace("\r", '', $_POST['feeds']))), CONFIG_PATH . 'rss_aggregator.ini', true);
+if	(write_ini_file(array('config' => $_POST['rssaggcfg'], 'feeds' => explode("\n", str_replace("\r", '', $_POST['feeds']))), CONFIG_PATH . 'rss_aggregator.ini', true)) rcms_showAdminMessage(__('Configuration updated'));
 }
 
 $rss_cfg = parse_ini_file(CONFIG_PATH . 'rss_aggregator.ini', true);

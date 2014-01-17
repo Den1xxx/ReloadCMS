@@ -265,11 +265,9 @@ class gallery{
 	}
 
 	function getImage($filename){
-	global $lightbox_config,$system;
+	global $lightbox_config;
 	if(empty($this->indexes['main'][$filename]) || !is_file(GALLERY_IMAGES_DIR . $filename)) return false;
-	$lightbox_config = unserialize(@file_get_contents(CONFIG_PATH . 'lightbox.ini'));
 		if (@$lightbox_config['gallery']) {
-		$system->addInfoToHead($lightbox_config['code']);
 		return ' <div style="overflow: hidden; width:'.$lightbox_config['gal_width'].'px;"><a href="' . GALLERY_IMAGES_DIR . $filename . '" class="gallery"><img src="' . GALLERY_IMAGES_DIR . $filename . '" alt="' . $this->indexes['main'][$filename]['title'] . '"  style="max-width: 95%;"/></a></div>';}
 		else {
 		return '<div style="overflow: hidden; width: 100%;"><a href="' . GALLERY_IMAGES_DIR . $filename . '" target="_blank"><img src="' . GALLERY_IMAGES_DIR . $filename . '" alt="' . $this->indexes['main'][$filename]['title'] . '" style="max-width: 95%;" /></a></div>';

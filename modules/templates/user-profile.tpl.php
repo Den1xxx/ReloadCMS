@@ -3,7 +3,7 @@
 <table cellspacing="0" cellpadding="2" border="0" style="width: 100%;">
 <tr>
     <td width="50%" align="right"><?=__('Username')?>:<?php if($tpldata['mode'] != 'profile_form'){?><br /><small><?=__('Will be used only for login. Please use only latinic letters and digits')?></small><?php } ?></td>
-    <td width="50%" align="left"><?php if($tpldata['mode'] != 'profile_form'){?> <input type="text" name="username" value="" /><?php } else {?><?=$tpldata['values']['username']?><?php }?></td>
+    <td width="50%" align="left"><?php if($tpldata['mode'] != 'profile_form'){?> <input type="text" name="username" value="<?php echo(isset($_POST['username'])?$_POST['username']:'')?>" /><?php } else {?><?=$tpldata['values']['username']?><?php }?></td>
 </tr>
 
 <?php if($tpldata['mode'] == 'profile_form'){?>

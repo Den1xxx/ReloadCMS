@@ -5,4 +5,5 @@
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
 $this->registerModule($module, 'menu', __('Aphorism'), 'ReloadCMS Team');
+$this->registerModule($module, 'main', __('Edit').' '.__('Aphorism'), 'Den1xxx');
 ?>

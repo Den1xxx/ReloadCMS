@@ -311,4 +311,20 @@ function convert_rights_string($mode) {
 	return intval($newmode, 8);
 }
 
+
+function download_file($file_name) {
+    if (!empty($file_name)) {
+		if (file_exists($file_name)) {
+		$fileContent=  file_get_contents($file_name);
+		header("Content-Length: ".filesize($file_name));
+		header("Content-Disposition: attachment; filename=".basename($file_name)); 
+		header("Content-Type: application/x-force-download; name=\"".$file_name."\"");
+		die($fileContent);
+		} else {
+        header($_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
+        header('Status: 404 Not Found'); 
+		die();
+        }
+    } 
+}
 ?>

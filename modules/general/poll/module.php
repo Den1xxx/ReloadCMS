@@ -7,4 +7,5 @@
 $this->registerModule($module, 'menu', __('Poll'), 'ReloadCMS Team', array(
     'POLL' => __('Right to moderate poll'),
 ));
+$this->registerModule($module, 'main', __('Polls archive'), 'ReloadCMS Team');
 ?>

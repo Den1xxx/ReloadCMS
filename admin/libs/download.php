@@ -155,7 +155,7 @@ function load_file($requested_url, $loading_file, $settimeout ) {
 	
 	$port = $port ? $port : "80";
 
-		rcms_showAdminMessage(__('Loader message').': <br/>'.__('Start loading').' '.__('from').' http://'.$host);
+		rcms_showAdminMessage(__('Loader message').': <br/>'.__('Start loading').__(' from ').'http://'.$host);
 	$sockethandle = @fsockopen($host, $port, $error_id, $error_msg, 30);
 	if (!$sockethandle)	{
 		rcms_showAdminMessage('<br/>'. __('Error').' '. ('loading').' ['.$error_id.'] '.$error_msg);

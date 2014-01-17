@@ -13,5 +13,8 @@
     <?php if(!empty($tpldata[0])) { ?><input type="text" name="title" value="<?=$tpldata[0]?>" size="70"/><br /><?php }?>
     <?=rcms_show_bbcode_panel('edit.text')?>
     <textarea name="text" cols="70" rows="7" style="width: 95%;"><?=$tpldata[1]?></textarea><br />
+ <?php 
+	$config = parse_ini_file(CONFIG_PATH . 'forum.ini');
+	echo __('Maximum message length').' [<script type="text/javascript">displaylimit("document.edit.text", "",'.$config['max_topic_len'].') </script>]'?><br />
     <input type="submit" value="<?=__('Submit')?>" />
 </form>

@@ -10,7 +10,7 @@ class forum{
 	var $error = '';
 	var $sort_all = array();
 	
-	function forum(){
+	function  __construct(){
 		if(!$this->loadTopicsData()){
 			return false;
 		}

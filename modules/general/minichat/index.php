@@ -29,7 +29,7 @@ show_window(__('Error'),__('Invalid form data'));
 }
 	}
 
-	if((!empty($_POST['mcdelete']) || @$_POST['mcdelete'] === '0') && $system->checkForRight('MINICHAT')) {
+	if(post('mcdelete') && $system->checkForRight('MINICHAT')) {
 		post_remove((int)$_POST['mcdelete'], RCMS_MC_DEFAULT_FILE, 'minichat.ini');
 	}
 

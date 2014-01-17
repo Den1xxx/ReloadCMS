@@ -23,8 +23,7 @@ function make_pm_file($file)
 
 function getUserData($username){
 		global $system;
-		$result = @unserialize(@file_get_contents(USERS_PATH . basename($username)));
-		if(empty($result)) return false; else return $result;
+		return $system->getUserData($username);
 }
 
 make_pm_file(RCMS_PM_DEFAULT_FILE);

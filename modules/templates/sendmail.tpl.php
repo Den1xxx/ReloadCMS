@@ -7,26 +7,26 @@
   </tr>
  <?}?>
   <tr>
-   <td style="text-align:left" width="45%"><?=$tpldata['sender_name']?>: </td>
+   <td style="text-align:left" width="45%"><?php echo $tpldata['sender_name']?>: </td>
    <td style="text-align:left"><input type="text" name="sender_name" value="<? if (!empty($_POST['sender_name'])) echo $_POST['sender_name'];?>" size="50" maxlength="50"/>
    </td>
   </tr>
   <tr>
-   <td style="text-align:left" width="45%"><?=$tpldata['sender_email']?>: </td>
+   <td style="text-align:left" width="45%"><?php echo $tpldata['sender_email']?>: </td>
    <td style="text-align:left"><input type="text" name="sender_email" value="<? if (!empty($_POST['sender_email'])) echo $_POST['sender_email'];?>" size="30" maxlength="30"/></td>
   </tr>
   <tr>
-   <td style="text-align:left" width="45%"><?=$tpldata['subject']?>: </td>
-   <td style="text-align:left"><input type="text" name="subject" value="<? if (!empty($_POST['subject'])) echo $_POST['subject'];?>" size="50" maxlength="50"/>
+   <td style="text-align:left" width="45%"><?php echo $tpldata['subject']?>: </td>
+   <td style="text-align:left"><input type="text" name="subject" value="<?php if (!empty($_POST['subject'])) echo $_POST['subject'];?>" size="50" maxlength="50"/>
    </td>
   </tr>
  </table>
- <div style="font-weight: bold; padding: 5px 0;"><?=$tpldata['letter']?></div>
- <textarea name="letter" cols="70" rows="15"><? if (!empty($_POST['letter'])) echo $_POST['letter'];?></textarea>
+ <div style="font-weight: bold; padding: 5px 0;"><?php echo $tpldata['letter']?></div>
+ <textarea name="letter" cols="70" rows="15" style="width: 90%"><?php if (!empty($_POST['letter'])) echo $_POST['letter'];?></textarea>
  <table>
   <tr>
-   <td style="text-align:center; width:30%; color: red; font-weight: bold; font-style: italic;"><?=$tpldata['important']?></td>
-   <td style="text-align:left" style="padding: 0 80px 0 0;"><?=$tpldata['important_text']?></td>
+   <td style="text-align:center; width:30%; color: red; font-weight: bold; font-style: italic;"><?php echo $tpldata['important']?></td>
+   <td style="text-align:left" style="padding: 0 80px 0 0;"><?php echo $tpldata['important_text'] ?></td>
   </tr>
   <tr><td colspan="2" style="text-align:center"><hr/></td></tr>
   <tr>
@@ -40,5 +40,5 @@
    </td>
   </tr>
  </table>
- <p align="center"><input type="submit" value="<?=__('Submit')?>"/></p>
+ <p style="text-align:center"><input type="submit" value="<?=__('Submit')?>"/></p>
 </form>

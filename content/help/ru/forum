@@ -1,0 +1,5 @@
+<h3>Форум</h3>
+<p>В движке имеется простой форум, на котором могут общаться пользователи.</p>
+<p>Управление Форумом осуществляется модераторами.</p>
+<p>Настройка Форума находится по адресу <span style="text-decoration: underline;"><a href="admin.php">Администрирование</a></span> - Общение - <span style="text-decoration: underline;"><a href="admin.php?show=module&amp;id=communion.forum&amp;tab=3">Настройка форума</a></span></p>
+<p>Кому позволено писать на Форуме настраивается по адресу <span style="text-decoration: underline;"><a href="admin.php">Администрирование</a></span> - Основное управление - <span style="text-decoration: underline;"><a href="admin.php?show=module&amp;id=add.config&amp;tab=1">Настройка сайта</a></span></p>

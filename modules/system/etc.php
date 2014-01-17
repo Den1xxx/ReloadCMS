@@ -123,7 +123,7 @@ function rcms_random_string($num_chars) {
  */
 function rcms_get_time(){
 global $system;
-    return (mktime() + ($system->config['default_tz'])*3600);
+    return (time() + ($system->config['default_tz'])*3600);
 }
 
 /**
@@ -167,6 +167,36 @@ function rcms_date_localise($string){
     return ( !empty($translate) ) ? strtr($string, $translate) : $string;
 }
 
+/*
+ * Return mysql format time from unix time
+ * if invalid format return null
+ *
+ * @param string $string
+ * @return string
+ */
+function sql_to_unix_time($string){
+//Y-m-d H:i:s => array(H,i,s,m,d,Y);
+preg_match_all("#(\d\d\d\d)-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)#", $string, $date_time_array);
+if (empty($date_time_array[1][0])) $time='';
+else $time = mktime(
+    $date_time_array[4][0],
+    $date_time_array[5][0],
+    $date_time_array[6][0],
+    $date_time_array[2][0],
+    $date_time_array[3][0],
+    $date_time_array[1][0]
+    );
+}
+
+/*
+ * Return button, when deleting parent node in DOM
+ *
+ * @return string
+ */
+function button_delete_parent(){
+return '<img src="'.SKIN_PATH.'neok.gif" onclick="this.parentNode.parentNode.removeChild(this.parentNode)" style="cursor:pointer;vertical-align:middle;" title="'.__('Delete').'" />';
+}
+
 function rcms_parse_text_by_mode($str, $mode){
 	switch ($mode){
 		default:
@@ -181,6 +211,13 @@ function rcms_parse_text_by_mode($str, $mode){
 			break;
 		case 'html':
 			return rcms_parse_text($str, false, true, false, false, true, true);
+			break;
+		case 'php':
+			ob_start();
+			eval($str);
+			$text = ob_get_contents();
+			ob_end_clean();
+			return $text;
 			break;
 		case 'htmlbb':
 			return rcms_parse_text($str, true, true, true, false, true, true);
@@ -317,6 +354,8 @@ class message{
      */
     function init_bbcodes(){
 	global $system,$lightbox_config;
+	$addtolink=empty($system->config['addtolink'])?'':$system->config['addtolink'];
+
     	$this->regexp[0] = array();
 		$this->regexp[1] = array(
 		"#\[b\](.*?)\[/b\]#is" => '<span style="font-weight: bold">\\1</span>',
@@ -326,10 +365,12 @@ class message{
 		"#\[del\](.*?)\[/del\]#is" => '<span style="text-decoration: line-through">\\1</span>',
 		"#\[\[ul\]\](.*?)\[/\[ul\]\]#is"     => '<ul>\\1</ul>',
 		"#\[\*\](.*?)\[/\*\]#is"             => '<li>\\1</li>',
-		"#\[url\][\s\n\r]*(((https?|ftp|ed2k|irc)://|" . RCMS_ROOT_PATH . ")[^ \"\n\r\t\<]*)[\s\n\r]*\[/url\]#is" => '<a href="\\1" >\\1</a>',
+		"#\[url\][\s\n\r]*(((https?|ftp|ed2k|irc)://|" . RCMS_ROOT_PATH . ")[^ \"\n\r\t\<]*)[\s\n\r]*\[/url\]#is" => '<a href="\\1" '.$addtolink.'>\\1</a>',
+		"#\[url\][\s\n\r]*((" . RCMS_ROOT_PATH . ")[^ \"\n\r\t\<]*)[\s\n\r]*\[/url\]#is" => '<a href="\\1" >\\1</a>',
 		"#\[url\][\s\n\r]*(www\.[^ \"\n\r\t\<]*?)[\s\n\r]*\[/url\]#is" => '<a href="http://\\1" >\\1</a>',
 		"#\[url\][\s\n\r]*((ftp)\.[^ \"\n\r\t\<]*?)[\s\n\r]*\[/url\]#is" => '<a href="\\2://\\1" target="_blank">\\1</a>',
-		"#\[url=(\"|&quot;|)(((https?|ftp|ed2k|irc)://|" . RCMS_ROOT_PATH . ")[^ \"\n\r\t\<]*?)(\"|&quot;|)\](.*?)\[/url\]#is" => '<a href="\\2" >\\6</a>',
+		"#\[url=(\"|&quot;|)(((https?|ftp|ed2k|irc)://)[^ \"\n\r\t\<]*?)(\"|&quot;|)\](.*?)\[/url\]#is" => '<a href="\\2" '.$addtolink.'>\\6</a>',
+		"#\[url=(\"|&quot;|)((" . RCMS_ROOT_PATH . ")[^ \"\n\r\t\<]*?)(\"|&quot;|)\](.*?)\[/url\]#is" => '<a href="\\2" >\\5</a>',
 		"#\[url=(\"|&quot;|)(www\.[^ \"\n\r\t\<]*?)(\"|&quot;|)\](.*?)\[/url\]#is" => '<a href="http://\\2" >\\4</a>',
 		"#\[url=(\"|&quot;|)((ftp)\.[^ \"\n\r\t\<]*?)(\"|&quot;|)\](.*?)\[/url\]#is" => '<a href="\\3://\\2" target="_blank">\\5</a>',
 		"#\[mailto\][\s\n\r]*([a-z0-9&\-_.]+?@[\w\-]+\.([\w\-\.]+\.)?[\w]+)[\s\n\r]*\[/mailto\]#is" => '<a href="mailto:\\1">\\1</a>',
@@ -445,9 +486,11 @@ class message{
  * @return string
  */
 function rcms_prc_link($matches){
+global $system;
+$addtolink=empty($system->config['addtolink'])?'':$system->config['addtolink'];
     if(mb_strlen($matches[2])>25){
-        return ' <a href="' . $matches[2] . '" >' . mb_substr($matches[2], 0, 11) . '...' . mb_substr($matches[2], -11) . '</a>';
-    } else return ' <a href="' . $matches[2] . '" >' . $matches[2] . '</a>';
+        return ' <a href="' . $matches[2] . '" '.$addtolink.'>' . mb_substr($matches[2], 0, 11) . '...' . mb_substr($matches[2], -11) . '</a>';
+    } else return ' <a href="' . $matches[2] . '" '.$addtolink.'>' . $matches[2] . '</a>';
 }
 
 /**
@@ -499,22 +542,35 @@ function rcms_remove_index($key, &$array, $preserve_keys = false) {
 }
 
 /*
-* Function for Get, Post, Request, Cookie method
+* Function for return Get, Post, Request, Cookie values
+* @param mixed
+* @return mixed
 */
 function post($value,$no_value=''){
-return (!empty($_POST[$value])?$_POST[$value]:$no_value);
+return (isset($_POST[$value])?$_POST[$value]:$no_value);
 }
 
 function get($value,$no_value=''){
-return (!empty($_GET[$value])?$_GET[$value]:$no_value);
+return (isset($_GET[$value])?$_GET[$value]:$no_value);
 }
 
 function request($value,$no_value=''){
-return (!empty($_REQUEST[$value])?$__REQUEST[$value]:$no_value);
+return (isset($_REQUEST[$value])?$_REQUEST[$value]:$no_value);
 }
 
 function cookie($value,$no_value=''){
-return (!empty($_COOKIE[$value])?$_COOKIE[$value]:$no_value);
+return (isset($_COOKIE[$value])?$_COOKIE[$value]:$no_value);
+}
+
+/*
+* Short alias for $system->checkForRight($right) 
+*
+* @return boolean
+*/
+function cfr($right) {
+    global $system;
+    if($system->checkForRight($right)) return true;
+    else return false;
 }
 
 /*
@@ -527,5 +583,69 @@ function is_mobile() {
 $useragent=$_SERVER['HTTP_USER_AGENT'];
 if(preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i',$useragent)||preg_match('/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i',substr($useragent,0,4))) return true;
 else return false;
+}
+
+function strip_bb_tags($string) {
+    return preg_replace('/\[[^\]]+\]/', '', $string);
+} 
+
+/*
+* Eval the code or function, 
+* without loading system templates
+* use in ajax technique
+* @param string
+* @return mixed 
+*/
+function ajax_answer($function) {
+eval($function);
+exit();
+}
+
+/*
+* Return string of initialize TinyMCE
+* @param string
+* @return string 
+*/
+function tinymce_init($textarea_id) {
+return	'
+ tinyMCE.init({
+ mode : \'exact\',
+ elements : \''.$textarea_id.'\',
+ theme : \'advanced\',
+ language : \'ru\',
+ plugins : \'layer,paste,table,cyberim\',
+ theme_advanced_buttons1_add : \'fontselect,fontsizeselect\',
+ theme_advanced_buttons2_add : \'pastetext,pasteword,selectall,blockquote,|,forecolor,backcolor\',
+ theme_advanced_buttons3_add : \'tablecontrols,|,insertlayer,moveforward,movebackward,absolute\',
+ theme_advanced_toolbar_location : \'top\',
+ theme_advanced_toolbar_align : \'left\',
+ theme_advanced_statusbar_location : \'bottom\',
+ theme_advanced_resizing : true,
+ paste_auto_cleanup_on_paste : true,
+ content_css: \'/css/tinymce.css\',
+ extended_valid_elements : \'script[type|language|src]\'
+})';
+}
+
+/*
+* Return string select of enabled/disabled TinyMCE
+* @param string
+* @return string 
+*/
+function tinymce_selector($textarea_id,$enable_default=false) {
+if ($enable_default) $res='<script type="text/javascript">'.tinymce_init($textarea_id).'</script>'; else $res='';
+return '<br/>
+'.__('Editor').': 
+	<select name = "editor" 
+	onchange = "if (this.options[selectedIndex].value==\'show\') {
+'.tinymce_init($textarea_id).'
+	} else { 
+	tinyMCE.get(\''.$textarea_id.'\').remove();
+	}">
+	<option value="show" '.($enable_default?'selected':'').'>'.__('Show').'</option>
+	<option value="hide" '.($enable_default?'':'selected').'>'.__('Hide').'</option>
+	</select>
+	'.$res.'
+	';
 }
 ?>

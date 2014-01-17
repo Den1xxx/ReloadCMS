@@ -106,7 +106,7 @@ if(!empty($_POST['delete']) && is_array($_POST['delete'])) {
             }
         }
     }
-    unset($_POST['edit']);
+    unset($_REQUEST['edit']);
 
 } elseif (!empty($_POST['newsave'])) {
     if(tpl_create($_POST['id'])){
@@ -114,9 +114,9 @@ if(!empty($_POST['delete']) && is_array($_POST['delete'])) {
     } else {
         $result .= __('Error occurred');
     }
-} elseif (!empty($_POST['edit']) && !empty($_POST['save'])) {
+} elseif (!empty($_REQUEST['edit']) && !empty($_POST['save'])) {
     if(tpl_change(
-	$_POST['edit'],
+	$_REQUEST['edit'],
 	$_POST['id'],
 	$_POST['title'],
 	$_POST['comment'],
@@ -128,7 +128,7 @@ if(!empty($_POST['delete']) && is_array($_POST['delete'])) {
 	$_POST['important_text']
 	)){
         $result .= __('File updated');
-        $_POST['edit'] = $_POST['id'];
+        $_REQUEST['edit'] = $_POST['id'];
     } else {
         $result .= __('Error occurred');
     }
@@ -151,14 +151,14 @@ if(!empty($_POST['new'])){
     $frm->addrow(__('Important'), $frm->text_box('important', __('It is important!')));
     $frm->addrow(__('Important').': '.__('Text'), $frm->textarea('important_text', __('Your letter will be sent to admin and it will not be kept on a site. Admin will answer to you as soon as he will have a possibility.'), 55, 15));
     $frm->show();
-} elseif(!empty($_POST['edit'])){
-    if($page = tpl_get($_POST['edit'])){
+} elseif(!empty($_REQUEST['edit'])){
+    if($page = tpl_get($_REQUEST['edit'])){
 		$frm = new InputForm ('', 'post', __('Submit'), '', '', '', 'edit');
         $frm->addmessage('<a href="">&lt;&lt;&lt; ' . __('Back') . '</a>');
         $frm->addbreak(__('Edit sendmail template'));
-        $frm->hidden('edit', $_POST['edit']);
+        $frm->hidden('edit', $_REQUEST['edit']);
         $frm->hidden('save', '1');
-        $frm->addrow('<abbr title="' . __('Use only small Latin letters and digits') . '">' . __('MenuID') . '</abbr>', $frm->text_box('id', $_POST['edit']));
+        $frm->addrow('<abbr title="' . __('Use only small Latin letters and digits') . '">' . __('MenuID') . '</abbr>', $frm->text_box('id', $_REQUEST['edit']));
 		$frm->addrow(__('Title'), $frm->text_box('title', $page['title'],45));
 		$frm->addrow(__('Comments').': ', $frm->textarea('comment', $page['comment'], 55, 15));
 		$frm->addrow(__('Sender name'), $frm->text_box('sender_name', $page['sender_name'],45));

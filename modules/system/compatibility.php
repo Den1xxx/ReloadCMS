@@ -10,6 +10,11 @@ function user_check_right($username, $right){
     return $system->checkForRight($right, $username);
 }
 
+function curr_user_access_level(){
+    global $system;
+    return $system->user['accesslevel'];
+}
+
 function user_set_rights($username, $root, $rights){
     global $system;
     if($userdata = load_user_info($username)){
