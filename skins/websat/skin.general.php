@@ -5,28 +5,8 @@
 <title><? rcms_show_element('title'); ?></title>
 <? rcms_show_element('meta'); ?>
 <link rel="stylesheet" href="<?=CUR_SKIN_PATH?>style.css.php" type="text/css" />
-<?php  if($system->checkForRight('GENERAL')) { ?>
+<?php  if($system->checkForRight('-any-')) { ?>
 <script type="text/javascript" src="./tools/js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript">
-//<![CDATA[
-    tinyMCE.init({
-        mode : "exact",
-        elements : "tmce1,tmce2",
-        theme : "advanced",
-        language : "ru",
-        plugins : "paste,table,cyberim",
-        theme_advanced_buttons2_add : "pastetext,pasteword,selectall",
-        theme_advanced_buttons3_add : "tablecontrols",
-        theme_advanced_toolbar_location : "top",
-                theme_advanced_toolbar_align : "left",
-                theme_advanced_statusbar_location : "bottom",
-                theme_advanced_resizing : true,
-        paste_auto_cleanup_on_paste : true,
-        content_css: "/css/tinymce.css",
-        extended_valid_elements : "script[type|language|src]"
-        });
-//]]>
-</script>
 <?php } ?>
 <SCRIPT type="text/javascript">
 //<![CDATA[
