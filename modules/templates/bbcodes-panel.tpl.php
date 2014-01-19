@@ -8,7 +8,6 @@
 <!--
 // Define the bbCode tags
 bbcode = new Array();
-bblast = new Array();
 bbtags = new Array('[b]','[/b]','[i]','[/i]','[u]','[/u]','[quote]','[/quote]','[code]','[/code]','[img]','[/img]','[url]','[/url]','[hidden]','[/hidden]','[offtop]','[/offtop]');
 //imageTag = false;
 //-->

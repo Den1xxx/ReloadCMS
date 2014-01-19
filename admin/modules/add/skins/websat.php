@@ -71,11 +71,6 @@ $('#site').contents().find(selector)
 .css('background-image', 'linear-gradient('+start_color+', '+end_color+')')
 .css('border-color', end_color);
 }
-//$('#site').contents().find('a').attr('title','#FFFFFF');
-$("#site").ready(function(){
-var qwe=$('#site').contents().find('a');
-if ($('#site').contents().find('a')) alert(qwe);
-});
 
 $("#dialog input[name*='color']").spectrum({
 cancelText: "<?=__('Cancel')?>",

@@ -8,13 +8,7 @@
 if (isset($_GET['id']))
 	if (is_file(DATA_PATH . 'pages/' . $_GET['id'])) {
 	$page = unserialize(file_get_contents(DATA_PATH . 'pages/' . $_GET['id']));
-		if ($page['mode']!='php') $text = rcms_parse_text_by_mode($page['text'], $page['mode']);
-		else {
-		ob_start();
-		eval($page['text']);
-		$text = ob_get_contents();
-		ob_end_clean();
-		}
+		$text = rcms_parse_text_by_mode($page['text'], $page['mode']);
 		if(!empty($page['description'])) {
 			$system->addInfoToHead('<meta name="Description" content="' . $page['description'] . '">' . "\n");
 		}

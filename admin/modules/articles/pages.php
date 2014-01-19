@@ -9,11 +9,11 @@ if (!defined('PAGES_PATH')) define ('PAGES_PATH',DATA_PATH . 'pages/');
 if (!is_dir(PAGES_PATH)) mkdir(PAGES_PATH,0777);
 
 //Create page
-function page_create($id, $mode='html') {
+function page_create($id, $mode='html',$date) {
     global $system;
     $id = basename(trim($id));
 	if(is_file(PAGES_PATH . $id )) return false;
-    if(preg_replace("/[a-z0-9]*/i", '', $id) != '' || empty($id)) return false;
+    if(preg_replace("/[a-z0-9\-\_]*/i", '', $id) != '' || empty($id)) return false;
     $text = (empty($_POST['text'])) ? '' : $_POST['text'];
     $title = (empty($_POST['title'])) ? '' : htmlspecialchars($_POST['title']);
     $description = (empty($_POST['description'])) ? '' : htmlspecialchars($_POST['description']);
@@ -26,7 +26,7 @@ function page_create($id, $mode='html') {
 	'mode' => $mode,
 	'author_nick' => $system->user['nickname'],
 	'author_name' => $system->user['username'],
-	'date' => time()
+	'date' => sql_to_unix_time($date)
 	); 
 
     if(file_write_contents(PAGES_PATH . $id , serialize($page))){
@@ -43,12 +43,12 @@ function page_get($id){
 }
 
 //Change page
-function page_change($id, $newid, $title, $text, $description, $keywords, $mode='html'){
+function page_change($id, $newid, $title, $text, $description, $keywords, $mode='html', $date){
     global $system;
     $id = basename($id);
     $newid = basename($newid);
-    if(preg_replace("/[a-z0-9]*/i", '', $id) != '' || empty($id)) return false;
-    if(preg_replace("/[a-z0-9]*/i", '', $newid) != '' || empty($newid)) return false;
+    if(preg_replace("/[a-z0-9\-\_]*/i", '', $id) != '' || empty($id)) return false;
+    if(preg_replace("/[a-z0-9\-\_]*/i", '', $newid) != '' || empty($newid)) return false;
     if(!is_file(PAGES_PATH . $id )) return false;
     if($id != $newid && is_file(PAGES_PATH . $newid)) return false;
 	$page = array(
@@ -59,7 +59,7 @@ function page_change($id, $newid, $title, $text, $description, $keywords, $mode=
 	'mode' => $mode,
 	'author_nick' => $system->user['nickname'],
 	'author_name' => $system->user['username'],
-	'date' => time()
+	'date' => sql_to_unix_time($date)
 	);
     if(!file_write_contents(PAGES_PATH . $id ,serialize($page))) return false;
     rcms_rename_file(PAGES_PATH . $id , PAGES_PATH . $newid );
@@ -81,13 +81,13 @@ if(!empty($_POST['delete']) && is_array($_POST['delete'])) {
     unset($_POST['edit']);
 
 } elseif (!empty($_POST['newsave'])) {
-    if(page_create($_POST['id'], $_POST['mode'])){
+    if(page_create($_POST['id'], $_POST['mode'], $_POST['date'])){
         $result .= __('Article saved');
     } else {
         $result .= __('Error occurred');
     }
 } elseif (!empty($_POST['edit']) && !empty($_POST['save'])) {
-    if(page_change($_POST['edit'], $_POST['id'], $_POST['title'], $_POST['text'],$_POST['description'],$_POST['keywords'], $_POST['mode'])){
+    if(page_change($_POST['edit'], $_POST['id'], $_POST['title'], $_POST['text'],$_POST['description'],$_POST['keywords'], $_POST['mode'], $_POST['date'])){
         $result .= __('File updated');
         $_POST['edit'] = $_POST['id'];
     } else {
@@ -132,6 +132,7 @@ $frm->addrow(__('Mode'), $frm->select_tag('mode', array('html' => __('HTML'), 't
 		tinyMCE.get(\'text\').hide();
 		$(\'table.bb_editor\').show();
 		}"'), 'top');
+	$frm->addrow(__('Date').' (yyyy-mm-dd hh:mm:ss)', $frm->text_box('date', gmdate("Y-m-d H:i:s",rcms_get_time())), 'top');
     $frm->show();
 } elseif(!empty($_POST['edit'])){
     if($page = page_get($_POST['edit'])){
@@ -197,7 +198,7 @@ $frm->addrow(__('Mode'), $frm->select_tag('mode', array('html' => __('HTML'), 't
 		tinyMCE.get(\'text\').hide();
 		$(\'table.bb_editor\').show();
 		}"'), 'top');
-
+		$frm->addrow(__('Date').' (yyyy-mm-dd hh:mm:ss)', $frm->text_box('date', gmdate("Y-m-d H:i:s",$page['date'])), 'top');
         $frm->show();
     } else rcms_showAdminMessage(__('Cannot open menu for editing'));
 } else {

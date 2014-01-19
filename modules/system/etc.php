@@ -168,24 +168,26 @@ function rcms_date_localise($string){
 }
 
 /*
- * Return mysql format time from unix time
+ * Return unix format time from mysql time
  * if invalid format return null
  *
  * @param string $string
  * @return string
  */
 function sql_to_unix_time($string){
+global $system;
 //Y-m-d H:i:s => array(H,i,s,m,d,Y);
 preg_match_all("#(\d\d\d\d)-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)#", $string, $date_time_array);
 if (empty($date_time_array[1][0])) $time='';
 else $time = mktime(
-    $date_time_array[4][0],
+    $date_time_array[4][0] + $system->config['default_tz'],
     $date_time_array[5][0],
     $date_time_array[6][0],
     $date_time_array[2][0],
     $date_time_array[3][0],
     $date_time_array[1][0]
     );
+	return $time;
 }
 
 /*

@@ -34,6 +34,7 @@ else $c = (empty($_POST['c'])) ? null : $_POST['c'];
 $b = (empty($_POST['b'])) ? null : $_POST['b'];
 
 if(!empty($_POST['save'])) {
+
 $time=sql_to_unix_time($_POST['time']);
 
 	if(!$articles->setWorkContainer($c) || !$articles->saveArticle($b, 0, $_POST['title'], $_POST['source'], $_POST['keywords'], $_POST['sef_desc'], $_POST['description'], $_POST['text'], $_POST['mode'], $_POST['comments'],$time)){
