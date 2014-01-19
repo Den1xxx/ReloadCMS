@@ -21,7 +21,7 @@ array (
 'Padding links menu, px'=>'10',
 
 'Sidebar position'=>'right',
-'Sidebar width, px'=>'280',
+'Sidebar width, px'=>'225',
 'Sidebar title font size, px'=>'14',
 'Sidebar title radius, px'=>'11',
 'Sidebar title padding, px'=>'7',

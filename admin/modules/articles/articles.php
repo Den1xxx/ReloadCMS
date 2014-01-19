@@ -23,14 +23,6 @@ var a = /^[\w\-\_]+\.(gif|jpg|png){1}$/;
 	else Isel='<a href="<?=FILES_PATH?>'+Isel+'">'+Isel+'</a>\n';
 	document.forms['arted'].elements['text'].value += Isel;
 	}
-	
-	
-	
-	
-	Isel = seln.files.options[selNum].text;
-	if (Isel.search(a) !== -1) Isel='[img]<?=FILES_PATH?>'+Isel+'[/img]\n';
-	else Isel='[url]<?=FILES_PATH?>'+Isel+'[/url]\n';
-	document.forms['arted'].elements['text'].value += Isel;
 	}
 }
 //-->

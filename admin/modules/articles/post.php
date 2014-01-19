@@ -9,12 +9,20 @@
 <!--
 function selChange(seln) {
 selNum = seln.files.selectedIndex;
+modeind = seln.mode.selectedIndex;
+val = seln.mode.options[modeind].value;
 var a = /^[\w\-\_]+\.(gif|jpg|png){1}$/;
 	if (selNum > 0) {
 	Isel = seln.files.options[selNum].text;
+	if (val=='text') {
 	if (Isel.search(a) !== -1) Isel='[img]<?=FILES_PATH?>'+Isel+'[/img]\n';
 	else Isel='[url]<?=FILES_PATH?>'+Isel+'[/url]\n';
 	document.forms['artadd'].elements['text'].value += Isel;
+	} else {
+	if (Isel.search(a) !== -1) Isel='<img src="<?=FILES_PATH?>'+Isel+'"/>\n';
+	else Isel='<a href="<?=FILES_PATH?>'+Isel+'">'+Isel+'</a>\n';
+	document.forms['artadd'].elements['text'].value += Isel;
+	}
 	}
 }
 //-->

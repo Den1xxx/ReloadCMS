@@ -171,7 +171,7 @@ class rcms_system extends rcms_user {
 	if (empty($this->disable_feeds[$module])) {
 	$this->feeds[$module] = array($title, $desc, $real);
 	$this->disable_feeds[$module]=0;
-	}
+	} else $this->disable_feeds[$module]=1;
 	}
 
 	function logPut($type, $user, $message){

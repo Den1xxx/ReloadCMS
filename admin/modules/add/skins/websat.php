@@ -37,7 +37,8 @@ switch($key){
 		case 'Menu text color': $frm->addbreak(__('Menu')); 	break;
 		case 'Sidebar position': $frm->addbreak(__('Sidebar')); 	break;
 		case 'Input text color': $frm->addbreak(__('Forms')); 	break;
-		default: break;}
+		default: break;
+		}
 $help = (
 strpos($key,'hover')===false)?''
 :' <a name="'.$key.'" onclick="alert(\''.__('This option can not be changed interactively').'. '.
@@ -70,7 +71,12 @@ $('#site').contents().find(selector)
 .css('background-image', 'linear-gradient('+start_color+', '+end_color+')')
 .css('border-color', end_color);
 }
-$('#site').contents().find('a').attr('href','http://www.google.com');
+//$('#site').contents().find('a').attr('title','#FFFFFF');
+$("#site").ready(function(){
+var qwe=$('#site').contents().find('a');
+if ($('#site').contents().find('a')) alert(qwe);
+});
+
 $("#dialog input[name*='color']").spectrum({
 cancelText: "<?=__('Cancel')?>",
 chooseText: "<?=__('Select')?>",
