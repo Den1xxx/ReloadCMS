@@ -9,7 +9,7 @@ $name_module = __('Gallery');
 $file='';
 	if ($dh = opendir(GALLERY_IMAGES_DIR)) {
        while (($file = readdir($dh)) !== false) {
-			if($file != '.' && $file != '..') {
+			if($file != '.' && $file != '..' && $file != '.gitignore') {
 		$lastmod = filemtime(GALLERY_IMAGES_DIR.$file);
 		$loc = $directory . '?module=gallery&id='.$file;
 			$sitemap->addUrl(

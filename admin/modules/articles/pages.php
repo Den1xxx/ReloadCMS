@@ -13,7 +13,7 @@ function page_create($id, $mode='html') {
     global $system;
     $id = basename(trim($id));
 	if(is_file(PAGES_PATH . $id )) return false;
-    if(preg_replace("/[a-z0-9]*/i", '', $id) != '' || empty($id)) return false;
+    if(preg_replace("/[a-z0-9\-\_]*/i", '', $id) != '' || empty($id)) return false;
     $text = (empty($_POST['text'])) ? '' : $_POST['text'];
     $title = (empty($_POST['title'])) ? '' : htmlspecialchars($_POST['title']);
     $description = (empty($_POST['description'])) ? '' : htmlspecialchars($_POST['description']);
@@ -47,8 +47,8 @@ function page_change($id, $newid, $title, $text, $description, $keywords, $mode=
     global $system;
     $id = basename($id);
     $newid = basename($newid);
-    if(preg_replace("/[a-z0-9]*/i", '', $id) != '' || empty($id)) return false;
-    if(preg_replace("/[a-z0-9]*/i", '', $newid) != '' || empty($newid)) return false;
+    if(preg_replace("/[a-z0-9\-\_]*/i", '', $id) != '' || empty($id)) return false;
+    if(preg_replace("/[a-z0-9\-\_]*/i", '', $newid) != '' || empty($newid)) return false;
     if(!is_file(PAGES_PATH . $id )) return false;
     if($id != $newid && is_file(PAGES_PATH . $newid)) return false;
 	$page = array(
@@ -97,12 +97,12 @@ if(!empty($_POST['delete']) && is_array($_POST['delete'])) {
 rcms_showAdminMessage($result);
 
 // Interface generation 
-if(!empty($_POST['new'])){
-	$frm = new InputForm ('', 'post', __('Submit'), '', '', '', 'add');
+if(!empty($_POST['new']) OR !empty($_GET['newid'])){
+	$frm = new InputForm ('admin.php?show=module&id=articles.pages&tab=2', 'post', __('Submit'), '', '', '', 'add');
     $frm->addmessage('<a href="">&lt;&lt;&lt; ' . __('Back') . '</a>');
     $frm->addbreak(__('Post article'));
     $frm->hidden('newsave', '1');
-    $frm->addrow('<abbr title="' . __('Use only small Latin letters and digits') . '">' . __('MenuID') . '</abbr>', $frm->text_box('id', ''));
+    $frm->addrow('<abbr title="' . __('Use only small Latin letters and digits') . '">' . __('MenuID') . '</abbr>', $frm->text_box('id', get('newid',post('id'))));
     $frm->addrow(__('Title'), $frm->text_box('title', ''));
     $frm->addrow(__('Description for search engines'), $frm->text_box('description', ''));
     $frm->addrow(__('Keywords'), $frm->text_box('keywords', ''));

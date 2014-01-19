@@ -28,6 +28,8 @@ class rcms_system extends rcms_user {
 		
 		// Loading configuration
 		$this->config = parse_ini_file(CONFIG_PATH . 'config.ini');
+		$this->disable_feeds = is_file(CONFIG_PATH.'rss_disable.ini')?parse_ini_file(CONFIG_PATH.'rss_disable.ini'):array();
+
 		if(empty($this->config['site_url'])){
 			$this->url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME'] . basename($_SERVER['SCRIPT_NAME'])) . '/';
 		} else {
@@ -133,7 +135,7 @@ class rcms_system extends rcms_user {
 	}
 
 	function addInfoToHead($info){
-		$this->config['meta'] = @$this->config['meta'] . $info;
+		$this->config['meta'] = isset($this->config['meta'])?$this->config['meta'].$info:$info;
 	}
 
 	function setCurrentPoint($point){
@@ -166,8 +168,10 @@ class rcms_system extends rcms_user {
 	}
 
 	function registerFeed($module, $title, $desc, $real = ''){
-	if (!in_array($module,$this->disable_feeds))
-		$this->feeds[$module] = array($title, $desc, $real);
+	if (empty($this->disable_feeds[$module])) {
+	$this->feeds[$module] = array($title, $desc, $real);
+	$this->disable_feeds[$module]=0;
+	}
 	}
 
 	function logPut($type, $user, $message){

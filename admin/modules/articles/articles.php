@@ -9,8 +9,24 @@
 <!--
 function selChange(seln) {
 selNum = seln.files.selectedIndex;
-var a = /^\w+\.(gif|jpg|png){1}$/;
+modeind = seln.mode.selectedIndex;
+val = seln.mode.options[modeind].value;
+var a = /^[\w\-\_]+\.(gif|jpg|png){1}$/;
 	if (selNum > 0) {
+	Isel = seln.files.options[selNum].text;
+	if (val=='text') {
+	if (Isel.search(a) !== -1) Isel='[img]<?=FILES_PATH?>'+Isel+'[/img]\n';
+	else Isel='[url]<?=FILES_PATH?>'+Isel+'[/url]\n';
+	document.forms['arted'].elements['text'].value += Isel;
+	} else {
+	if (Isel.search(a) !== -1) Isel='<img src="<?=FILES_PATH?>'+Isel+'"/>\n';
+	else Isel='<a href="<?=FILES_PATH?>'+Isel+'">'+Isel+'</a>\n';
+	document.forms['arted'].elements['text'].value += Isel;
+	}
+	
+	
+	
+	
 	Isel = seln.files.options[selNum].text;
 	if (Isel.search(a) !== -1) Isel='[img]<?=FILES_PATH?>'+Isel+'[/img]\n';
 	else Isel='[url]<?=FILES_PATH?>'+Isel+'[/url]\n';
@@ -44,6 +60,8 @@ if(!empty($_POST['delete'])) {
 * Perform changing of article                                                 *
 ******************************************************************************/
 if((!empty($_POST['save']) && !empty($c) && (!empty($b) || $c == '#hidden' || $c == '#root') && !empty($a) && $articles->setWorkContainer($c) && ($article = $articles->getArticle($b, $a, false, true, true, false))!== false)) {
+$time=sql_to_unix_time($_POST['time']);
+
 	if(!@$articles->saveArticle($b, $a, 
 					$_POST['title'], 
 					$_POST['source'], 
@@ -51,7 +69,9 @@ if((!empty($_POST['save']) && !empty($c) && (!empty($b) || $c == '#hidden' || $c
 					$_POST['sef_desc'], 
 					$_POST['description'], 
 					$_POST['text'], $_POST['mode'], 
-					$_POST['comments'])){
+					$_POST['comments'],
+					$time
+					)){
 			rcms_showAdminMessage($articles->last_error);
 	} else {
 		rcms_showAdminMessage(__('Article saved'));
@@ -133,68 +153,20 @@ if(!empty($_POST['tc']) && !empty($_POST['tb']) && !empty($_POST['ms']) && $_POS
 	$frm->addrow(__('Keywords'), $frm->text_box('keywords', @$article['keywords']), 'top');
 	$frm->addrow(__('Description for search engines'), $frm->text_box('sef_desc', @$article['sef_desc']), 'top');
 	$frm->addrow('', rcms_show_bbcode_panel('arted.description'));
-	$frm->addrow(__('Short description'), $frm->textarea('description', $article['desc'], 70, 5), 'top');
+	$frm->addrow(__('Short description').'<br />'.tinymce_selector('description',false), $frm->textarea('description', $article['desc'], 70, 5), 'top');
 	$frm->addrow('', rcms_show_bbcode_panel('arted.text'));
-	$frm->addrow(__('Text'), $frm->textarea('text', $article['text'], 70, 25), 'top');
+	$frm->addrow(__('Text').'<br />'.tinymce_selector('text',false), $frm->textarea('text', $article['text'], 70, 25), 'top');
 	$files = rcms_scandir(FILES_PATH);										//Start Insert list uploaded files
+	$key_thumb=array_search('_thumb',$files);
+	if ($key_thumb!==FALSE) unset($files[$key_thumb]);
 	if(!empty($files))			{	
 	$frm->addrow(__('Add link to file') , $frm->select_tag('files',$files,-1,'onChange="selChange(this.form)">\n
 	<option value="-1">'. __('Select file').'</option')
 	.'&nbsp;&nbsp;&nbsp;'.__('You entered filename of file uploaded through upload interface'), 'top');
 	}																		//End Insert list uploaded files
 	$frm->addrow(__('Mode'), 
-			($article['mode']='html' ?
-		'<script>
-		tinyMCE.init({
-        mode : \'exact\',
-        elements : \'description,text\',
-        theme : \'advanced\',
-        language : \'ru\',
-        plugins : \'paste,table,cyberim\',
-        theme_advanced_buttons2_add : \'pastetext,pasteword,selectall,|,forecolor,backcolor\',
-        theme_advanced_buttons3_add : \'tablecontrols\',
-        theme_advanced_toolbar_location : \'top\',
-        theme_advanced_toolbar_align : \'left\',
-        theme_advanced_statusbar_location : \'bottom\',
-        theme_advanced_resizing : true,
-        paste_auto_cleanup_on_paste : true,
-        content_css: \'/css/tinymce.css\',
-        extended_valid_elements : \'script[type|language|src]\',
-        forced_root_block : \'\', 
-        force_br_newlines : true,
-        force_p_newlines : false
-        });
-        $(\'table.bb_editor\').hide();
-		</script>
-		' : '').
-	$frm->select_tag('mode', array('html' => __('HTML'), 'text' => __('Text'), 'htmlbb' => __('bbCodes') . '+' . __('HTML')), $article['mode'],
-	'onchange="if (this.options[selectedIndex].value==\'html\') { 	
-		tinyMCE.init({
-		mode : \'exact\',
-		elements : \'description,text\',
-		theme : \'advanced\',
-		language : \'ru\',
-        plugins : \'paste,table,cyberim\',
-        theme_advanced_buttons2_add : \'pastetext,pasteword,selectall\',
-        theme_advanced_buttons3_add : \'tablecontrols\',
-		theme_advanced_toolbar_location : \'top\',
-        theme_advanced_toolbar_align : \'left\',
-        theme_advanced_statusbar_location : \'bottom\',
-        theme_advanced_resizing : true,
-        paste_auto_cleanup_on_paste : true,
-		content_css: \'/css/tinymce.css\',
-		extended_valid_elements : \'script[type|language|src]\',
-		forced_root_block : \'\', 
-		force_br_newlines : true,
-		force_p_newlines : false
-		});
-		$(\'table.bb_editor\').hide();} else {
-		tinyMCE.get(\'description\').hide();
-		tinyMCE.get(\'text\').hide();
-		$(\'table.bb_editor\').show();
-		}"'), 'top');
-	
-	
+	$frm->select_tag('mode', array('html' => __('HTML'), 'text' => __('Text'), 'htmlbb' => __('bbCodes') . '+' . __('HTML'), 'php' => __('PHP')), $article['mode']), 'top');
+	$frm->addrow(__('Date').' (yyyy-mm-dd hh:mm:ss)', $frm->text_box('time', gmdate("Y-m-d H:i:s",$article['time'])), 'top');
 	$frm->addrow(__('Allow comments'), $frm->radio_button('comments', array('yes' => __('Allow'), 'no' => __('Disallow')), $article['comments']), 'top');
 	$frm->show();
 } elseif(!empty($b) || $c == '#hidden' || $c == '#root'){
