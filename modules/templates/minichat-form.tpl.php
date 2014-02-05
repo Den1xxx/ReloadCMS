@@ -5,7 +5,7 @@
 
 <? $config = parse_ini_file(CONFIG_PATH . 'minichat.ini'); 
 $max_len=$config['max_message_len']; ?>
-<? echo __('Maximum message length').'<br />[<script type="text/javascript">displaylimit("document.minichat.mctext", "",'.$max_len.') </script>]'?><br />
+<? echo __('You can enter').' <script type="text/javascript">displaylimit("document.minichat.mctext", "",'.$max_len.') </script> '.__('characters')?><br />
 
  <textarea id="mctext" name="mctext" rows="3" cols="10" style="width: 96%"></textarea><br />
 <?php 

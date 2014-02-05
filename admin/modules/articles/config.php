@@ -4,17 +4,6 @@
 //   http://reloadcms.com                                                     //
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
-?>
-<script script type="text/javascript">
-<!--
-function selChange(seln) {
-selNum = seln.files.selectedIndex;
-Isel = seln.files.options[selNum].value;
-document.forms['mainfrm'].elements['nconfig[news]'].value = Isel;
-}
-//-->
-</script> 
-<?
 
 if(!empty($_POST['nconfig'])) {
 file_write_contents(CONFIG_PATH . 'articles.ini',serialize($_POST['nconfig']));
@@ -31,7 +20,11 @@ $frm = new InputForm ('', 'post', __('Submit'), '', '', '', 'mainfrm');
 //Containers configuration
 $frm->addbreak(__('Containers'));
 $articles = new articles();
-$frm->addrow(__('News container ID'), $frm->text_box('nconfig[news]', @$config['news'],24).$frm->select_tag('files', $articles->getContainers(0),@$config['news'],' onchange="selChange(this.form)"'), 'top');
+$containers = $articles->getContainers(0);
+$frm->addrow(__('News container ID'), $frm->text_box('nconfig[news]', @$config['news'],24).$frm->select_tag('files', $containers,@$config['news'],' onchange="$(\'input[name=\\\'nconfig[news]\\\']\').val(this.value);"'), 'top');
+$frm->addrow(__('Section').' '.__('Most readable articles'), $frm->text_box('nconfig[rpop]', @$config['rpop'],24).$frm->select_tag('files', $containers,@$config['rpop'],' onchange="$(\'input[name=\\\'nconfig[rpop]\\\']\').val(this.value);"'), 'top');
+$frm->addrow(__('Section').' '.__('Most commented articles'), $frm->text_box('nconfig[cpop]', @$config['cpop'],24).$frm->select_tag('files', $containers,@$config['cpop'],' onchange="$(\'input[name=\\\'nconfig[cpop]\\\']\').val(this.value);"'), 'top');
+$frm->addrow(__('Section').' '.__('Recently commented articles'), $frm->text_box('nconfig[lcmt]', @$config['lcmt'],24).$frm->select_tag('files', $containers,@$config['lcmt'],' onchange="$(\'input[name=\\\'nconfig[lcmt]\\\']\').val(this.value);"'), 'top');
 
 //Categories configuration
 $frm->addbreak(__('Categories'));

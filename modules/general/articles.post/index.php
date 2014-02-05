@@ -42,9 +42,9 @@ if(!LOGGED_IN){
 				$frm->addrow(__('Keywords'), $frm->text_box('keywords', ''), 'top');
 				$frm->addrow(__('Description for search engines'), $frm->text_box('sef_desc', ''), 'top');
 				$frm->addrow('', rcms_show_bbcode_panel('artadd.description'));
-				$frm->addrow(__('Short description'), $frm->textarea('description', '', 70, 5), 'top');
+				$frm->addrow(__('Short description'), $frm->textarea('description', '', 63, 7), 'top');
 				$frm->addrow('', rcms_show_bbcode_panel('artadd.text'));
-				$frm->addrow(__('Text'), $frm->textarea('text', '', 70, 25), 'top');
+				$frm->addrow(__('Text'), $frm->textarea('text', '', 63, 21), 'top');
 			$files = rcms_scandir(FILES_PATH);						//Start Insert list uploaded files
 	if(!empty($files))			{	
 	$frm->addrow(__('Add link to file') , $frm->select_tag('files',$files,-1,'onChange="selChange(this.form)">\n
@@ -102,7 +102,6 @@ var a = /^\w+\.(gif|jpg|png){1}$/;
 }
 //-->
 </script>'; 
-
 	show_window(__('Post article'), $javascript . $result, 'center');
 	$system->config['pagename'] = __('Post article');
 }

@@ -16,7 +16,7 @@ else show_window (__('Result'),__('Error occurred').':'.$dfile);
 }
 
 if (!empty($_POST['save'])&&!empty($module)) {
-file_write_contents($file,$_POST['tmce1']);
+file_write_contents($file,$_POST['help_edit']);
 show_window (__('Result'),__('File updated').'. '.__('Show').' — '.show_help($module));
 }
 
@@ -25,7 +25,7 @@ if (!empty($module)) {
 	$result = file_exists($file)?file_get_contents($file):'';
     $frm = new InputForm ('', 'post', __('Submit'));
     $frm->hidden('save', '1');
-    $frm->addrow('',$frm->textarea('tmce1', $result, 55, 15), 'top');
+    $frm->addrow('',$frm->textarea('help_edit', $result, 55, 15).tinymce_selector('help_edit'), 'top');
     $result = $frm->show(true);
 show_window(__('Help').' '.__('for the module').' '.get('edit').': '.__('Edit'), $result, 'center');
 } else {

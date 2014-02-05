@@ -3,7 +3,7 @@
 <?if(empty($tpldata['field'])) $field = 'comtext'; else $field = $tpldata['field'];?>
 
 <form method="post" action="" name="form1">
-<? echo __('Maximum message length').'<br />[<script type="text/javascript">displaylimit("document.form1.comtext", "",2000) </script>]'?><br />
+<? echo __('You can enter').' <script type="text/javascript">displaylimit("document.form1.comtext", "",2000) </script> '.__('characters')?><br />
 	<textarea name="<?=$field?>" cols="20" rows="7" style="width: 90%"><?=@$tpldata['text']?></textarea>
     <p align="center">
 <?php 

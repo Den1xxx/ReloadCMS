@@ -4,6 +4,7 @@
 //   http://reloadcms.com                                                     //
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
+global $lang;
 $articles = new articles();
 $current_year  = rcms_format_time('Y', rcms_get_time());    
 $current_month = rcms_format_time('n', rcms_get_time()); 

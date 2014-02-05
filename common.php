@@ -26,7 +26,7 @@ define('RCMS_VERSION_B', '5');
 define('RCMS_VERSION_C', '2');
 if(is_file(RCMS_ROOT_PATH . '_nightly.txt')) define('RCMS_VERSION_SUFFIX', '-beta'); else define('RCMS_VERSION_SUFFIX', '');
 define('RCMS_LINK', 'http://reloadcms.com');
-define('RCMS_COPYRIGHT', '&copy; 2004-2013 ReloadCMS Team');
+define('RCMS_COPYRIGHT', '&copy; 2004-2014 ReloadCMS Team');
 define('RCMS_POWERED', '<a href="' . RCMS_LINK . '">Based on ReloadCMS</a>');
 
 // Main paths

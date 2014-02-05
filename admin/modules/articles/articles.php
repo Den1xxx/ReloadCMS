@@ -53,14 +53,16 @@ if(!empty($_POST['delete'])) {
 ******************************************************************************/
 if((!empty($_POST['save']) && !empty($c) && (!empty($b) || $c == '#hidden' || $c == '#root') && !empty($a) && $articles->setWorkContainer($c) && ($article = $articles->getArticle($b, $a, false, true, true, false))!== false)) {
 $time=sql_to_unix_time($_POST['time']);
-
+if($_POST['mode']=='php' && !$system->checkForRight('GENERAL')) 
+return rcms_showAdminMessage(__('Error occurred').': '.__('You are not administrator of this site'));
 	if(!@$articles->saveArticle($b, $a, 
 					$_POST['title'], 
 					$_POST['source'], 
 					$_POST['keywords'], 
 					$_POST['sef_desc'], 
 					$_POST['description'], 
-					$_POST['text'], $_POST['mode'], 
+					$_POST['text'], 
+					$_POST['mode'], 
 					$_POST['comments'],
 					$time
 					)){
@@ -156,8 +158,11 @@ if(!empty($_POST['tc']) && !empty($_POST['tb']) && !empty($_POST['ms']) && $_POS
 	<option value="-1">'. __('Select file').'</option')
 	.'&nbsp;&nbsp;&nbsp;'.__('You entered filename of file uploaded through upload interface'), 'top');
 	}																		//End Insert list uploaded files
+	if ($system->checkForRight('GENERAL'))
+	$arr_modes=array('html' => __('HTML'), 'text' => __('Text'), 'htmlbb' => __('bbCodes') . '+' . __('HTML'), 'php' => __('PHP'));
+	else	$arr_modes=array('html' => __('HTML'), 'text' => __('Text'), 'htmlbb' => __('bbCodes') . '+' . __('HTML'));
 	$frm->addrow(__('Mode'), 
-	$frm->select_tag('mode', array('html' => __('HTML'), 'text' => __('Text'), 'htmlbb' => __('bbCodes') . '+' . __('HTML'), 'php' => __('PHP')), $article['mode']), 'top');
+	$frm->select_tag('mode', $arr_modes, $article['mode']), 'top');
 	$frm->addrow(__('Date').' (yyyy-mm-dd hh:mm:ss)', $frm->text_box('time', gmdate("Y-m-d H:i:s",$article['time'])), 'top');
 	$frm->addrow(__('Allow comments'), $frm->radio_button('comments', array('yes' => __('Allow'), 'no' => __('Disallow')), $article['comments']), 'top');
 	$frm->show();

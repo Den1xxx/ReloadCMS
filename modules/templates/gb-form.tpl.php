@@ -4,7 +4,7 @@
 <textarea name="comtext" cols="20" rows="7" style="width: 90%"></textarea><br />
 <? $config = parse_ini_file(CONFIG_PATH . 'guestbook.ini'); 
 $max_len=$config['max_message_len']; ?>
-<? echo __('Maximum message length').' [<script type="text/javascript">displaylimit("document.form1.comtext", "",'.$max_len.') </script>]'?><br />
+<? echo __('You can enter').' <script type="text/javascript">displaylimit("document.form1.comtext", "",'.$max_len.') </script> '.__('characters')?><br />
 <p align="center">    
 <?php 
 	if(!LOGGED_IN) {

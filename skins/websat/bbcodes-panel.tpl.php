@@ -8,6 +8,7 @@
 <!--
 // Define the bbCode tags
 bbcode = new Array();
+bblast = new Array();
 bbtags = new Array('[b]','[/b]','[i]','[/i]','[u]','[/u]','[quote]','[/quote]','[code]','[/code]','[img]','[/img]','[url]','[/url]','[hidden]','[/hidden]','[offtop]','[/offtop]');
 //imageTag = false;
 //-->
@@ -26,7 +27,7 @@ $(document).ready(function() {
 							$("img#load<?=$rand?>").attr("src", "<?=RCMS_ROOT_PATH?>tools/js/images/blank.gif");
 							$("#uploadButton<?=$rand?> span").text('<?=__('Upload image')?>');
 							this.enable();
-if (response.substr(0,5)=='[img]') {//sucess
+if (response.substr(0,5)=='[img]') {//success
 document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'].value += response;
 $("#answer<?=$rand?>").text('<?=__('Uploaded')?> ' + file);
 } else {
@@ -51,7 +52,6 @@ $("#answer<?=$rand?>").text(response);}
         <input type="button" accesskey="w" name="addbbcode12" value="<?=__('URL')?>" onclick="bbstyle(document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'], 12, '<?=$tpldata['textarea']?>')" />
         <input type="button" accesskey="r" name="addbbcode16" value="<?=__('Offtop')?>" onclick="bbstyle(document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'], 16, '<?=$tpldata['textarea']?>')" />
 		<?}?>
-<input type="button" accesskey="Q" name="addbbcode17" value="<?=__('Clear')?>" onclick="document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'].value='';" />
 <input type="button" accesskey="S" name="addbbcode18" value="<?=__('Smiles')?>" onclick="$('#smiles<?=$rand;?>').toggle('slow'); return false;" />
 <?php if ($system->checkForRight('GENERAL')) {?>
 <button id="uploadButton<?=$rand?>" onclick="return false;">

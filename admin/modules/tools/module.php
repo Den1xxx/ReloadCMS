@@ -6,7 +6,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 $MODULES[$category][0] = __('Tools');
 if($system->checkForRight('GENERAL')) {
-    $MODULES[$category][1]['lightbox'] = __('Images resizing');
+    $MODULES[$category][1]['lightbox'] = __('Javascript');
 	$MODULES[$category][1]['sitemap'] = __('Site map');
     $MODULES[$category][1]['sendmail'] = __('Manage sendmail');
     $MODULES[$category][1]['uploads'] = __('Uploads management');

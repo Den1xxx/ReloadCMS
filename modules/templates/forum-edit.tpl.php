@@ -15,6 +15,6 @@
     <textarea name="text" cols="70" rows="7" style="width: 95%;"><?=$tpldata[1]?></textarea><br />
  <?php 
 	$config = parse_ini_file(CONFIG_PATH . 'forum.ini');
-	echo __('Maximum message length').' [<script type="text/javascript">displaylimit("document.edit.text", "",'.$config['max_topic_len'].') </script>]'?><br />
+	echo __('You can enter').' <script type="text/javascript">displaylimit("document.edit.text", "",'.$config['max_topic_len'].') </script> '.__('characters')?><br />
     <input type="submit" value="<?=__('Submit')?>" />
 </form>

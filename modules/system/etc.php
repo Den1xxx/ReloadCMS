@@ -11,7 +11,13 @@
  * @author DruidVAV
  * @package ReloadCMS
  */
-$lightbox_config = unserialize(@file_get_contents(CONFIG_PATH . 'lightbox.ini'));
+ 
+/**
+ * Configuration display images
+ *
+ * @author Den1xxx
+ */
+ $lightbox_config = is_file(CONFIG_PATH . 'lightbox.ini')?unserialize(file_get_contents(CONFIG_PATH . 'lightbox.ini')):array('code'=>'','gallery'=>'1','gal_width'=>'600','articles'=>'1','width'=>'300');
 
 /**
  * Function recursively check if $needle is present in $haystack
@@ -391,14 +397,14 @@ class message{
 	    "#[\s\n\r]*\[img\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br /><a href="\\1.\\2"  class="gallery"><img src="\\1.\\2" alt="\\2" width="'.$lightbox_config['width'].'px"/></a><br />',
 		"#[\s\n\r]*\[img=(\"|&quot;|)(left|right)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br /><img src="\\4.\\5" alt="\\5" align="\\2" style="padding: 5px;" /><br />',
 		"#[\s\n\r]*\[img=(\"|&quot;|)(\d+)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br /><img src="\\4.\\5" alt="\\5" width="\\2px" /><br />',
-		"#[\s\n\r]*\[img=(\"|&quot;|)(100%|[1-9]?[0-9]%)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br/><img src="\\4.\\5" alt="\\5" width="\\2" /><br/>'
+		"#[\s\n\r]*\[img=(\"|&quot;|)(100%|[1-9]?[0-9]%)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br/><img src="\\4.\\5" alt="\\5" width="\\2" /><br/>'
 		);
 		} else {
 		$this->regexp[2] = array(
 		"#[\s\n\r]*\[img\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br /><img src="\\1.\\2" alt="\\5" /><br />',
 		"#[\s\n\r]*\[img=(\"|&quot;|)(left|right)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<img src="\\4.\\5" alt="\\5" align="\\2" style="padding: 5px;" />',
 		"#[\s\n\r]*\[img=(\"|&quot;|)(\d+)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br /><img src="\\4.\\5" alt="\\5" width="\\2px" /><br />',
-		"#[\s\n\r]*\[img=(\"|&quot;|)(100%|[1-9]?[0-9]%)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br/><img src="\\4.\\5" alt="\\5" width="\\2" /><br/>'
+		"#[\s\n\r]*\[img=(\"|&quot;|)(100%|[1-9]?[0-9]%)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br/><img src="\\4.\\5" alt="\\5" width="\\2" /><br/>'
 		);		
 		}
     }
@@ -434,8 +440,9 @@ class message{
         }
         $this->str = str_replace(array_keys($this->sr_temp), array_values($this->sr_temp), $this->str);
         if (!empty($matches[1])) {
-		$html = array_fill(0,count($matches[1]),'{{{html}}}');
-		$this->str = str_replace($html, $matches[1], $this->str);}
+			$html = array_fill(0,count($matches[1]),'{{{html}}}');
+			$this->str = str_replace($html, $matches[1], $this->str);
+		}
         $this->result = $this->str;
     }
     
@@ -609,6 +616,8 @@ exit();
 * @return string 
 */
 function tinymce_init($textarea_id) {
+global $lightbox_config;
+if (!empty($lightbox_config['editor'])) return (str_replace('{textarea}',$textarea_id,$lightbox_config['editor']));
 return	'
  tinyMCE.init({
  mode : \'exact\',

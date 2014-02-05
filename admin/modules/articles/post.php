@@ -36,7 +36,8 @@ $b = (empty($_POST['b'])) ? null : $_POST['b'];
 if(!empty($_POST['save'])) {
 
 $time=sql_to_unix_time($_POST['time']);
-
+if($_POST['mode']=='php' && !$system->checkForRight('GENERAL')) 
+return rcms_showAdminMessage(__('Error occurred').': '.__('You are not administrator of this site'));
 	if(!$articles->setWorkContainer($c) || !$articles->saveArticle($b, 0, $_POST['title'], $_POST['source'], $_POST['keywords'], $_POST['sef_desc'], $_POST['description'], $_POST['text'], $_POST['mode'], $_POST['comments'],$time)){
 		rcms_showAdminMessage($articles->last_error);
 	} elseif ($system->checkForRight('ARTICLES-EDITOR')){
@@ -79,7 +80,10 @@ if(!empty($c)){
 	<option value="-1">'. __('Select file').'</option')
 	.'&nbsp;&nbsp;&nbsp;'.__('You entered filename of file uploaded through upload interface'), 'top');
 	}																//End Insert list uploaded files
-			$frm->addrow(__('Mode'), $frm->select_tag('mode', array('html' => __('HTML'), 'text' => __('Text'), 'htmlbb' => __('bbCodes') . '+' . __('HTML'), 'php' => __('PHP')), 'text'), 'top');
+	if ($system->checkForRight('GENERAL'))
+	$arr_modes=array('html' => __('HTML'), 'text' => __('Text'), 'htmlbb' => __('bbCodes') . '+' . __('HTML'), 'php' => __('PHP'));
+	else	$arr_modes=array('html' => __('HTML'), 'text' => __('Text'), 'htmlbb' => __('bbCodes') . '+' . __('HTML'));
+			$frm->addrow(__('Mode'), $frm->select_tag('mode', $arr_modes, 'text'), 'top');
 			$frm->addrow(__('Date').' (yyyy-mm-dd hh:mm:ss)', $frm->text_box('time', gmdate("Y-m-d H:i:s",rcms_get_time())), 'top');
 			$frm->addrow(__('Allow comments'), $frm->radio_button('comments', array('yes' => __('Allow'), 'no' => __('Disallow')), 'yes'), 'top');
 			$frm->show();

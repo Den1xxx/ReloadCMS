@@ -4,7 +4,9 @@
 //   http://reloadcms.com                                                     //
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
-//Add by Den1xxx 
+$lang['def']['Javascript'] = 'Яваскрипт';
+$lang['def']['In'] = 'В';
+$lang['def']['Write off to archive'] = 'Списать в архив';
 $lang['def']['Each entry on a new line'] = 'Вводите каждое значение с новой строки';
 $lang['def']['Similar items'] = 'Похожие объекты';
 $lang['def']['Feed for section'] = 'Фиды для раздела';
@@ -73,7 +75,8 @@ $lang['def']['Message'] = 'Сообщение';
 $lang['def']['Clear'] = 'Очистить';
 $lang['def']['Clear cache directory'] = 'Очистить папку кеша';
 $lang['def']['Upload image'] = 'Загрузить картинку';
-$lang['def']['characters remained'] = 'знаков осталось';
+$lang['def']['characters remained'] = 'символов осталось';
+$lang['def']['characters'] = 'символов';
 $lang['def']['Header'] = 'Заголовок';
 $lang['def']['Banner'] = 'Баннер';
 $lang['def']['Footer'] = 'Подвал сайта';
@@ -150,6 +153,7 @@ $lang['def']['Previous'] = 'Предыдущий';
 $lang['def']['All'] = 'Все';
 
 //Any
+$lang['def']['Each value on a new line'] = 'Каждое значение с новой строки';
 $lang['def']['Icon for views'] = 'Иконка для просмотров';
 $lang['def']['Icon for comments'] = 'Иконка для комментариев';
 $lang['def']['Rating'] = 'Рейтинг';
@@ -314,6 +318,7 @@ $lang['def']['Filename'] = 'Имя файла';
 $lang['def']['Last modification time'] = 'Дата модификации';
 $lang['def']['Configuration updated'] = 'Настройки сохранены';
 $lang['def']['Guest book configuration'] = 'Настройка гостевой книги';
+$lang['def']['You can enter'] = 'Вы можете ввести';
 $lang['def']['Maximum message length'] = 'Максимальная длина сообщения';
 $lang['def']['Maximum word length'] = 'Максимальная длина слова';
 $lang['def']['Maximum size of database (in messages)'] = 'Максимальный размер базы (кол-во сообщений)';

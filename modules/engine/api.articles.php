@@ -368,9 +368,11 @@ class articles{
 		}
 		if(is_file($art_prefix . 'define')){
 			$art_data = rcms_parse_ini_file($art_prefix . 'define');
+		if(is_file($art_prefix . 'count')) $art_data['views']=file_get_contents($art_prefix . 'count');
+		else file_write_contents($art_prefix . 'count',$art_data['views']);
 			if(!empty($this->config['count_views'])&&$cnt){
-				$art_data['views']++;
-				if(!write_ini_file($art_data, $art_prefix . 'define')){
+			$art_data['views']++;
+				if(!file_write_contents($art_prefix . 'count',$art_data['views'])){
 					$this->last_error = __('Cannot write to file');
 				} else {
 					$this->index[$cat_id][$art_id]['view'] = $art_data['views'];
@@ -676,6 +678,7 @@ class articles{
 		if(is_file($art_prefix . 'define')){
 			if($data = @file_get_contents($art_prefix . 'comments')) $data = unserialize($data); else $data = array();
 			$article_data = rcms_parse_ini_file($art_prefix . 'define');
+			$article_data['views']=is_file($art_prefix . 'count')?file_get_contents($art_prefix . 'count'):$article_data['views'];
 			// Forming new message
 			$newmesg['author_user'] = $system->user['username'];
 			$newmesg['author_nick'] = $system->user['nickname'];
@@ -734,6 +737,7 @@ class articles{
 				rcms_remove_index($comment, $data, true);
 				@file_write_contents($art_prefix . 'comments', serialize($data));
 				$article_data = rcms_parse_ini_file($art_prefix . 'define');
+				$article_data['views']=is_file($art_prefix . 'count')?file_get_contents($art_prefix . 'count'):$article_data['views'];
 				$arr_commts = unserialize(file_get_contents($art_prefix . 'comments'));
 				$article_data['comcount'] = count($arr_commts);
 				@write_ini_file($article_data, $art_prefix . 'define');

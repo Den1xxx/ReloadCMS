@@ -18,7 +18,7 @@
 <?php
 $config = parse_ini_file(CONFIG_PATH . 'forum.ini');
 	$max_topic_len = $config['max_topic_len'];
-	echo __('Maximum message length').' [<script type="text/javascript">displaylimit("document.new_topic.new_topic_text", "",'.$max_topic_len.') </script>]'?><br /> 
+	echo __('You can enter').' <script type="text/javascript">displaylimit("document.new_topic.new_topic_text", "",'.$max_topic_len.') </script> '.__('characters')?><br /> 
 <?	if(!LOGGED_IN) {
     $rand=rand(0,777); 
     ?>

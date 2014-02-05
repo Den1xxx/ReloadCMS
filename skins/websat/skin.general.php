@@ -74,6 +74,8 @@ $(function(){
 	
 	var menu = $('#menu'),
 	pos = menu.offset();
+	$('textarea').after('<button class="clr_txt" onclick="$(this).prev(\'textarea\').val(\'\');return false;" style="position:absolute;top:'+$(this).offset.top+'px;margin-left:-2em;margin-top:1em;opacity:0.3;line-height:0.8em;">X</button>');
+	$('button.clr_txt').hover(function(){$(this).css('opacity',1)},function(){$(this).css('opacity',0.3)});
 		
 		$(window).scroll(function(){
 			if($(this).scrollTop() > pos.top+menu.height() && menu.hasClass('navigation')){

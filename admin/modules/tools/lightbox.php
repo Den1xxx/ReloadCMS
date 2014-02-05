@@ -13,6 +13,8 @@ $lightbox_config = unserialize(@file_get_contents(CONFIG_PATH . 'lightbox.ini'))
 
 // Interface generation
 $frm =new InputForm ('', 'post', __('Submit'));
+$frm->addbreak(__('Javascript'));
+$frm->addrow(__('Editor').'<br/> elements : \'{textarea}\',',$frm->textarea('lightbox_config[editor]', @$lightbox_config['editor'], 60, 10));
 $frm->addbreak(__('Automatic resizing image (lightbox effect)'));
 $frm->addrow(__('Code').'<br/> (class="gallery")',$frm->textarea('lightbox_config[code]', @$lightbox_config['code'], 60, 10));
 $frm->addrow(__('Gallery'),$frm->checkbox('lightbox_config[gallery]','1', '  '.__('Add'),@$lightbox_config['gallery']));
