@@ -73,7 +73,6 @@ NightFly — за моральную поддержку <br>
  <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a> - за визуальный редактор, которым могут пользоваться даже домохозяйки:) <br>
  <a href="http://www.google.com/" target="_blank">http://www.google.com/</a> - за подсказки в трудную минуту и перевод этого файла.
 
-
 Предложения помочь проекту пишем сюда - http://fromgomel.com/?module=sendmail&get=development<br>
 Ошибки сообщаем здесь - http://reloadcms.com/main/?module=forum<br>
 
@@ -86,11 +85,3 @@ NightFly — за моральную поддержку <br>
 С уважением, разработчик<br>
 http://fromgomel.com
 <br><br>
-Особое спасибо:
-NightFly — за моральную поддержку<br>
-http://ubilling.net.ua/ — за идеи контекстной помощи<br>
-http://reloadcms.com - за отличную систему<br>
-http://cyberapp.ru/cyber-image-manager/ - за прикольный менеджер картинок<br>
-http://jquery.com/ - за превосходный фреймворк<br>
-http://www.tinymce.com/ - за визуальный редактор, которым могут пользоваться даже домохозяйки:)<br>
-http://www.google.com/ - за  подсказки в трудную минуту и перевод этого файла.<br>
