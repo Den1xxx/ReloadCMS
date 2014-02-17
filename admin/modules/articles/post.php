@@ -41,7 +41,7 @@ return rcms_showAdminMessage(__('Error occurred').': '.__('You are not administr
 	if(!$articles->setWorkContainer($c) || !$articles->saveArticle($b, 0, $_POST['title'], $_POST['source'], $_POST['keywords'], $_POST['sef_desc'], $_POST['description'], $_POST['text'], $_POST['mode'], $_POST['comments'],$time)){
 		rcms_showAdminMessage($articles->last_error);
 	} elseif ($system->checkForRight('ARTICLES-EDITOR')){
-		$frm = new InputForm ('?show=module&id=articles.articles', 'post', __('Edit It'));
+		$frm = new InputForm ('?show=module&id=articles.articles', 'post', __('Edit'));
 		$frm->hidden('c', $c);
 		$frm->hidden('b', $b);
 		$frm->hidden('a', $_SESSION['art_id']);

@@ -10,7 +10,7 @@ if (!is_dir(DATA_PATH.'help/')) mkdir(DATA_PATH.'help/',0777);
 if (!is_dir($help_dir)) mkdir($help_dir,0777);
 
 if (!empty($_GET['delete'])) {
-$dfile=$help_dir.'/'.vf(get('delete'));
+$dfile=$help_dir.'/'.get('delete');
 if (rcms_delete_files($dfile)) show_window (__('Result'),__('File removed'));
 else show_window (__('Result'),__('Error occurred').':'.$dfile);
 }
