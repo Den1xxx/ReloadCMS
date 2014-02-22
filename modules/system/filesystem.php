@@ -315,11 +315,20 @@ function convert_rights_string($mode) {
 function download_file($file_name) {
     if (!empty($file_name)) {
 		if (file_exists($file_name)) {
-		$fileContent=  file_get_contents($file_name);
-		header("Content-Length: ".filesize($file_name));
-		header("Content-Disposition: attachment; filename=".basename($file_name)); 
-		header("Content-Type: application/x-force-download; name=\"".$file_name."\"");
-		die($fileContent);
+		header("Content-Disposition: attachment; filename=" . basename($file_name));   
+		header("Content-Type: application/force-download");
+		header("Content-Type: application/octet-stream");
+		header("Content-Type: application/download");
+		header("Content-Description: File Transfer");            
+		header("Content-Length: " . filesize($file_name));		
+		flush(); // this doesn't really matter.
+		$fp = fopen($file_name, "r");
+		while (!feof($fp)) {
+			echo fread($fp, 65536);
+			flush(); // this is essential for large downloads
+		} 
+		fclose($fp);
+		die();
 		} else {
         header($_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
         header('Status: 404 Not Found'); 
