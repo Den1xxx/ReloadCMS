@@ -65,14 +65,16 @@ input {
 	text-indent: 3px;
 }
 
-input, textarea, select, button {
+input, textarea, select, button, a.button {
 	color: #333;
     background-color: #FCFCFC;
     border: 1px solid #D8D8D8;
 	outline: none;
     padding: 3px 5px; 
     border-radius: 5px; 
+	text-decoration: none;
 }
+
 input[type="text"]:hover,textarea:hover {
 	color: #000;
     background-color: #fff;
@@ -86,7 +88,7 @@ input[type="text"]:focus,textarea:focus{
 	box-shadow: 0 0 5px #1D5773;
 }
 
-input[type="submit"],input[type="reset"],input[type="button"],input[type="file"],button{
+input[type="submit"],input[type="reset"],input[type="button"],input[type="file"],button, a.button{
 	color:white;
 	cursor:pointer;
     background: #5CA7CC; 
@@ -99,7 +101,7 @@ input[type="submit"],input[type="reset"],input[type="button"],input[type="file"]
 	margin: 1px;
 	outline: none;
 } 
-input[type="submit"]:hover,input[type="reset"]:hover,input[type="button"]:hover,input[type="file"]:hover,button:hover {
+input[type="submit"]:hover,input[type="reset"]:hover,input[type="button"]:hover,input[type="file"]:hover,button:hover, a.button:hover {
     background: #B5902D;
     background: -webkit-gradient(linear, left top, left bottom, from(#9D7200), to(#B5902D)); 
     background: -moz-linear-gradient(top,  #9D7200,  #B5902D); 
@@ -107,7 +109,7 @@ input[type="submit"]:hover,input[type="reset"]:hover,input[type="button"]:hover,
     background: gradient(linear, top,  #9D7200,  #B5902D); 
     border: 1px solid #F23200; 
 } 
-input[type="submit"]:visited,input[type="reset"]:visited,input[type="button"]:visited,input[type="file"]:visited{
+input[type="submit"]:visited,input[type="reset"]:visited,input[type="button"]:visited,input[type="file"]:visited, a.button:visited{
 	outline: none;
 }
 
