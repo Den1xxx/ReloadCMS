@@ -17,7 +17,7 @@
  *
  * @author Den1xxx
  */
- $lightbox_config = is_file(CONFIG_PATH . 'lightbox.ini')?unserialize(file_get_contents(CONFIG_PATH . 'lightbox.ini')):array('code'=>'','gallery'=>'1','gal_width'=>'600','articles'=>'1','width'=>'300');
+$lightbox_config = unserialize(@file_get_contents(CONFIG_PATH . 'lightbox.ini'));
 
 /**
  * Function recursively check if $needle is present in $haystack
@@ -174,14 +174,13 @@ function rcms_date_localise($string){
 }
 
 /*
- * Return unix format time from mysql time
+ * Return mysql format time from unix time
  * if invalid format return null
  *
  * @param string $string
  * @return string
  */
 function sql_to_unix_time($string){
-global $system;
 //Y-m-d H:i:s => array(H,i,s,m,d,Y);
 preg_match_all("#(\d\d\d\d)-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)#", $string, $date_time_array);
 if (empty($date_time_array[1][0])) $time='';
@@ -193,7 +192,7 @@ else $time = mktime(
     $date_time_array[3][0],
     $date_time_array[1][0]
     );
-	return $time;
+return $time;
 }
 
 /*
@@ -337,9 +336,9 @@ class message{
      * @var array
      */
     var $regexp = array();
-    
+
     var $sr_temp = array();
-    
+	
     /**
      * Class constructor
      *
@@ -440,14 +439,13 @@ class message{
         }
         $this->str = str_replace(array_keys($this->sr_temp), array_values($this->sr_temp), $this->str);
         if (!empty($matches[1])) {
-			$html = array_fill(0,count($matches[1]),'{{{html}}}');
-			$this->str = str_replace($html, $matches[1], $this->str);
-		}
+		$html = array_fill(0,count($matches[1]),'{{{html}}}');
+		$this->str = str_replace($html, $matches[1], $this->str);}
         $this->result = $this->str;
     }
     
     /**
-     * Parses message::str [qoute|quote="Who"]..[/qoute] bbtag
+     * Parses message::str [qoute|quote="Who"]..[/qoute] bbtag (recursive)
      *
      */
     function parseQuoteTag(){
@@ -455,22 +453,34 @@ class message{
 		$this->str = preg_replace("#[\s\n\r]*\[quote=(\"|&quot;|)(.*?)(\"|&quot;|)\][\s\n\r]*(.*?)[\s\n\r]*\[/quote\][\s\n\r]*#is", '<div class="codetitle"><b>\\2 ' . __('wrote') . ':</b></div><div class="codetext">\\4</div>', $this->str);
 		if (preg_match("#\[quote(?:=.*|)\](?:.*)\[/quote\]#is", $this->str)) $this->parseQuoteTag();
     }
-    
+	
+	
     /**
-     * Parses message::str [code]..[/code] bbtag
+     * Parses message::str [code|code="PHP"]..[/code] bbtag
      *
      */
     function parseCodeTag(){
-        preg_match_all("#[\s\n\r]*\[code\][\s\n\r]*(.*?)[\s\n\r]*\[/code\][\s\n\r]*#is", $this->str, $matches);
-		foreach($matches[1] as $oldpart) {
-			$newpart = preg_replace("#[\n\r]+#", '', highlight_string(strtr($oldpart, array_flip(get_html_translation_table(HTML_SPECIALCHARS))), true));
-			$newpart = preg_replace(array('#\[#', '#\]#'), array('&#91;', '&#93;'), $newpart);
-			$tmp = '{SR:' . rcms_random_string(6) . '}';
+		preg_match_all("#[\s\n\r]*\[code(=\"|=&quot;|=|)(.*?)(\"|&quot;|)\][\s\n\r]*(.*?)[\s\n\r]*\[/code\][\s\n\r]*#is", $this->str,$matches);
+		if (!empty($matches[3]))  {
+			foreach ($matches[3] as $key=>$lang) {
+			$newpart = $this->hightlightCode($matches[4][$key],$lang);
+			$newpart = str_replace(array('[', ']'), array('&#91;', '&#93;'), $newpart);
+			$tmp = '{SR:' . rcms_random_string(7) . '}';
 			$this->sr_temp[$tmp] = $newpart;
-			$this->str = str_replace($oldpart, $tmp, $this->str);
+			$this->str = str_replace($matches[4][$key], $tmp, $this->str);
+			}
+        $this->str = preg_replace("#[\s\n\r]*\[code(=\"|=&quot;|=|)(.*?)(\"|&quot;|)\][\s\n\r]*(.*?)[\s\n\r]*\[/code\][\s\n\r]*#is", '<table style="width:100% !important;table-layout:fixed;"><tbody><tr><th class="codetitle">'.__('Code').': \\2</th></tr><tr><td class="codetext"><pre style="overflow:auto">\\4</pre></td></tr></tbody></table>', $this->str);
 		}
-		$this->str = preg_replace("#[\s\n\r]*\[code\][\s\n\r]*(.*?)[\s\n\r]*\[/code\][\s\n\r]*#is", '<div class="codetitle"><b>' . __('Code') . ':</b></div><div class="codetext" style="overflow: auto; white-space: nowrap;">\\1</div>', $this->str);
     }
+
+    function hightlightCode($string,$lang='php'){
+	$lang = mb_strtolower($lang);
+	if ($lang == 'php' OR 'javascript') {
+    $string = highlight_string(strtr('<?'.$string, array_flip(get_html_translation_table(HTML_SPECIALCHARS))), true);
+	$string = substr_replace($string, '', strpos($string, '&lt;?'), 5); 
+	} else $string = highlight_string($string,true);
+	return $string;
+	}
     
     function parseUrls(){
 		$this->str = $this->highlightUrls($this->str);
