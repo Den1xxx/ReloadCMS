@@ -17,7 +17,7 @@
  *
  * @author Den1xxx
  */
-$lightbox_config = unserialize(@file_get_contents(CONFIG_PATH . 'lightbox.ini'));
+$lightbox_config = is_file(CONFIG_PATH . 'lightbox.ini')?unserialize(file_get_contents(CONFIG_PATH . 'lightbox.ini')):array('code'=>'','gallery'=>'1','gal_width'=>'600','articles'=>'1','width'=>'300');
 
 /**
  * Function recursively check if $needle is present in $haystack
@@ -181,6 +181,7 @@ function rcms_date_localise($string){
  * @return string
  */
 function sql_to_unix_time($string){
+global $system;
 //Y-m-d H:i:s => array(H,i,s,m,d,Y);
 preg_match_all("#(\d\d\d\d)-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)#", $string, $date_time_array);
 if (empty($date_time_array[1][0])) $time='';

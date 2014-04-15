@@ -6,8 +6,8 @@
 .row2 {padding:3px;}
 .special {color: red ! important;}
 .border{border: 1px solid #003366;}
-.codetitle {margin: 10px 5px 0px 5px;padding: 4px;border-width: 1px 1px 1px 1px;border-style: solid;border-color: #A9B8C2;color: #003366;background-color: #E5E5E5;font-size: 8pt;}
-.codetext {margin: 0px 5px 10px 5px;padding: 5px 5px 5px 5px;border-color: #E5E5E5;border-width: 0px 1px 1px 1px;border-style: solid;color: #003366;font-weight: normal;font-size: 8pt;font-family: "Courier New", Courier, mono;background-color: #FAFAFA;overflow: auto}
+.codetitle {margin: 10px 5px 0px 5px;padding: 4px;border-width: 1px 1px 1px 1px;border-style: solid;border-color: #A9B8C2;color: #003366;background-color: #E5E5E5;font-size: 8pt;text-align:left;}
+.codetext {margin: 0px 5px 10px 5px;padding: 5px 5px 5px 5px;border-color: #E5E5E5;border-width: 0px 1px 1px 1px;border-style: solid;color: #003366;font-weight: normal;text-align:left;font-size: 8pt;font-family: "Courier New", Courier, mono;background-color: #FAFAFA;overflow: auto;line-height:100%;}
 .hidden {margin: 0px 5px 10px 5px;padding: 2px 2px 2px 2px;border-color: Navy;border-width: 1px 1px 1px 1px;border-style: dashed;color: black;font-weight: normal;font-size: 8pt;font-family: "Courier New", Courier, mono;background-color: #C4E6FA;overflow: auto;}
 .popUpBox {
     position:absolute;
