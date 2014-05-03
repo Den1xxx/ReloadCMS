@@ -70,7 +70,7 @@ function pm_get_msgs($page = 0, $parse = true, $limited = true, $file = RCMS_PM_
 	} else return $ret;
 }
 
-function pm_get_msg_by_id($num = 10, $parse = true, $limited, $mid = '0', $file = RCMS_PM_DEFAULT_FILE) {
+function pm_get_msg_by_id($num = 10, $parse = false, $limited, $mid = '0', $file = RCMS_PM_DEFAULT_FILE) {
 	global $_CACHE, $system;
 	$t='';
 	$data = &$_CACHE['gbook'][$file];
@@ -92,7 +92,7 @@ function pm_get_msg_by_id($num = 10, $parse = true, $limited, $mid = '0', $file 
 		}
 		if($parse){
 			$t= rcms_parse_text_by_mode($rdata[$mid]['text'],'text');
-		}
+		} else $t=$rdata[$mid]['text'];
 	}
 	return $t;
 }

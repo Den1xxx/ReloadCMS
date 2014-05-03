@@ -51,7 +51,7 @@
 <?php if(!empty($system->modules['main']['articles.post'])) { ?>
 <tr>
     <td class="row3">
-        <a href="?module=fnadmin&action=new"><?=__('Post article')?></a>
+        <a href="?module=articles.post"><?=__('Post article')?></a>
     </td>
 </tr>
 <?php }?>

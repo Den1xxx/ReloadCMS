@@ -9,6 +9,7 @@ if(!empty($_POST['field_id']) && !empty($_POST['field_name'])){
         rcms_showAdminMessage(__('Cannot save configuration'));
     } else {
         $cnt = sizeof($_POST['field_id']);
+		$result=array();
         for($i = 0; $i < $cnt; $i++){
             if(!empty($_POST['field_id'][$i])) $result[$_POST['field_id'][$i]] = $_POST['field_name'][$i];
         }

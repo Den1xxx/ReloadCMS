@@ -4,7 +4,7 @@
 //   http://reloadcms.com                                                     //
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
-
+global $lang;
 
 class rcms_system extends rcms_user {
 	var $language = '';
@@ -57,14 +57,14 @@ class rcms_system extends rcms_user {
 
 	function initialiseLanguage($language = '', $default = false){
 		global $lang;
-
+		$langpath = array();
 		// Loading avaible languages lists
 		$langs = rcms_scandir(LANG_PATH);
 		foreach ($langs as $lng){
 			if(is_dir(LANG_PATH . $lng) && is_file(LANG_PATH . $lng . '/langid.txt')){
 				$lngdata = file(LANG_PATH . $lng . '/langid.txt');
 				$this->data['languages'][preg_replace("/[\n\r]+/", '', $lngdata[1])] = preg_replace("/[\n\r]+/", '', $lngdata[0]);
-				$this->data['langpath'][preg_replace("/[\n\r]+/", '', $lngdata[1])] = LANG_PATH . $lng . '/';
+				$langpath[preg_replace("/[\n\r]+/", '', $lngdata[1])] = LANG_PATH . $lng . '/';
 			}
 		}
 
@@ -89,22 +89,22 @@ class rcms_system extends rcms_user {
 			}
 		}
 
-		if(!is_file($this->data['langpath'][$this->language] . 'langid.txt')){
+		if(!is_file($langpath[$this->language] . 'langid.txt')){
 			die('Language "' . $this->language . '" not found');
 		}
 
 		// Loading language files' list
-		$lngdir = rcms_scandir($this->data['langpath'][$this->language]);
+		$lngdir = rcms_scandir($langpath[$this->language]);
 
 		// Loading language definition
-		$lngdata = file($this->data['langpath'][$this->language] . 'langid.txt');
+		$lngdata = file($langpath[$this->language] . 'langid.txt');
 		$this->config['language'] = preg_replace("/[\n\r]+/", '', $lngdata[1]);
 		$this->config['encoding'] = preg_replace("/[\n\r]+/", '', $lngdata[2]);
 
 		// Loading language bindings
 		foreach ($lngdir as $langfile){
-			if(is_file($this->data['langpath'][$this->language] . $langfile) && $langfile !== 'langid.txt'){
-				include_once($this->data['langpath'][$this->language] . $langfile);
+			if(is_file($langpath[$this->language] . $langfile) && $langfile !== 'langid.txt'){
+				include_once($langpath[$this->language] . $langfile);
 			}
 		}
 	}
@@ -258,14 +258,13 @@ function __($string){
 	}
 }
 
-function rcms_log_put($type, $user, $message){
+function rcms_log_put($type, $user, $message) {
 	global $system;
 	return $system->logPut($type, $user, $message);
 }
 
 
-function cut_text($str,$lenght=25)
-{
+function cut_text($str,$lenght=25) {
 	$str = mb_substr($str, 0, $lenght) . ((mb_strlen($str) > $lenght) ? '...' : ''); 
 	return ($str);
 }

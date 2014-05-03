@@ -37,7 +37,7 @@ if (isset($_GET['for']))
 {
 $for=$_GET['for'];
 $re='';
-if (isset($_GET['re'])) {$re = '[quote='.$for.']'.pm_get_msg_by_id(100, true, true, $_GET['re']).'[/quote]';}
+if (isset($_GET['re'])) {$re = '[quote='.$for.']'.pm_get_msg_by_id(100, false, true, $_GET['re']).'[/quote]';}
 $result = '<form method="post" action="" name="form1">'.rcms_show_bbcode_panel('form1.support_req').'<input type="hidden" name="to" value="'.$for.'" />
 ' . __('Message text') . ': <br/><textarea name="support_req" style="width: 90%" cols="60" rows="7">'.$re.'</textarea><p align="center"><input type="submit" value="' . __('Submit') . '" /></p></form>';
 if (getUserData($_GET['for'])) show_window(__('Send private message for ').$for, $result, 'center');
