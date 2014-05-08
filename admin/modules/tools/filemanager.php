@@ -34,8 +34,9 @@ if(!empty($_REQUEST['edit'])){
 <?php
 } elseif(!empty($_REQUEST['rights'])){
 	if(!empty($_REQUEST['save'])) {
-	    rcms_chmod($_REQUEST['path'] . $_REQUEST['rights'], convert_rights_string($_REQUEST['rights_val']), @$_REQUEST['recursively']);
-		rcms_showAdminMessage(__('File updated'));
+	    if(rcms_chmod($_REQUEST['path'] . $_REQUEST['rights'], convert_rights_string($_REQUEST['rights_val']), @$_REQUEST['recursively']))
+		rcms_showAdminMessage(__('File updated')); 
+		else rcms_showAdminMessage(__('Error occurred'));
 	}
 	clearstatcache();
     $oldrights = get_rights_string($_REQUEST['path'] . $_REQUEST['rights'], true);
@@ -182,7 +183,9 @@ foreach ($elements as $file){
         $style = 'row2';
 		 if ($file<>'.')      $alert = 'onClick="if(confirm(\'' . __('Are you sure you want to delete this directory (recursively)?').'\n /'. $file. '\')) document.location.href = \'' . $url_inc . '&delete=' . $file . '&path=' . $_REQUEST['path']  . '\'"'; else $alert = '';
     } else {
-	$link = '<a href="' . $url_inc . '&edit=' . $file . '&path=' . $_REQUEST['path']. '" title="' . __('Edit') . '"><img src="'.SKIN_PATH.'edit.png"/> ' . $file . '</a>';
+	$link_img=str_replace(realpath(RCMS_ROOT_PATH).'/',RCMS_ROOT_PATH,$_REQUEST['path']);
+	if (is_images($filename)) $link = '<a href="'.$link_img.$file.'" class="gallery" title="'.$file.'"><img src="'.SKIN_PATH.'fastnews/view.gif" > '.$file.'</a>';
+	else $link = '<a href="' . $url_inc . '&edit=' . $file . '&path=' . $_REQUEST['path']. '" title="' . __('Edit') . '"><img src="'.SKIN_PATH.'edit.png"/> ' . $file . '</a>';
         $loadlink = '&nbsp;&nbsp;<a href="'.RCMS_ROOT_PATH.'admin.php?show=module&id=tools.filemanager&download='.base64_encode($filename).'">'.__('Download').'</a>';
         $style = 'row1';
 		$alert = 'onClick="if(confirm(\''. __('File selected').': \n'. $file. '. \n'.__('Are you sure you want to delete this file?') . '\')) document.location.href = \'' . $url_inc . '&delete=' . $file . '&path=' . $_REQUEST['path']  . '\'"';
@@ -194,8 +197,8 @@ foreach ($elements as $file){
 <tr> 
     <td class="<?=$style?>"><?=$link?></td>
     <td class="<?=$style?>"><?=$filedata[7]?></td>
-    <td class="<?=$style?>" style="white-space:nowrap"><?=gmdate("Y-m-d H:i:s",$filedata[9])?></td>
-    <td class="<?=$style?>"><?=$rightstext?></td>
+     <td class="<?=$style?>" style="white-space:nowrap"><?=gmdate("Y-m-d H:i:s",$filedata[9])?></td>
+   <td class="<?=$style?>"><?=$rightstext?></td>
     <td class="<?=$style?>"><?=$deletelink?></td>
     <td class="<?=$style?>"><?=$renamelink?></td>
 </tr>
@@ -206,8 +209,9 @@ foreach ($elements as $file){
 </table>
 <script language="Javascript" type="text/javascript" src="./tools/js/edit_area/edit_area_full.js"></script>
 <script language="Javascript" type="text/javascript">
-    $(document).ready (
-        function()        {
+    $(document).ready(
+        function()
+        {
             editAreaLoader.init({
                 id: "newcontent", // привязываем к textarea с id: newcontent
                 allow_resize: "both", // разрешаем изменения размера

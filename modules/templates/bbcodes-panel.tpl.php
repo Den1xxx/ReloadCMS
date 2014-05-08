@@ -12,7 +12,7 @@ bblast = new Array();
 bbtags = new Array('[b]','[/b]','[i]','[/i]','[u]','[/u]','[quote]','[/quote]','[code]','[/code]','[img]','[/img]','[url]','[/url]','[hidden]','[/hidden]','[offtop]','[/offtop]');
 //imageTag = false;
 //-->
-<?php if ($system->checkForRight('GENERAL')) {?>
+<?php if (user_can_upload_images()) {?>
 $(document).ready(function() {
 			var button = $('#uploadButton<?=$rand?>'), interval;
 			$.ajax_upload(button, {
@@ -53,7 +53,7 @@ $("#answer<?=$rand?>").text(response);}
         <input type="button" accesskey="r" name="addbbcode16" value="<?=__('Offtop')?>" onclick="bbstyle(document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'], 16, '<?=$tpldata['textarea']?>')" />
 		<?}?>
 <input type="button" accesskey="Q" name="addbbcode17" value="<?=__('Clear')?>" onclick="document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'].value='';" />
-<?php if ($system->checkForRight('GENERAL')) {?>
+<?php if (user_can_upload_images()) {?>
 <button id="uploadButton<?=$rand?>" onclick="return false;">
 <span><?=__('Upload image')?></span>
 <img id="load<?=$rand?>" src="<?=RCMS_ROOT_PATH?>tools/js/images/blank.gif"/>

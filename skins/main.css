@@ -32,5 +32,8 @@ kbd {
 .fn_category_tree {padding-left:10px;list-style-type:none;line-height:1.1em;}
 .fn_category_tree  a.active{font-weight:bold;}
 a img.edit{border:0;padding:0;margin:0;}
+a.gallery img{border:0;padding:5px;margin:0;}
 div.ui-dialog-content p a{text-decoration:underline;}
 a.active{font-weight:bold}
+button.mfp-close,button.mfp-arrow{background:none !important;border:none !important;}
+div.mfp-title{min-width:100px !important;}

@@ -18,7 +18,6 @@
  * @author Den1xxx
  */
 $lightbox_config = is_file(CONFIG_PATH . 'lightbox.ini')?unserialize(file_get_contents(CONFIG_PATH . 'lightbox.ini')):array('code'=>'','gallery'=>'1','gal_width'=>'600','articles'=>'1','width'=>'300');
-
 /**
  * Function recursively check if $needle is present in $haystack
  *
@@ -392,19 +391,19 @@ class message{
 		);
 		
 		$this->regexp[1] = array_merge(get_animated_to_array(), $this->regexp[1]);
-		if (@$lightbox_config['articles']) {
+		if (!empty($lightbox_config['articles'])) {
 		$this->regexp[2] = array(
-	    "#[\s\n\r]*\[img\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br /><a href="\\1.\\2"  class="gallery"><img src="\\1.\\2" alt="\\2" width="'.$lightbox_config['width'].'px"/></a><br />',
-		"#[\s\n\r]*\[img=(\"|&quot;|)(left|right)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br /><img src="\\4.\\5" alt="\\5" align="\\2" style="padding: 5px;" /><br />',
-		"#[\s\n\r]*\[img=(\"|&quot;|)(\d+)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br /><img src="\\4.\\5" alt="\\5" width="\\2px" /><br />',
-		"#[\s\n\r]*\[img=(\"|&quot;|)(100%|[1-9]?[0-9]%)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br/><img src="\\4.\\5" alt="\\5" width="\\2" /><br/>'
+	    "#[\s\n\r]*\[img\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => ' <a href="\\1.\\2"  class="gallery" title="\\1.\\2"><img src="\\1.\\2" alt="\\2" width="'.$lightbox_config['width'].'px"/></a>',
+		"#[\s\n\r]*\[img=(\"|&quot;|)(left|right)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => ' <img src="\\4.\\5" alt="\\5" align="\\2" style="padding: 5px;" /> ',
+		"#[\s\n\r]*\[img=(\"|&quot;|)(\d+)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2px" /> ',
+		"#[\s\n\r]*\[img=(\"|&quot;|)(100%|[1-9]?[0-9]%)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2" /> '
 		);
 		} else {
 		$this->regexp[2] = array(
-		"#[\s\n\r]*\[img\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br /><img src="\\1.\\2" alt="\\5" /><br />',
+		"#[\s\n\r]*\[img\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => ' <img src="\\1.\\2" alt="\\5" /> ',
 		"#[\s\n\r]*\[img=(\"|&quot;|)(left|right)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<img src="\\4.\\5" alt="\\5" align="\\2" style="padding: 5px;" />',
-		"#[\s\n\r]*\[img=(\"|&quot;|)(\d+)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br /><img src="\\4.\\5" alt="\\5" width="\\2px" /><br />',
-		"#[\s\n\r]*\[img=(\"|&quot;|)(100%|[1-9]?[0-9]%)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<br/><img src="\\4.\\5" alt="\\5" width="\\2" /><br/>'
+		"#[\s\n\r]*\[img=(\"|&quot;|)(\d+)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2px" /> ',
+		"#[\s\n\r]*\[img=(\"|&quot;|)(100%|[1-9]?[0-9]%)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2" /> '
 		);		
 		}
     }
@@ -474,7 +473,7 @@ class message{
 		}
     }
 
-    function hightlightCode($string,$lang='php'){
+    function hightlightCode($string,$lang='html'){
 	$lang = mb_strtolower($lang);
 	if ($lang == 'php' OR 'javascript') {
     $string = highlight_string(strtr('<?'.$string, array_flip(get_html_translation_table(HTML_SPECIALCHARS))), true);
@@ -582,6 +581,7 @@ function cookie($value,$no_value=''){
 return (isset($_COOKIE[$value])?$_COOKIE[$value]:$no_value);
 }
 
+
 /*
 * Short alias for $system->checkForRight($right) 
 *
@@ -589,9 +589,9 @@ return (isset($_COOKIE[$value])?$_COOKIE[$value]:$no_value);
 */
 function cfr($right) {
     global $system;
-    if($system->checkForRight($right)) return true;
-    else return false;
+    return ($system->checkForRight($right));
 }
+
 
 /*
 * code from http://detectmobilebrowsers.com/
@@ -669,5 +669,28 @@ return '<br/>
 	</select>
 	'.$res.'
 	';
+}
+
+/*
+* Return true, if current user has right to uploading images
+* @return boolean 
+*/
+function user_can_upload_images() {
+global $lightbox_config;
+if (!LOGGED_IN) return false;
+if (cfr('GENERAL')) return true;
+if (empty($lightbox_config['manage_enable'])) return false;
+if ($lightbox_config['right_string']=='LOGGED_IN') return true;
+if (cfr($lightbox_config['right_string'])) return true;
+return false;
+} 
+
+/*
+*  
+* @return string 
+*/
+function make_safe_filename($filename) {
+$filename =	preg_replace("/[^\p{L}0-9\+\-\_:\.@ ]/u",'',$filename);
+return	translitCP1251toUTF8($filename);
 }
 ?>
