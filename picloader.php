@@ -126,6 +126,8 @@ if(function_exists('imagepng')) $gd_formats .= 'png ';
 		imagedestroy($img);
 		break;
 		default:
+		echo __('Your file is not an image or is corrupted') . ' (' . $_FILES['uploadfile']['name'] . ')';
+		return false;		
 		break;
 		}		
 	}
