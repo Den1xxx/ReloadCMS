@@ -21,6 +21,6 @@ NightFly - for moral support<br />
 http://ubilling.net.ua/ - ideas for context-sensitive help<br />
 http://reloadcms.com - for an excellent system<br />
 http://cyberapp.ru/cyber-image-manager/ - a cool image manager<br />
-http://jquery.com/ - an excellent framework for<br />
+http://jquery.com/ - an excellent framework for all<br />
 http://www.tinymce.com/ - a visual editor, which can be used even housewives :)<br />
 http://www.google.com/ - for clues in difficult times and transfer the file.<br />
