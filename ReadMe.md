@@ -1,4 +1,4 @@
-<h2>ReloadCMS 1.5.3-alfa version of 08.05.2014.</h2>
+<h2>ReloadCMS 1.5.3-beta version of 14.05.2014.</h2>
 
 ReloadCMS is a full-featured, small, simple and flexible Content Management System for web sites.<br />
 ReloadCMS was designed for small and medium projects that need CMS that will run even on a cheap servers.<br /><br />

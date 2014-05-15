@@ -52,12 +52,11 @@ $("#answer<?=$rand?>").text(response);}
         <input type="button" accesskey="w" name="addbbcode12" value="<?=__('URL')?>" onclick="bbstyle(document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'], 12, '<?=$tpldata['textarea']?>')" />
         <input type="button" accesskey="r" name="addbbcode16" value="<?=__('Offtop')?>" onclick="bbstyle(document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'], 16, '<?=$tpldata['textarea']?>')" />
 		<?}?>
-<input type="button" accesskey="Q" name="addbbcode17" value="<?=__('Clear')?>" onclick="document.forms['<?=$dta[0]?>'].elements['<?=$dta[1]?>'].value='';" />
 <?php if (user_can_upload_images()) {?>
-<button id="uploadButton<?=$rand?>" onclick="return false;">
+<input type="button" name="ins<?=$rand?>" onclick="var lefto = screen.availWidth/2-320;window.open('picman.php?ins=<?=$dta[1]?>&form=<?=$dta[0]?>','popup','width=640,height=480,left=' + lefto + ',toolbar=no,location=no,directories=no,status=no');return false;" value="<?=__('Insert')?>" /> <button id="uploadButton<?=$rand?>" onclick="return false;">
 <span><?=__('Upload image')?></span>
 <img id="load<?=$rand?>" src="<?=RCMS_ROOT_PATH?>tools/js/images/blank.gif"/>
-</button>
+</button> 
 <span id="answer<?=$rand?>"></span>
 <?} ?>
     </td>
@@ -70,7 +69,6 @@ $("#answer<?=$rand?>").text(response);}
 </table>
 
 <div class="popUpBox"><?=__('Quote')?></div>
-<!-- Begin JavaScript -->
 <script type="text/javascript">
 jQuery(function($) {
  
@@ -102,6 +100,5 @@ jQuery(function($) {
      
 });
 </script>
-
 <?} ?>
 

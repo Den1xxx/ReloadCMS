@@ -103,7 +103,7 @@ if(function_exists('imagepng')) $gd_formats .= 'png ';
 		switch ($image_type) {
 		case 'gif':
 		$img=imagecreatefromgif($_FILES['uploadfile']['tmp_name']);
-		$white = imagecolorallocate($img, 255, 255, 255);
+		$white = imagecolorallocate($img, 250, 250, 250);
 		imagecolortransparent($img, $white);		
 		ImageString($img, 7, ($width-strlen($watermark)*10), $height-20, $watermark, $white);
 		imagegif($img,$filename);
@@ -111,15 +111,14 @@ if(function_exists('imagepng')) $gd_formats .= 'png ';
 		break;
 		case 'jpg':
 		$img=imagecreatefromjpeg($_FILES['uploadfile']['tmp_name']);
-		$white = imagecolorallocate($img, 255, 255, 255);
-		imagecolortransparent($img, $white);		
+		$white = imagecolorallocate($img, 250, 250, 250);	
 		ImageString($img, 7, ($width-strlen($watermark)*10), $height-20, $watermark, $white);
 		imagejpeg($img,$filename);
 		imagedestroy($img);
 		break;
 		case 'png':
 		$img=imagecreatefrompng($_FILES['uploadfile']['tmp_name']);
-		$white = imagecolorallocate($img, 255, 255, 255);
+		$white = imagecolorallocate($img, 250, 250, 250);
 		imagecolortransparent($img, $white);		
 		ImageString($img, 7, ($width-strlen($watermark)*10), $height-20, $watermark, $white);
 		imagepng($img,$filename);
@@ -143,4 +142,69 @@ if(function_exists('imagepng')) $gd_formats .= 'png ';
 	echo __('Cannot write to file') . ': ' . $filename;
 	return false;
 	}
+	
+	function add_logo($image, $logo){
+    $srcImage = ImageCreateFromPNG($image);
+    $logoImage = ImageCreateFromPNG($logo);
+    $srcWidth  = ImageSX($srcImage);
+    $srcHeight = ImageSY($srcImage);
+    $logoWidth  = ImageSX($logoImage);
+    $logoHeight = ImageSY($logoImage);
+	imageAlphaBlending($logoImage, false);
+    imageSaveAlpha($logoImage, true);
+	$trcolor = ImageColorAllocate($logoImage, 255, 255, 255);
+    ImageColorTransparent($logoImage , $trcolor);
+    imagecopy($srcImage, $logoImage, $srcWidth - $logoWidth,
+    $srcHeight - $logoHeight, 0, 0, $logoWidth, $logoHeight);
+    ImagePNG($image, $srcImage);    ImageDestroy($logoImage);
+    ImageDestroy($srcImage);
+}
+
+// изменение размера с сохранением пропорций изображения
+function Resize($img,$target,$max,$type){
+// $img - с полным путем, $target без пути, $max - максим. размер
+$width=$max;
+$height=$max;
+switch ( $type ){
+   case 'jpg':
+    $srcImage = @ImageCreateFromJPEG($img);
+    break;
+   case 'gif':
+
+    $srcImage = @ImageCreateFromGIF($img);
+
+    break;
+
+   case 'png':
+
+    $srcImage = @ImageCreateFromPNG($img);
+
+    break;
+
+   default:
+
+    die('Неверный формат файла изображения!');
+
+}
+$srcWidth = ImageSX($srcImage);
+$srcHeight = ImageSY($srcImage);
+if(($width < $srcWidth) || ($height > $srcHeight)){
+    $ratioWidth = $srcWidth/$width;
+    $ratioHeight = $srcHeight/$height;
+    if($ratioWidth < $ratioHeight)  {
+    $destWidth = intval($srcWidth/$ratioHeight);
+    $destHeight = $height;
+    } else {
+    $destWidth = $width;
+    $destHeight = intval($srcHeight/$ratioWidth);
+    }
+    // на этапе отладки вывожу получившийся размер
+//    echo "Width=".$destWidth." Height=". $destHeight;
+    $resImage = ImageCreateTrueColor($destWidth, $destHeight);
+    ImageCopyResampled($resImage, $srcImage, 0, 0, 0, 0, $destWidth, $destHeight, $srcWidth, $srcHeight);
+    $target=$_SERVER['DOCUMENT_ROOT'].path_image.$target.'.jpg';    
+    ImageJPEG($resImage, $target, 100); // 100 - максимальное качество
+    ImageDestroy($srcImage);
+    ImageDestroy($resImage);
+}}
 ?>

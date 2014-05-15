@@ -10,7 +10,7 @@
 //---------------------------------------------------------//
 function rcms_delete_files($file, $recursive = false) {
 	if (!IGNORE_LOCK_FILES && is_file($file . '.lock')) return false;
-	if($recursive && is_dir($file)) {
+	if($recursive && @is_dir($file)) {
 		$els = rcms_scandir($file, '', '', true);
 		foreach ($els as $el) {
 			if($el != '.' && $el != '..'){
@@ -18,7 +18,7 @@ function rcms_delete_files($file, $recursive = false) {
 			}
 		}
 	}
-	if(is_dir($file)) {
+	if(@is_dir($file)) {
 		return rmdir($file);
 	} else {
 		return @unlink($file);
@@ -26,7 +26,7 @@ function rcms_delete_files($file, $recursive = false) {
 }
 
 function rcms_clear_directory($dir) {
-if (is_dir($dir)) $files = rcms_scandir($dir, '', '', true);
+if (@is_dir($dir)) $files = rcms_scandir($dir, '', '', true);
 else return false;
 	foreach ($files as $file) 
 		if($file != '.' && $file != '..')	rcms_delete_files($dir . '/' . $file);
@@ -55,8 +55,8 @@ function rcms_mkdir($dir) {
 		if($url['scheme'] != 'ftp') return false;
 		return rcms_ftp_mkdir($dir, $url['host'], $url['user'], $url['pass'], '.' . $url['path']);
 	}
-	if(!is_dir($dir)){
-		if(!is_dir(dirname($dir))) rcms_mkdir(dirname($dir));
+	if(!@is_dir($dir)){
+		if(!@is_dir(dirname($dir))) rcms_mkdir(dirname($dir));
 	}
 	return @mkdir($dir, 0777);
 }
@@ -65,7 +65,7 @@ function rcms_mkdir($dir) {
 // This function perform creating of directory by FTP      //
 //---------------------------------------------------------//
 function rcms_ftp_mkdir($dir, $server, $username, $password, $path) {
-	if(!is_dir(dirname($dir))) rcms_ftp_mkdir(dirname($dir));
+	if(!@is_dir(dirname($dir))) rcms_ftp_mkdir(dirname($dir));
 	$ftp = ftp_connect($server);
 	ftp_login($ftp, $username, $password);
 	if(RCMS_ROOT_PATH == '../') $path .= 'admin/';
@@ -115,7 +115,7 @@ function rcms_parse_ini_file($filename, $blocks = false){
 
 function rcms_chmod($file, $val, $rec = false) {
 	$res = @chmod(realpath($file), $val);
-	if(is_dir($file) && $rec){
+	if(@is_dir($file) && $rec){
 		$els = rcms_scandir($file);
 		foreach ($els as $el) {
 			$res = $res && rcms_chmod($file . '/' . $el, $val, true);
@@ -129,15 +129,14 @@ function rcms_chmod($file, $val, $rec = false) {
 // This function is php5 file_put_contents copy            //
 //---------------------------------------------------------//
 function file_write_contents($file, $text, $mode = 'w+') {
-	if(!is_dir(dirname($file))){
+	if(!@is_dir(dirname($file))){
 		trigger_error('Directory not found: ' . dirname($file));
 		return false;
 	}
 		$flock = fopen($file . '.lock', 'w+');
 		fwrite($flock, 'lock'); //чтоб не удалили пока пишем
 		fclose($flock);
-	if (!$fp=fopen($file, $mode))
-	{	
+	if (!$fp=fopen($file, $mode)) {	
 		rcms_delete_files($file.'.lock');
 		trigger_error('Cannot write to file').$file;
 		return FALSE;
@@ -216,7 +215,7 @@ function rcms_scandir($directory, $exp = '', $type = 'all', $do_not_filter = fal
 	if(!empty($type) && $type !== 'all'){
 		$func = 'is_' . $type;
 	}
-	if(is_dir($directory)){
+	if(@is_dir($directory)){
 		$fh = opendir($directory);
 		while (false !== ($filename = readdir($fh))) {
 			if(substr($filename, 0, 1) != '.' || $do_not_filter) {
