@@ -137,7 +137,11 @@ textarea {
 .btnmain {
 	background-color: #FAFAFA;
 	font-weight: bold;
-	border-width: 1px;
+	padding: 3px;
+	border: 1px solid black;
+}
+.btnmain:hover {
+text-decoration:none;
 }
 
 .btnlite {
