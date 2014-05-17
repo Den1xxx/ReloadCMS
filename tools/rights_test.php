@@ -60,6 +60,8 @@ function checkrights($el, $rec = false) {
 <?php
 checkrights('../config', true);
 checkrights('../content', true);
+checkrights('../backups', true);
+checkrights('../uploads', true);
 ?>
 </table>
 </body>
