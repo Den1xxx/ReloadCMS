@@ -35,7 +35,7 @@ You can find more detailed installation information on reloadcms.com<br /><br />
 <li>Log in to GitHub</li>
 <li>Fork the ReloadCMS Repository. Click "Fork" and you'll have your copy of the ReloadCMS files.</li>
 <li>Edit files within your fork.</li> 
-<li>Submit a Pull Request.</li>
+<li>Submit a Pull Request.
 <ul>
 </li>Click "Pull Prequest"</li>
 <li>Enter a Message that will go with your commit</li>
