@@ -5,20 +5,20 @@ ReloadCMS was designed for small and medium projects that need CMS that will run
 This CMS is best choise for micro business company.<br /><br />
 
 <h2>ReloadCMS features</h2>
-    All CMS’ data is kept in flat files, so no database server is needed.<br />
-    Standart modules like articles, pages, files archive, statistics, forum, feedback etc.<br />
-    Great abilities for localisation: you can localise not only interface but all content of website.<br />
-	Good security system: very extensive control over user rights<br />
-    Templates support: simply create your design for website using our templates system.<br />
-    Flexible modules system: if you haven’t found your module in standart package, you can simply create your own.<br />
-	Read more at reloadcms.com<br /><br />
+All CMS’ data is kept in flat files, so no database server is needed.<br />
+Standart modules like articles, pages, files archive, statistics, forum, feedback etc.<br />
+Great abilities for localisation: you can localise not only interface but all content of website.<br />
+Good security system: very extensive control over user rights<br />
+Templates support: simply create your design for website using our templates system.<br />
+Flexible modules system: if you haven’t found your module in standart package, you can simply create your own.<br />
+Read more at reloadcms.com<br /><br />
 	
 <h2>Requirements</h2>
 <ul>
 <li>PHP 5+</li>
 <li>Safe mode off</li>
 <li>Direct hands</li>
-<ul>
+</ul>
 <br />
 
 <h2>Installation</h2>
@@ -53,7 +53,7 @@ You can find more detailed installation information on reloadcms.com<br /><br />
 <br />
 
 <h2>Special thanks</h2>
-NightFly - for support<br />
+NightFly, ReloadCMS Team - for support<br />
 http://ubilling.net.ua/ - ideas for context-sensitive help<br />
 http://reloadcms.com - for an excellent system<br />
 http://cyberapp.ru/cyber-image-manager/ - a cool image manager<br />
@@ -61,7 +61,9 @@ http://jquery.com/ - an excellent framework for all<br />
 http://www.tinymce.com/ - a visual editor, which can be used even housewives :)<br />
 http://www.google.com/ - for clues in difficult times and translation this file.<br />
 
-ReloadCMS is always in development, so there are more features to come.<br /> 
-Read more in changelog.txt<br />
-Sincerely, the developer —<br />
-http://fromgomel.com<br /><br />
+<h2>Final</h2>
+Read more from changements in changelog.txt (in russian)<br />
+Plans in todo.txt (in russian)<br />
+The developer: http://fromgomel.com<br />
+Feedback: http://fromgomel.com/?module=sendmail<br />
+Support the project: http://fromgomel.com/?module=sendmail&get=development <br />
