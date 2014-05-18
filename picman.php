@@ -1,7 +1,7 @@
 <?php
 define('RCMS_ROOT_PATH', './');
 include(RCMS_ROOT_PATH . 'common.php');
-global $system;
+global $system,$lightbox_config;
 $ins=get('ins');
 $form=get('form');
 $url_inc=$ins?'?ins='.$ins.'&form='.$form:'?ins=0';
@@ -45,13 +45,13 @@ height:100%;
 <body>
 <table border='0' cellspacing='1' cellpadding='1' width="100%">
 <tr> 
-    <td width="100%" colspan="4"> <?=$msg?> </th>
+    <td width="100%" colspan="5"> <?=$msg?> </th>
 </tr>
 <tr> 
     <th width="100%"> <?=__('Filename')?> </th>
-    <th style="white-space:nowrap"> <?=__('Size of file')?> </th>
-    <th style="white-space:nowrap"> <?=__('Date')?> </th>
-    <th style="white-space:nowrap"> <?=__('Manage')?> </th>
+    <th style="white-space:pre"> <?=__('Size of file')?> </th>
+    <th style="white-space:pre"> <?=__('Date')?> </th>
+    <th style="white-space:pre" colspan="2"> <?=__('Manage')?> </th>
 </tr>
 <?php
 $elements = rcms_scandir($user_path, '', 'all', true);
@@ -82,20 +82,20 @@ foreach ($elements as $file){
 	if (is_images($filename)) $link = '<a href="'.$link_img.$file.'" class="gallery" title="'.$file.'"><img src="'.SKIN_PATH.'fastnews/view.gif" > '.$file.'</a>';
 	else continue;
         $style = 'row1';
-		$alert = 'onClick="if(confirm(\''. __('File selected').': \n'. $file. '. \n'.__('Are you sure you want to delete this file?') . '\')) document.location.href = \''.$url_inc.'&delete=' . $file . '&path=' . $user_path  . '\';"';
-		$opener='onClick="window.opener.'.get('form').'.'.get('ins').'.value += \'[img]\'+\''.$link_img.$file.'\'+\'[/img]\'; window.close(); return false; "';
-		$insertlink = get('ins')?'<a href="'.$link_img.$file.'" ' . $opener . '>' . __('Insert') . '</a>':'';
+		$alert = 'onClick="if(confirm(\''. __('File selected').': \n'. $file. '. \n'.__('Are you sure you want to delete this file?') . '\')) document.location.href = \''.$url_inc.'&delete=' . $file . '&path=' . $user_path  . '\';else return false;"';
+		$opener='onClick="window.opener.'.get('form').'.'.get('ins').'.value += \'[img]\'+\''.$link_img.$file.'\'+\'[/img]\';'.(!empty($lightbox_config['close_by_clicking'])?'window.close();':'').' return false; "';
+		$insertlink = get('ins')?'<a href="'.$link_img.$file.'"  class="btnmain" ' . $opener . '>' . __('Insert') . '</a>':'';
     }
-    $deletelink = user_can_delete($file)?'<a href="'.$url_inc.'&delete=' . $file . '&path=' . $user_path  . '" ' . $alert . '>' . __('Delete') . '</a>':'';
+    $deletelink = user_can_delete($file)?'<a href="'.$url_inc.'&delete=' . $file . '&path=' . $user_path  . '" class="btnmain" ' . $alert . '>' . __('Delete') . '</a>':'';
 ?>
 <tr> 
     <td class="<?=$style?>"><?=$link?></td>
-    <td class="<?=$style?>"><?=$filedata[7]?></td>
-    <td class="<?=$style?>" style="white-space:nowrap"><?=gmdate("Y-m-d H:i:s",$filedata[9])?></td>
-    <td class="<?=$style?>"><?=$deletelink.'&nbsp;'.$insertlink?></td>
+    <td class="<?=$style?>" style="white-space:pre"><?=$filedata[7]?></td>
+    <td class="<?=$style?>" style="white-space:pre"><?=gmdate("Y-m-d H:i:s",$filedata[9])?></td>
+    <td class="<?=$style?>"><?=$deletelink?></td>
+    <td class="<?=$style?>"><?=$insertlink?></td>
 </tr>
 <?php }	?>
 </table>
 </body>
 </html>
-

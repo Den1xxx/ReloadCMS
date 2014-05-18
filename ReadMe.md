@@ -2,7 +2,13 @@
 <h2>Version  1.5.3-beta of 15.05.2014.</h2>
 ReloadCMS is a full-featured, small, simple and flexible Content Management System for web sites.<br />
 ReloadCMS was designed for small and medium projects that need CMS that will run even on a cheap servers.<br />
-This CMS is best choise for micro business company.<br /><br />
+This CMS is best choise for micro business company.<br />
+<strong>Resources:</strong>
+<ul>
+<li><a href="http://reloadcms.com">Project Homepage</a></li>
+<li><a href="http://reloadcms.com/main/?module=forum">Russian support forum</a></li>
+</ul>
+<br />
 
 <h2>ReloadCMS features</h2>
 All CMS’ data is kept in flat files, so no database server is needed.<br />
@@ -36,11 +42,11 @@ You can find more detailed installation information on reloadcms.com<br /><br />
 <li>Fork the ReloadCMS Repository. Click "Fork" and you'll have your copy of the ReloadCMS files.</li>
 <li>Edit files within your fork.</li> 
 <li>Submit a Pull Request.
-<ul>
-</li>Click "Pull Prequest"</li>
-<li>Enter a Message that will go with your commit</li>
-<li>Click “Send Pull Request”</li>
-</ul>
+ <ul>
+ </li>Click "Pull Prequest"</li>
+ <li>Enter a Message that will go with your commit</li>
+ <li>Click “Send Pull Request”</li>
+ </ul>
 </li>
 </ul>
 <h3>Alternativelly method</h3>
@@ -64,6 +70,6 @@ http://www.google.com/ - for clues in difficult times and translation this file.
 <h2>Final</h2>
 Read more from changements in changelog.txt (in russian)<br />
 Plans in todo.txt (in russian)<br />
-The developer: http://fromgomel.com<br />
+The release developer: http://fromgomel.com<br />
 Feedback: http://fromgomel.com/?module=sendmail<br />
 Support the project: http://fromgomel.com/?module=sendmail&get=development <br />

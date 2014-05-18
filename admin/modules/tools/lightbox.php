@@ -27,12 +27,13 @@ $frm->addrow(__('Size of file'), $frm->text_box('lightbox_config[max_size]', @$l
 $frm->addrow(__('Maximum width'), $frm->text_box('lightbox_config[max_width]', @$lightbox_config['max_width'], 5).' px');
 $frm->addrow(__('Maximum height'), $frm->text_box('lightbox_config[max_height]', @$lightbox_config['max_height'], 5).' px');
 $frm->addrow(__('Watermark'), $frm->text_box('lightbox_config[watermark]', @$lightbox_config['watermark'], 35));
-$frm->addbreak(__('Rights'));
+$frm->addbreak(__('Users'));
 $lightbox_config['right_string']=empty( $lightbox_config['right_string'])?'GENERAL': $lightbox_config['right_string'];
 $right=array('GENERAL'=>__('Administrator').' -'.__(' as default'),'-any-'=>'Advanced user','LOGGED_IN'=>'Only for registered users');
 $frm->addrow(__('Right to upload images'),$frm->checkbox('lightbox_config[manage_enable]','1', '  '.__('Enable'), @$lightbox_config['manage_enable']).' '.$frm->select_tag('lightbox_config[right_string]', $right, $lightbox_config['right_string']));
 $folders=array('0'=>'Disable','user'=>'User','user_year'=>__('User').'/'.__('Year'),'user_year_month'=>__('User').'/'.__('Year').'/'.__('Month'),'year'=>__('Year'),'year_month'=>__('Year').'/'.__('Month'));
 $frm->addrow(__('Distribute images to subfolders'),$frm->checkbox('lightbox_config[distribute_enable]','1', '  '.__('Enable'), @$lightbox_config['distribute_enable']).' '.$frm->select_tag('lightbox_config[folders]', $folders, $lightbox_config['folders']));
 $frm->addrow(__('Make unique image name'),$frm->checkbox('lightbox_config[unique]','1', '  '.__('Enable'), @$lightbox_config['unique']));
+$frm->addrow(__('Close by clicking'),$frm->checkbox('lightbox_config[close_by_clicking]','1', '  '.__('Enable'), @$lightbox_config['close_by_clicking']));
 $frm->show();
 ?>
