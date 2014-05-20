@@ -9,11 +9,22 @@ define('RCMS_GB_DEFAULT_FILE', DF_PATH . 'guestbook.dat');
 define('RCMS_MC_DEFAULT_FILE', DF_PATH . 'minichat.dat');
 $_CACHE['gbook'] = array();
 
+/*
+* Return all messages from comment file
+*
+* @page integer Start page for pagination
+* @parse boolean Parse text or not
+* @limited boolean Safe parsing (not show links and images) or not
+* @file string File for parsing, full path
+* @config string Config file in configuration directory, only name
+*
+* @return array Array comments
+*/
 function get_messages($page = 0, $parse = true, $limited = true, $file = RCMS_GB_DEFAULT_FILE, $config = 'comments.ini') {
-	global $_CACHE, $system;
-	$config = parse_ini_file(CONFIG_PATH . $config);
-	if (@$config['bbcodes']=='1') $bbcodes=true; else $bbcodes=false;
-	if (@$config['links']=='1') $img=true; else $img=false;
+	global $_CACHE, $system, $comment_config;
+	$comment_config = parse_ini_file(CONFIG_PATH . $config);
+	$bbcodes = empty($comment_config['bbcodes']) ? false : true;
+	$img = empty($comment_config['links']) ? false : true;
 	$data = &$_CACHE['gbook'][$file];
 	if(!isset($data)) {
 		if (!is_readable($file) || !($data = unserialize(file_get_contents($file)))) $data = array();
@@ -42,43 +53,31 @@ function get_messages($page = 0, $parse = true, $limited = true, $file = RCMS_GB
 	} else return array();
 }
 
+/*
+* Return last messages from comment file
+*
+* @num integer Number last messages
+* @parse boolean Parse text or not
+* @limited boolean Safe parsing (not show links and images) or not
+* @file string File for parsing, full path
+* @config string Config file in configuration directory, only name
+*
+* @return array Array comments
+*/
 function get_last_messages($num = 10, $parse = true, $limited=false, $file = RCMS_GB_DEFAULT_FILE, $config = 'comments.ini') {
-	global $_CACHE, $system;
-	$config = parse_ini_file(CONFIG_PATH . $config);
-	if (@$config['bbcodes']=='1') $bbcodes=true; else $bbcodes=false;
-	if (@$config['links']=='1') $img=true; else $img=false;
-	
-	$data = &$_CACHE['gbook'][$file];
-	if(!isset($data)) {
-		if (!is_readable($file) || !($data = unserialize(file_get_contents($file)))) $data = array();
-	}
-	if(!empty($data)){
-		$ndata = $rdata = array();
-		foreach ($data as $key => $value) $ndata[$key . ''] = $value;
-		$ndata = array_reverse($ndata, true);
-		if($num !== null){
-			$i = 0;
-			while($i < $num && $el = each($ndata)){
-				$rdata[$el['key']] = $el['value'];
-				$i++;
-			}
-		} else {
-			$rdata = $ndata;
-		}
-		if($parse){
-			foreach($rdata as $id => $msg){
-				if(!empty($msg)) {
-					if (!$bbcodes && !$img) $rdata[$id]['text'] = htmlspecialchars($msg['text']);
-					else $rdata[$id]['text'] = rcms_parse_text($msg['text'], !$limited, false, !$limited,$bbcodes,$img);
-				}
-			}
-		}
-		return $rdata;
-	} else return array();
+$tmp_arr=get_messages(0, $parse, $limited, $file, $config);
+return array_slice($tmp_arr,0,$num);
 }
-function get_pages_number($file = RCMS_GB_DEFAULT_FILE, $config = 'comments.ini') {
+
+/*
+* Return count comments from file
+*
+* @file string File for parsing, full path
+*
+* @return integer
+*/
+function get_pages_number($file = RCMS_GB_DEFAULT_FILE) {
 	global $_CACHE, $system;
-	$config = parse_ini_file(CONFIG_PATH . $config);
 	$data = &$_CACHE['gbook'][$file];
 	if(!isset($data)) {
 		if (!is_readable($file) || !($data = unserialize(file_get_contents($file)))) $data = array();
@@ -88,28 +87,43 @@ function get_pages_number($file = RCMS_GB_DEFAULT_FILE, $config = 'comments.ini'
 	} else return 1;
 }
 
-
+/*
+* Posting message in comment file
+*
+* @username string Name user
+* @nickname string User nick
+* @text string Text to add
+* @file string File for parsing, full path
+* @config string Config file in configuration directory, only name
+*
+* @return boolean
+*/
 function post_message($username, $nickname, $text, $file = RCMS_GB_DEFAULT_FILE, $config = 'comments.ini') {
-	global $_CACHE;
+	global $_CACHE, $comment_config;
 	$text = trim($text);
 	if(empty($text)) return false;
-	$config = parse_ini_file(CONFIG_PATH . $config);
+	$comment_config = parse_ini_file(CONFIG_PATH . $config);
 	$data = &$_CACHE['gbook'][$file];
 	if(!isset($data)) {
 		if (!is_readable($file) || !($data = unserialize(file_get_contents($file)))) $data = array();
 	}
-	if(!empty($config['max_db_size'])) $data = array_slice($data, -$config['max_db_size']+1);
+	if(!empty($comment_config['max_db_size'])) $data = array_slice($data, -$comment_config['max_db_size']+1);
 	$newmesg['username'] = $username;
-	$newmesg['nickname'] = (!empty($config['max_word_len']) && mb_strlen($nickname) > $config['max_word_len']) ? '<abbr title="' . htmlspecialchars($nickname) . '">' . mb_substr($nickname, 0, $config['max_word_len']) . '</abbr>' : htmlspecialchars($nickname);
+	$newmesg['nickname'] = (!empty($comment_config['max_word_len']) && mb_strlen($nickname) > $comment_config['max_word_len']) ? '<abbr title="' . htmlspecialchars($nickname) . '">' . mb_substr($nickname, 0, $comment_config['max_word_len']) . '</abbr>' : htmlspecialchars($nickname);
 	$newmesg['time'] = rcms_get_time();
-	$newmesg['text'] = (mb_strlen($text) > $config['max_message_len']) ? mb_substr($text, 0, $config['max_message_len']) : $text;
+	$newmesg['text'] = (mb_strlen($text) > $comment_config['max_message_len']) ? mb_substr($text, 0, $comment_config['max_message_len']) : $text;
 	$data[] = $newmesg;
 	return file_write_contents($file, serialize($data));
 }
 
-function post_remove($id, $file = RCMS_GB_DEFAULT_FILE, $config = 'comments.ini') {
+/*
+* Remove message from comment file
+*
+* @id Message number in file
+* @file string File for parsing, full path
+*/
+function post_remove($id, $file = RCMS_GB_DEFAULT_FILE) {
 	global $_CACHE;
-	$config = parse_ini_file(CONFIG_PATH . $config);
 	$data = &$_CACHE['gbook'][$file];
 	if(!isset($data)) {
 		if (!is_readable($file) || !($data = unserialize(file_get_contents($file)))) $data = array();

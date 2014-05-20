@@ -7,7 +7,7 @@
 error_reporting(E_ALL);
 
 if (! defined ( 'RCMS_ROOT_PATH' )) {
-	die ( "Hacking attempt!" );
+	die ( 'Hacking attempt!' );
 }
 
 // Unset any globals created by register_globals being turned ON
@@ -24,7 +24,7 @@ unset($global);
 define('RCMS_VERSION_A', '1');
 define('RCMS_VERSION_B', '5');
 define('RCMS_VERSION_C', '3');
-if(is_file(RCMS_ROOT_PATH . '_nightly.txt')) define('RCMS_VERSION_SUFFIX', '-beta'); else define('RCMS_VERSION_SUFFIX', '');
+if(is_file(RCMS_ROOT_PATH . '_nightly.txt')) define('RCMS_VERSION_SUFFIX', '-pre'); else define('RCMS_VERSION_SUFFIX', '');
 define('RCMS_LINK', 'http://reloadcms.com');
 define('RCMS_COPYRIGHT', '&copy; 2004-2014 ReloadCMS Team');
 define('RCMS_POWERED', '<a href="' . RCMS_LINK . '">Based on ReloadCMS</a>');
@@ -38,7 +38,7 @@ define('CONFIG_PATH',        RCMS_ROOT_PATH . 'config/');
 define('LANG_PATH',          RCMS_ROOT_PATH . 'languages/');
 define('ADMIN_PATH',         RCMS_ROOT_PATH . 'admin/');
 define('SKIN_PATH',          RCMS_ROOT_PATH . 'skins/');
-define('SMILES_PATH',          SKIN_PATH . 'smiles/');
+define('SMILES_PATH',        SKIN_PATH . 'smiles/');
 define('BACKUP_PATH',        RCMS_ROOT_PATH . 'backups/');
 
 // Content paths
@@ -57,14 +57,14 @@ define('SAFEMODE_HACK', false);
 define('SAFEMODE_HACK_FTP', 'ftp://username:password@localhost/path/to/reloadcms');
 
 ////////////////////////////////////////////////////////////////////////////////
-// Loading modules                                                            //
+// Loading system modules                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 include_once(SYSTEM_MODULES_PATH . 'load.php');
 
 ////////////////////////////////////////////////////////////////////////////////
 // magic_quotes_gpc fix                                                       //
 ////////////////////////////////////////////////////////////////////////////////
-if(@get_magic_quotes_gpc()) unfck_gpc();
+if(function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) unfck_gpc();
 
 function unfck($v) {
 	return is_array($v) ? array_map('unfck', $v) : stripslashes($v);
@@ -89,7 +89,7 @@ if(empty($_SERVER['HTTP_REFERER'])) $_SERVER['HTTP_REFERER'] = '';
 if(empty($_SERVER['HTTP_USER_AGENT'])) $_SERVER['HTTP_USER_AGENT'] = '';
 
 ////////////////////////////////////////////////////////////////////////////////
-// Loading modules                                                            //
+// Loading API modules                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 $em_dir = opendir(ENGINE_PATH);
 while ($em = readdir($em_dir)){

@@ -5,45 +5,46 @@
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
 
-$config = parse_ini_file(CONFIG_PATH . 'guestbook.ini');
-$sysconfig = parse_ini_file(CONFIG_PATH . 'config.ini');
+global $system;
 
 $page = ((!empty($_GET['page'])) ? (int)$_GET['page'] : 1) - 1;
-$pages = guestbook_get_pages_num();
+$pages = get_pages_number(RCMS_GB_DEFAULT_FILE);
 $pagination = rcms_pagination($pages * $system->config['perpage'], $system->config['perpage'], $page + 1, '?module=' . $module);
 
 if(!empty($_POST['comtext'])) {
-	if (isset($sysconfig['guestbook-guest']) and !LOGGED_IN){
+	if (isset($system->config['guestbook-guest']) and !LOGGED_IN){
 		 show_window(__('Error'),__('You are not logined!'));
 	} else {
 if ((isset($_POST['antispam'])) AND (isset($_POST['captcheckout']))) {
 	$defcatp=substr(md5($_POST['antispam']),0,5);
 	$intcapt=$_POST['captcheckout'];
 if($defcatp==$intcapt)	{
-    	post_message($system->user['username'], $system->user['nickname'], $_POST['comtext']);
-		echo '<script type="text/javascript">document.location.href=document.location.href;</script>';
+    	post_message($system->user['username'], $system->user['nickname'], $_POST['comtext'], RCMS_GB_DEFAULT_FILE, 'guestbook.ini');
+		rcms_redirect('');
 }
 else {
 show_window(__('Error'),__('Invalid form data'));
 }
 } else {
-    	post_message($system->user['username'], $system->user['nickname'], $_POST['comtext']);
-		echo '<script type="text/javascript">document.location.href=document.location.href;</script>';
+    	post_message($system->user['username'], $system->user['nickname'], $_POST['comtext'], RCMS_GB_DEFAULT_FILE, 'guestbook.ini');
+		rcms_redirect('');
 }
     }
 }
 
-if((!empty($_POST['gbd']) || @$_POST['gbd'] === '0') && $system->checkForRight('GUESTBOOK')) {
-    guestbook_post_remove($_POST['gbd']);
+
+if(isset($_POST['gbd']) && $system->checkForRight('GUESTBOOK')) {
+    post_remove($_POST['gbd'], RCMS_GB_DEFAULT_FILE);
+	rcms_redirect('');
 }
 
-if (!(isset($sysconfig['guestbook-guest']) and !LOGGED_IN)) {
-	show_window(__('Post message'), rcms_parse_module_template('gb-form.tpl', @$config['bbcodes']), 'center');
+if (!(isset($system->config['guestbook-guest']) and !LOGGED_IN)) {
+	show_window(__('Post message'), rcms_parse_module_template('gb-form.tpl', array()), 'center');
 } else {
-	show_window(__('Post comment'), __('You are not logined!'), 'center');
+	show_window(__('Error'), __('You are not logined!'), 'center');
 }
 
-$messages = guestbook_get_msgs($page, true, @!$config['bbcodes']);
+$messages = get_messages($page, true, false, RCMS_GB_DEFAULT_FILE, 'guestbook.ini' );
 if(!empty($pagination)) show_window('', $pagination, 'center');
 foreach ($messages as $id => $message) {
     $message['id'] = $id;

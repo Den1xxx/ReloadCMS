@@ -7,14 +7,12 @@
 
 define('RCMS_PM_DEFAULT_FILE', DATA_PATH.'/pm/'.$system->user['username'].'.dat');
 
-function pm_disabled()
-{
+function pm_disabled() {
 	$arr = parse_ini_file(CONFIG_PATH . 'disable.ini');
 	return isset($arr['pm']);
 }
 
-function make_pm_file($file)
-{
+function make_pm_file($file) {
 	if (!file_exists($file)) {
 		$f = fopen($file, "w"); 
 		fclose($f);

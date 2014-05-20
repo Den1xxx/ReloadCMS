@@ -31,5 +31,9 @@ $frm->addrow(__('Maximum word length'), $frm->text_box('minichat_config[max_word
 $frm->addrow(__('Allow guests to view minichat'), $frm->checkbox('minichat_config[allow_guests_view]', '1', '', $minichat_config['allow_guests_view']));
 $frm->addrow(__('Allow guests to post in minichat'), $frm->checkbox('minichat_config[allow_guests_post]', '1', '', $minichat_config['allow_guests_post']));
 $frm->addrow(__('Maximum size of database (in messages)'), $frm->text_box('minichat_config[max_db_size]', @$minichat_config['max_db_size'], 4));
+$frm->addbreak(__('Configuration').' bbcodes' );
+$frm->addrow(__('Editor'), $frm->checkbox('minichat_config[editor]', '1', '', @$minichat_config['editor'], 4));
+$frm->addrow(__('Enable nl2br and bbCodes').__(' (except images)'), $frm->checkbox('minichat_config[bbcodes]', '1', '', @$minichat_config['bbcodes'], 4));
+$frm->addrow(__('Enable all').' bbcodes', $frm->checkbox('minichat_config[links]', '1', '', @$minichat_config['links'], 4));
 $frm->show();
 ?>

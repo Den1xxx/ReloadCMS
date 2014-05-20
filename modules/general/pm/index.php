@@ -44,8 +44,8 @@ if (getUserData($_GET['for'])) show_window(__('Send private message for ').$for,
 if (!getUserData($_GET['for'])) show_window(__('Error'), __('User not exist'), 'center');
 }
 	
-if (isset($_POST['to'])) 
-{$to=$_POST['to'];
+if (isset($_POST['to'])) {
+$to=$_POST['to'];
 if (trim($to) <> '') {
 	pm_post_msg($system->user['username'], $system->user['nickname'], strip_tags($_POST['support_req']), $_POST['to']);
         show_window('', __('Message sent'), 'center');

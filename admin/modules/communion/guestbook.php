@@ -25,6 +25,8 @@ $frm->addbreak(__('Guest book configuration'));
 $frm->addrow(__('Maximum message length'), $frm->text_box('config[max_message_len]', $config['max_message_len'], 5));
 $frm->addrow(__('Maximum word length'), $frm->text_box('config[max_word_len]', $config['max_word_len'], 4));
 $frm->addrow(__('Maximum size of database (in messages)'), $frm->text_box('config[max_db_size]', $config['max_db_size'], 5));
-$frm->addrow(__('Enable nl2br and bbCodes'), $frm->checkbox('config[bbcodes]', '1', '', @$config['bbcodes'], 4));
+$frm->addbreak(__('Configuration').' bbcodes' );
+$frm->addrow(__('Enable nl2br and bbCodes').__(' (except images)'), $frm->checkbox('config[bbcodes]', '1', '', @$config['bbcodes'], 4));
+$frm->addrow(__('Enable all').' bbcodes', $frm->checkbox('config[links]', '1', '', @$config['links'], 4));
 $frm->show();
 ?>
