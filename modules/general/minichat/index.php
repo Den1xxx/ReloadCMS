@@ -30,9 +30,8 @@ show_window(__('Error'),__('Invalid form data'));
 }
 
 	if(isset($_POST['mcdelete']) && $system->checkForRight('MINICHAT')) {
-//	var_dump($minichat_config,$_POST);
 	post_remove($_POST['mcdelete'], RCMS_MC_DEFAULT_FILE);
-		//rcms_redirect('');
+	rcms_redirect('');
 	}
 
 	$result = '';
@@ -48,7 +47,7 @@ show_window(__('Error'),__('Invalid form data'));
 		$result .= rcms_parse_module_template('minichat-mesg.tpl', $message);
 	}
 
-	$result = '<script type="text/javascript" src="' . RCMS_ROOT_PATH . 'tools/js/minmax.js"></script><div style="overflow-x: hidden; overflow-y: auto; width: 100%">' . $result . '</div>';
+	$result = '<div style="overflow-x: hidden; overflow-y: auto; width: 100%">' . $result . '</div>';
 	show_window(__('Minichat'), $result, 'center');
 }
 ?>
