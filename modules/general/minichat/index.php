@@ -28,8 +28,10 @@ show_window(__('Error'),__('Invalid form data'));
 		rcms_redirect('');
 }
 }
+
 	if(isset($_POST['mcdelete']) && $system->checkForRight('MINICHAT')) {
-		post_remove($_POST['mcdelete'], RCMS_MC_DEFAULT_FILE);
+//	var_dump($minichat_config,$_POST);
+	post_remove($_POST['mcdelete'], RCMS_MC_DEFAULT_FILE);
 		//rcms_redirect('');
 	}
 
@@ -40,7 +42,7 @@ show_window(__('Error'),__('Invalid form data'));
 	}
 
 	$list = get_last_messages($minichat_config['messages_to_show'], true, false, RCMS_MC_DEFAULT_FILE, 'minichat.ini');
-//var_dump($_POST,$list);
+
 	foreach ($list as $id => $message){
 		$message['id'] = $id;
 		$result .= rcms_parse_module_template('minichat-mesg.tpl', $message);

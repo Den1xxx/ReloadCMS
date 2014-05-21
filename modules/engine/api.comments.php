@@ -66,7 +66,7 @@ function get_messages($page = 0, $parse = true, $limited = true, $file = RCMS_GB
 */
 function get_last_messages($num = 10, $parse = true, $limited=false, $file = RCMS_GB_DEFAULT_FILE, $config = 'comments.ini') {
 $tmp_arr=get_messages(0, $parse, $limited, $file, $config);
-return array_slice($tmp_arr,0,$num);
+return array_slice($tmp_arr,0,$num,true);
 }
 
 /*
