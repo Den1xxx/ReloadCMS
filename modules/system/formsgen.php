@@ -29,7 +29,7 @@ class InputForm {
 		$calign=empty($a[1])?$talign:$a[1]; 
 		$b = explode( ",", $valign );
 		$tvalign=empty($b[0])?'':$b[0]; 
-		$cvalign=empty($b[1])?$talign:$b[1]; 
+		$cvalign=empty($b[1])?$tvalign:$b[1]; 
 		$this->_rows[]=array(
 			'title' => $title,
 			'contents' => $contents,

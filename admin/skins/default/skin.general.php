@@ -2,14 +2,12 @@
 <html>
 <head>     
     <title><?=__('Administration')?></title>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
     <?rcms_show_element('meta')?>
 <link rel="stylesheet" href="<?=ADMIN_SKIN?>style.css" type="text/css">
 <!--[if IE]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 <script type="text/javascript" src="<?=RCMS_ROOT_PATH?>tools/js/tiny_mce/tiny_mce.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
     <script>
     $(function() {
 	var url=document.location.href;

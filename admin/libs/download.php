@@ -29,7 +29,7 @@ function load_file($requested_url, $loading_file, $settimeout ) {
 		$file_contents_tmp = fread($fh, filesize($loading_file.".log"));
 		fclose($fh);
 
-		list($real_url_tmp, $real_size_tmp) = split("\n", $file_contents_tmp);
+		list($real_url_tmp, $real_size_tmp) = explode("\n", $file_contents_tmp);
 		$real_url_tmp = Trim($real_url_tmp);
 		$real_size_tmp = Trim($real_size_tmp);
 	}
@@ -59,8 +59,8 @@ function load_file($requested_url, $loading_file, $settimeout ) {
 		$lasturl = $real_url;
 		$redirection = "";
 		$parsedurl = @parse_url($real_url);
-			$host = $parsedurl["host"];
-			$port = $parsedurl["port"];
+			$host = @$parsedurl["host"];
+			$port = @$parsedurl["port"];
 			$hostname = $host;
 		$port = $port ? $port : "80";
 		$sockethandle = @fsockopen($host, $port, $error_id, $error_msg, 30);
@@ -72,7 +72,7 @@ function load_file($requested_url, $loading_file, $settimeout ) {
 				$parsedurl["path"] = "/";
 
 			$request = "";
-				$request .= "HEAD ".$parsedurl["path"].($parsedurl["query"] ? '?'.$parsedurl["query"] : '')." HTTP/1.0\r\n";
+				$request .= "HEAD ".$parsedurl["path"].(!empty($parsedurl["query"]) ? '?'.$parsedurl["query"] : '')." HTTP/1.0\r\n";
 				$request .= "Host: $hostname\r\n";
 
 			if ($user_agent != "")
@@ -85,12 +85,12 @@ function load_file($requested_url, $loading_file, $settimeout ) {
 				$answer_header .= $result;
 			}
 			fclose($sockethandle);
-			$ar_answer_header = split("\r\n", $answer_header);
+			$ar_answer_header = explode("\r\n", $answer_header);
 			$answer_proto = "";
 			$answer_version = "";
 			$answer_code = 0;
 			$answer_msg = "";
-			if (ereg("([A-Z]{4})/([0-9.]{3}) ([0-9]{3})", $ar_answer_header[0], $regs))	{
+			if (preg_match("#([A-Z]{4})/([0-9.]{3}) ([0-9]{3})#", $ar_answer_header[0], $regs))	{
 				$answer_proto = $regs[1];
 				$answer_version = $regs[2];
 				$answer_code = IntVal($regs[3]);
@@ -180,7 +180,7 @@ function load_file($requested_url, $loading_file, $settimeout ) {
 		while (($result = fgets($sockethandle, 4096)) && $result!="\r\n")
 			$answer_header .= $result;
 
-		$ar_answer_header = split("\r\n", $answer_header);
+		$ar_answer_header = explode("\r\n", $answer_header);
 
 		$answer_proto = "";
 		$answer_version = "";

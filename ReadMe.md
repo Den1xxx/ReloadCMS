@@ -1,5 +1,5 @@
 <h1>ReloadCMS «Malachi»</h1>
-<h2>Version  1.5.3 of 20.05.2014.</h2>
+<h2>Preparation tomorrow's release 22.05.2014.</h2>
 ReloadCMS is a full-featured, small, simple and flexible Content Management System for web sites.<br />
 ReloadCMS was designed for small and medium projects that need CMS that will run even on a cheap servers.<br />
 This CMS is best choise for micro business company.<br />
@@ -65,6 +65,7 @@ http://reloadcms.com - for an excellent system<br />
 http://cyberapp.ru/cyber-image-manager/ - a cool image manager<br />
 http://jquery.com/ - an excellent framework for all<br />
 http://www.tinymce.com/ - a visual editor, which can be used even housewives :)<br />
+http://getbootstrap.com/ — a css framework<br />
 http://www.google.com/ - for clues in difficult times and translation this file.<br />
 
 <h2>Final</h2>

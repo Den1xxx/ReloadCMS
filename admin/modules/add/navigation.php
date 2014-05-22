@@ -18,7 +18,6 @@ if(!empty($_POST['urls']) && !empty($_POST['names']) && is_array($_POST['urls'])
 					$ins['url'] = $url;
 				}
 				$ins['name'] = $_POST['names'][$i];
-				$ins['desc'] = $_POST['desc'][$i];
 				$result[] = $ins;
 			}
 		}
@@ -34,17 +33,8 @@ $dyna = parse_ini_file(CONFIG_PATH . 'dynamik.ini', true);
 $frm = new InputForm ('', 'post', __('Submit'), '', '', '', 'addnav');
 $frm->addbreak(__('Menu options'));
 $frm->addrow(__('Show icons'), $frm->checkbox('dy[ico]', '1', '', @$dyna['ico']));
-$frm->addbreak(__('Dynamik menu options'));
-$frm->addrow(__('Use'), $frm->checkbox('dy[use]', '1', '', @$dyna['use']));
-$frm->addrow(__('Min cascading'), $frm->checkbox('dy[min]', '1', '', @$dyna['min']));
-$frm->addrow(__('Max subitems'), $frm->text_box('dy[max]',@$dyna['max']));
-$frm->addrow(__('Off for ').'"'. __('Articles').'"',$frm->checkbox('dy[use_art]', '1', '', @$dyna['use_art']));
-$frm->addrow(__('Off for ').'"'. __('Gallery').'"',$frm->checkbox('dy[use_gal]', '1', '', @$dyna['use_gal']));
-$frm->addrow(__('Off for ').'"'. __('Member list').'"',$frm->checkbox('dy[use_mem]', '1', '', @$dyna['use_mem']));
-$frm->addrow(__('Off for ').'"'. __('FilesDB').'"',$frm->checkbox('dy[use_fdb]', '1', '', @$dyna['use_fdb']));
-$frm->addrow(__('Off for ').'"'. __('Forum').'"',$frm->checkbox('dy[use_for]', '1', '', @$dyna['use_for']));
 $frm->addbreak(__('Navigation editor'));
-$frm->addrow(__('Link'), __('Title').', '.__('Description'));
+$frm->addrow(__('Link'), __('Title'));
 $i = 0;
 $config = &$system->config;
 $avaible_modules = array();
@@ -64,11 +54,9 @@ foreach ($links as $link){
 		$link['url'] = $tmp[1];
 	}
 	$frm->addrow(
-	$frm->text_box('urls[' . $i . ']', $link['url']).'&nbsp;&darr;&uarr;&nbsp;', 
-	$frm->text_box('names[' . $i . ']', $link['name']) . 
-	@$frm->text_box('desc[' . $i . ']', $link['desc']) . 
-	//@$frm->textarea('desc[' . $i . ']', $link['desc'], 30, 1) .
-	$frm->checkbox('ext[' . $i . ']', '1', __('Open in new window').'&nbsp;&nbsp;&nbsp;', $checked)
+	$frm->text_box('urls[' . $i . ']', $link['url']), 
+	'&nbsp;&darr;&uarr;&nbsp;'.$frm->text_box('names[' . $i . ']', $link['name'],20) . 
+	'&nbsp;'. $frm->checkbox('ext[' . $i . ']', '1', __('Open in new window').'&nbsp;&nbsp;', $checked)
 .$frm->select_tag('modules',$avaible_modules,-1,'onChange="
 document.addnav[\''.'urls[' . $i . ']'.'\'].value = \'module:\'+ this.value;
 ">\n
@@ -78,7 +66,7 @@ document.addnav[\''.'urls[' . $i . ']'.'\'].value = \'module:\'+ this.value;
 	$i++;
 } 
 
-$frm->addrow($frm->text_box('urls[' . $i . ']', ''), $frm->text_box('names[' . $i . ']', '') . $frm->text_box('desc[' . $i . ']', '') . $frm->checkbox('ext[' . $i . ']', '1', __('Open in new window').'&nbsp;&nbsp;&nbsp;')				
+$frm->addrow($frm->text_box('urls[' . $i . ']', ''), '&nbsp;&darr;&uarr;&nbsp;'.$frm->text_box('names[' . $i . ']', '',20).'&nbsp;'. $frm->checkbox('ext[' . $i . ']', '1', __('Open in new window').'&nbsp;&nbsp;')				
 .$frm->select_tag('modules',$avaible_modules,-1,'onChange="
 document.addnav[\''.'urls[' . $i . ']'.'\'].value = \'module:\'+ this.value;
 ">\n

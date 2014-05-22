@@ -55,12 +55,12 @@ $frm->addrow(__('Number of element that will be considered as latest'), $frm->te
 $frm->addrow(__('Number of elements per page'), $frm->text_box('nconfig[perpage]', @$config['perpage']));
 $frm->addrow(__('Module on index page'), $frm->select_tag('nconfig[index_module]', $avaible_modules, @$config['index_module']));
 $frm->addrow(__('Hide welcome message'), $frm->checkbox('nconfig[wmh]', '1', '', @$config['wmh']));
-$frm->addrow(__('Text of Welcome message').tinymce_selector('welcome_mesg'), $frm->textarea('welcome_mesg', file_get_contents(DATA_PATH . 'intro.html'), 90, 20), 'top');
-$frm->addrow(__('Additional meta tags for your site'), $frm->textarea('meta_tags', file_get_contents(DATA_PATH . 'meta_tags.html'), 90, 5), 'top');
+$frm->addrow(__('Text of Welcome message').tinymce_selector('welcome_mesg'), $frm->textarea('welcome_mesg', file_get_contents(DATA_PATH . 'intro.html'), 70, 20), 'top');
+$frm->addrow(__('Additional meta tags for your site'), $frm->textarea('meta_tags', file_get_contents(DATA_PATH . 'meta_tags.html'), 70, 5), 'top');
 $frm->addrow(__('Add to external link'). '.<br /> ' .__('Example').": rel='nofollow' class='external'", $frm->text_box('nconfig[addtolink]', @$config['addtolink']));
 //Redirect
-$add_redirect ='<div>+'.__(' from ')."<input type=\'text\' name=\'redirect[from_arr][]\' size=\'55\' />*"
-.__(' to ')."<input type=\'text\' name=\'redirect[to_arr][]\' size=\'55\'/>*"
+$add_redirect ='<div>+'.__(' from ')."<input type=\'text\' name=\'redirect[from_arr][]\' size=\'35\' />*"
+.__(' to ')."<input type=\'text\' name=\'redirect[to_arr][]\' size=\'35\'/>*"
 ."<img src=\'".SKIN_PATH."neok.gif\' title=\'".__('Delete')."\' style=\'cursor:pointer;display:table-cell;vertical-align:middle;\' onClick=\'$($(this).parents().get(0)).remove();\'>"
 .'</div>';
 $frm->addbreak(__('Redirect').
@@ -70,8 +70,8 @@ if (!empty($redirect['from_arr'])) {
 foreach ($redirect['from_arr'] as $i=>$value)
 if (!empty($redirect['from_arr'][$i]))
 $frm->addrow(
-__(' from ').' '.$frm->text_box('redirect[from_arr][]', @$redirect['from_arr'][$i], 55),
-__(' to ').$frm->text_box('redirect[to_arr][]', @$redirect['to_arr'][$i], 55)
+__(' from ').' '.$frm->text_box('redirect[from_arr][]', @$redirect['from_arr'][$i], 35),
+__(' to ').$frm->text_box('redirect[to_arr][]', @$redirect['to_arr'][$i], 35)
 .'<img src="'.SKIN_PATH.'neok.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;" onClick="$($(this).parents(\'tr\').get(0)).remove();">'
 );
 }
@@ -82,7 +82,7 @@ $frm->addbreak(__('Performance'));
 $frm->addrow(__('Disable statistic'), $frm->checkbox('nconfig[disable_stats]', '1', '', @$config['disable_stats']));
 $frm->addrow(__('Enable site cache in seconds (0 - disabled)'), $frm->text_box('nconfig[cache]', @$config['cache'],10));
 $frm->addrow(__('Clear cache directory'), $frm->checkbox('clear_cache', '1', '', false));
-$frm->addrow(__('Disable modules in cache'), $frm->textarea('nconfig[disable_cache]', @$config['disable_cache'], 90, 10), 'top');
+$frm->addrow(__('Disable modules in cache'), $frm->textarea('nconfig[disable_cache]', @$config['disable_cache'], 70, 10), 'top');
 //Interaction with user
 $frm->addbreak(__('Interaction with user'));
 $frm->addrow(__('Email for users letters'), $frm->text_box("nconfig[admin_email]", @$config['admin_email'], 30));
