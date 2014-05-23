@@ -29,6 +29,7 @@
 				$($(this).parents('ul')).css('display','block').addClass('active').prev('a').css('color','#000').css('font-size','1.1em');
 			};
 		});
+		$('[title]').popover({ trigger: "hover", placement:'top' });
 	});
 	</script>
 </head>
@@ -85,14 +86,14 @@
 					<?php
 					$tab=1;
 					foreach($MODULES as $category => $blockdata) {
-						if(!empty($blockdata[1]) && is_array($blockdata[1])) { ?>
+						if(!empty($blockdata[1]) && is_array($blockdata[1])) {?>
 					<li class="submenu">
-					<a name="<?=$blockdata[0]?>" href="#<?=$blockdata[0]?>">
+					<a name="<?=$tab?>" href="#<?=$tab?>">
 					<?=$blockdata[0]?>
 					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 					</a>
 					<ul>
-					<?php foreach($blockdata[1] as $module => $title) { ?>
+					<?php foreach($blockdata[1] as $module => $title) {?>
 					<li><a href="?show=module&id=<?=$category . '.' . $module.'&tab='.$tab?>"><?=$title?></a></li>
 					<?php
 					}
@@ -114,16 +115,24 @@
 			<div class="content-box-large">
 				<?
 				if(!empty($_GET['show'])) {
-				$module = (!empty($_GET['id'])) ? basename($_GET['id']) : '.index';
-				$module = explode('.', $module, 2);
-				if(!is_file(ADMIN_PATH . 'modules/' . $module[0] . '/' . $module[1] . '.php')) {
-				$message = __('Module not found') . ': ' . $module[0] . '/' . $module[1];
-				include(ADMIN_PATH . 'error.php');
-				} elseif($module[1] != 'index' && empty($MODULES[$module[0]][1][$module[1]])) {
-				$message = __('Access denied') . ': ' . $module[0] . '/' . $module[1];
-				include(ADMIN_PATH . 'error.php');
-				} else include(ADMIN_PATH . 'modules/' . $module[0] . '/' . $module[1] . '.php');
-				} else include(ADMIN_PATH . 'modules/index.php');
+					$module = (!empty($_GET['id'])) ? basename($_GET['id']) : '.index';
+					$module = explode('.', $module, 2);
+					if(!is_file(ADMIN_PATH . 'modules/' . $module[0] . '/' . $module[1] . '.php')) {
+						$message = __('Module not found') . ': ' . $module[0] . '/' . $module[1];
+						include(ADMIN_PATH . 'error.php');
+					} elseif($module[1] != 'index' && empty($MODULES[$module[0]][1][$module[1]])) {
+						$message = __('Access denied') . ': ' . $module[0] . '/' . $module[1];
+						include(ADMIN_PATH . 'error.php');
+					} else {
+					//здесь можно вывести титлы
+					//var_dump($MODULES);
+					//admin.php?show=module&id=add.navigation&tab=1
+					echo '<h4 style="margin-top:0">'.$MODULES[$module[0]][0].' &rarr; '.$MODULES[$module[0]][1][$module[1]].'</h4>';
+					include(ADMIN_PATH . 'modules/' . $module[0] . '/' . $module[1] . '.php');
+					}
+				} else {
+				include(ADMIN_PATH . 'modules/index.php');
+				}
 				?>
 		  </div>
 		  </div>

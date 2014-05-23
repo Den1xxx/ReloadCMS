@@ -8,6 +8,9 @@ body {
 }
 
 /* System*/
+table a	 {
+text-decoration:underline;
+}
 
 th	{
 	padding: 7px 0 5px 5px;
@@ -71,6 +74,17 @@ input[type="text"]:focus,textarea:focus{
 	box-shadow: 0 0 3px #99C;
 }
 
+/* Popover */
+
+.popover-title {
+    background-color: #FFF;
+    border-bottom: none;
+} 
+
+.popover-content {
+	padding: 0;
+}
+
 /* Other */
 
 .page-content > .row {
@@ -111,7 +125,7 @@ footer hr{
 
 footer .copy{
    font-size:13px;
-   margin:15px 0px;
+   margin:5px 0px;
 }
 
 /* Logo & Navigation */
@@ -560,7 +574,6 @@ body {
     height: 37px;
     overflow: hidden;
     width: 99%;
-
     text-decoration: none !important;
 }
 .login-wrapper .box .social a.face_login:hover {
