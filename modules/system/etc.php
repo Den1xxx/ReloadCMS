@@ -348,7 +348,7 @@ class message{
      * @param boolean $nl2br
      * @return message
      */
-    function message($message, $bbcode_level = 0, $html = false, $nl2br = false){
+    function __construct($message, $bbcode_level = 0, $html = false, $nl2br = false){
         $this->str = $message;
         $this->nl2br = $nl2br;
         $this->bbcode_level = $bbcode_level;
@@ -407,16 +407,17 @@ class message{
 		);		
 		}
     }
-    
-    /**
+
+    /*
      * Main parse method. Parses message::str
      *
      */
     function parse(){
 		    if (!empty($this->bbcode_level)&&$this->bbcode_level > 2){
-			 preg_match_all("#\[html\](.*?)\[/html\]#is", $this->str, $matches);
-			 if (!empty($matches[1])) 
-			 $this->str = preg_replace("#\[html\](.*?)\[/html\]#is", '{{{html}}}', $this->str);
+			 preg_match_all("#\[html\](.*?)\[/html\]#is", $this->str, $matches,PREG_PATTERN_ORDER);
+				 if (!empty($matches[1])) {				 
+					$this->parse_html_tag($matches[1]);
+				 }
             }
         if(!$this->html) $this->str = htmlspecialchars($this->str);
         if(!empty($this->bbcode_level)){
@@ -438,11 +439,22 @@ class message{
             $this->parseUrls();
         }
         $this->str = str_replace(array_keys($this->sr_temp), array_values($this->sr_temp), $this->str);
-        if (!empty($matches[1])) {
-		$html = array_fill(0,count($matches[1]),'{{{html}}}');
-		$this->str = str_replace($html, $matches[1], $this->str);}
         $this->result = $this->str;
     }
+
+	/*
+	* Keep non-parsed string in [html]-bbcodes 
+	* 
+	* @matches array Array of strings
+	*/
+    function parse_html_tag($matches){
+		foreach ($matches as $key=>$value) {
+			$new_html_key='{HTML:' . rcms_random_string(7) . '}';
+			$old = '[html]'.$value.'[/html]';
+			$this->sr_temp[$new_html_key]=$value;
+			$this->str = preg_replace("#\[html\](.*?)\[/html\]#is", $new_html_key, $this->str,1);
+		}
+	}
     
     /**
      * Parses message::str [qoute|quote="Who"]..[/qoute] bbtag (recursive)
