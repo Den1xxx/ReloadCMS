@@ -77,7 +77,6 @@ function unfck_gpc() {
 }
 
 function rcms_showAdminMessage($mesg){
-    global $lang;
     echo '<table border="0" cellspacing="2" cellpadding="2" class="input-form-table" width="100%"><tr class="input-form-tr"><td valign="middle" align="left" class="row1">' . $mesg . '</td></tr></table>';
 }
 
@@ -88,8 +87,10 @@ if(empty($_SERVER['REMOTE_HOST'])) $_SERVER['REMOTE_HOST'] = $_SERVER['REMOTE_AD
 if(empty($_SERVER['HTTP_REFERER'])) $_SERVER['HTTP_REFERER'] = '';
 if(empty($_SERVER['HTTP_USER_AGENT'])) $_SERVER['HTTP_USER_AGENT'] = '';
 
+if (defined('AJAX')) return ;
+
 ////////////////////////////////////////////////////////////////////////////////
-// Loading API modules                                                            //
+// Loading API modules                                                        //
 ////////////////////////////////////////////////////////////////////////////////
 $em_dir = opendir(ENGINE_PATH);
 while ($em = readdir($em_dir)){
