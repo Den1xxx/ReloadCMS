@@ -2,14 +2,11 @@
 
 //Preparations
 define('RCMS_ROOT_PATH', './');
+define('AJAX', true);
 require_once(RCMS_ROOT_PATH . 'common.php');
 global $lightbox_config,$system;
 $folder=FILES_PATH;
 $user = $system->user['username'];
-$gd_formats = '';
-if(function_exists('imagegif')) $gd_formats .= 'gif ';
-if(function_exists('imagejpeg')) $gd_formats .= 'jpg jpeg jpe ';
-if(function_exists('imagepng')) $gd_formats .= 'png ';
 
 //Main process
 
