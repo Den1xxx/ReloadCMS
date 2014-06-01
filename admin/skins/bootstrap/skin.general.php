@@ -1,9 +1,7 @@
 <!doctype html>
 <html>
 <head> 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
     <?rcms_show_element('meta')?>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><?=__('Administration')?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
