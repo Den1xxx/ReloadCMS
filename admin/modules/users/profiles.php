@@ -40,7 +40,7 @@ if(!empty($_POST['rights']) && !empty($_POST['save'])){
 * Interface                                                                   *
 ******************************************************************************/
 $frm =new InputForm ('', 'post', __('Find users'));
-$frm->addrow(__('Enter username or mask of usernames'), $frm->text_box('search', @$_POST['search']));
+$frm->addrow(__('Enter username or mask of usernames'), $frm->text_box('search', post('search','*')));
 $frm->show();
 if(!empty($_POST['edit']) && $userdata = load_user_info($_POST['edit'])){
     $frm =new InputForm ('', 'post', __('Submit'));

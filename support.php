@@ -1,16 +1,7 @@
 <?php
 /*
-Аякс суппорт чат
-Фишка: всё в одном файле.
-
-todo
-Пока не получается создание отличного от general канала
-Сделать настройки для админа — можно ли открывать чат гостям.
-
-
-
-
-
+Support chat
+All features in one file.
 */
 
 //Preparations
@@ -22,16 +13,18 @@ define('CHANNEL_PATH', RCMS_ROOT_PATH.'content/support/');
 if (!is_dir(CHANNEL_PATH)) rcms_mkdir(CHANNEL_PATH);
 $nickname=$system->user['nickname'];
 
-$channel = isset($_POST['channel']) ? preg_replace("/[^a-z0-9]/i", '', $_POST['channel']): 'general';
-
+//Добавить возможность к каналу выбора его владельца. Посторонние не должны видеть канал. Админ видит все каналы.
+if (cfr('GENERAL')) $channel = isset($_POST['channel']) ? preg_replace("/[^a-z0-9]/i", '', $_POST['channel']): 'general';
+else $channel = $nickname;
 
 
 //Main logic
 if (isset($_POST['action'])){
 
 	switch ($_POST['action']) {
+	//User 
 		case 'join': 
-			writeLine($channel, '<span class="notice">'.$nickname.' has entered the chatroom</span>');
+			writeLine($channel, '<span><b>'.$nickname.'</b> has entered the chatroom</span>');
 		break;
 		case 'send': 
 			$text = strip_tags($_POST['text']); 
@@ -41,7 +34,7 @@ if (isset($_POST['action'])){
 			if ($stat = @stat(CHANNEL_PATH.$channel)) {
 				$lastsize = intval($stat['size']);
 			} else {
-				writeLine($channel, '<span class="notice">'.__('Channel created').'</span>');
+				writeLine($channel, '<span>Channel <b>'.$channel.'</b> created</span>');
 				$lastsize = 0;
 			}
 			while (1){
@@ -58,7 +51,7 @@ if (isset($_POST['action'])){
 			}	
 		break;
 		case 'part': 
-			writeLine($channel, '<span class="notice">'.$nickname.' has left the chatroom '.$channel.'</span>');
+			writeLine($channel, '<span><b>'.$nickname.'</b> has left the chatroom '.$channel.'</span>');
 		break;
 		default: 
 
@@ -79,10 +72,11 @@ function writeLine($room, $text) {
 	fclose($fp);
 }
 if (!empty($_POST['action'])) die();
-
-$channels=rcms_scandir(CHANNEL_PATH);
 $inputs='';
+if (cfr('GENERAL')) {
+$channels=rcms_scandir(CHANNEL_PATH);
 foreach ($channels as $input) $inputs.='<input type="button" value="'.$input.'" class="enter"> ';
+} else $inputs.='<input type="button" value="'.$channel.'" class="enter"> '
 //Interface
 ?>
 <!doctype html>
@@ -96,10 +90,6 @@ foreach ($channels as $input) $inputs.='<input type="button" value="'.$input.'" 
 		border: #ccc 1px solid;
 		font-family: Arial, sans-serif;
 		font-size: 12px;
-	}
-
-	#support_lines {
-		overflow-y: scroll;
 	}
 
 	#support_lines ul {
@@ -117,13 +107,8 @@ foreach ($channels as $input) $inputs.='<input type="button" value="'.$input.'" 
 	#support_lines li:nth-child(odd) { background-color:#eee; }
 	#support_lines li:nth-child(even) { background-color:#fff; }
 
-	#support_lines .notice {
-		font-weight: bold;
+	#support_lines span {
 		color: #3c3;
-	}
-
-	#support_lines .nick {
-		font-weight: bold;
 	}
 
 	#support_hint {
@@ -162,7 +147,7 @@ foreach ($channels as $input) $inputs.='<input type="button" value="'.$input.'" 
 			listener();
 			$.post(support_serverurl+support_url, {action: 'join', nickname: nickname, channel: support_channel}, function(data){
 				$('#support_input').val('');
-				$('#support_hint').html('<span class="notice" ><?=__('Hello').', '.$nickname?>!</span><br/> Type a line of chat and press enter to speak:');
+				$('#support_hint').html('<span><?=__('Hello').', <b>'.$nickname?></b>!</span><br/> Type a line of chat and press enter to speak:');
 			}); 
 		})
 		
@@ -172,7 +157,7 @@ foreach ($channels as $input) $inputs.='<input type="button" value="'.$input.'" 
 				var sendline = $('#support_input').val();
 				if (sendline != '') {
 					$('#support_input').val('sending...');
-					serverSend('<span class="nick">'+nickname+':</span> '+sendline);
+					serverSend('<b>'+nickname+':</b> '+sendline);
 				}
 			}
 		});
@@ -185,7 +170,6 @@ foreach ($channels as $input) $inputs.='<input type="button" value="'.$input.'" 
 	});
 
 	function serverSend(sendtext) {
-			//alert (support_channel);
 		$.post(support_serverurl+support_url, {action: 'send', text: sendtext, channel: support_channel}, function(data){
 			$('#support_input').val('');
 		});
@@ -208,7 +192,6 @@ foreach ($channels as $input) $inputs.='<input type="button" value="'.$input.'" 
 		</div>
 		<div id="support_entry">
 			<p id="support_hint">Select channel: <?=$inputs?></p>
-			<form action="" method="POST">Enter new channel: <input type="text" name="channel"><input type="submit" ></form>
 			<input type="text" id="support_input">
 		</div>
 	</div>
