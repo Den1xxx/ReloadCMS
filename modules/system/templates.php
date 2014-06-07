@@ -90,7 +90,7 @@ function rcms_parse_menu($format) {
 			$result[] = array($link['url'], __($link['name']));
 		}
 	}
-	if ($system->checkForRight('GENERAL')) $result[]=array('admin.php?show=module&id=add.navigation&tab=1','<img src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'">');
+	if ($system->checkForRight('GENERAL')) $result[]=array(ADMIN_FILE.'?show=module&id=add.navigation&tab=1','<img src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'">');
 	$menu = '';
 	foreach ($result as $item){
 		if(empty($item[2])) {

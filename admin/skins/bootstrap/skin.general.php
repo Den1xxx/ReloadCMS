@@ -36,7 +36,7 @@
 	           <div class="col-md-7">
 	              <div class="logo">
 	                 <h1>
-						<a href="admin.php"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;<?=__('Administration')?></a>
+						<a href="<?=ADMIN_FILE?>"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;<?=__('Administration')?></a>
 					</h1>
 	              </div>
 	           </div>
@@ -120,9 +120,6 @@
 						$message = __('Access denied') . ': ' . $module[0] . '/' . $module[1];
 						include(ADMIN_PATH . 'error.php');
 					} else {
-					//здесь можно вывести титлы
-					//var_dump($MODULES);
-					//admin.php?show=module&id=add.navigation&tab=1
 					echo '<h4 style="margin-top:0">'.$MODULES[$module[0]][0].' &rarr; '.$MODULES[$module[0]][1][$module[1]].'</h4>';
 					include(ADMIN_PATH . 'modules/' . $module[0] . '/' . $module[1] . '.php');
 					}

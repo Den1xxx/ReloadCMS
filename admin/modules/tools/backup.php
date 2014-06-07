@@ -88,7 +88,7 @@ $frm->hidden('browse_archive', '1');
 $backups = rcms_scandir(RCMS_ROOT_PATH . 'backups');
 	foreach ($backups as $backup_entry){
 		if(preg_match("/^((.*?)-(.*?))\.tar(|.gz)$/i", $backup_entry, $matches)){
-		$link='&nbsp;&nbsp;<a href="'.RCMS_ROOT_PATH.'admin.php?show=module&id=tools.backup&tab=8&download='.base64_encode(BACKUP_PATH.$backup_entry).'">'.__('Download').'</a>';
+		$link='&nbsp;&nbsp;<a href="'.RCMS_ROOT_PATH.ADMIN_FILE.'?show=module&id=tools.backup&tab=8&download='.base64_encode(BACKUP_PATH.$backup_entry).'">'.__('Download').'</a>';
 			$frm->addrow($frm->radio_button('restore', array($backup_entry => $backup_entry), '-1').'&nbsp;&nbsp;['.filesize(RCMS_ROOT_PATH . 'backups'.'/'.$backup_entry). __(' bytes in size').']&nbsp;&nbsp;', $frm->checkbox('delete[' . $backup_entry. ']', 'true', __('Delete')).$link);
 		}
 	}

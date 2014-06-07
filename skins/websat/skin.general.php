@@ -27,7 +27,7 @@ $(function() {
             <p><?
 			echo ($system->config['slogan']);
 			if($system->checkForRight('GENERAL'))
-			echo '&nbsp;<a href="admin.php?show=module&id=add.config&tab=1"><img src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'"></a>';
+			echo '&nbsp;<a href="'.RCMS_ROOT_PATH.ADMIN_FILE.'?show=module&id=add.config&tab=1"><img src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'"></a>';
 			?></p>
         </div>
     </div>

@@ -244,7 +244,6 @@ class SitemapGenerator {
 		$sampleRobotsFile .=	"Disallow:/languages/\n";
 		$sampleRobotsFile .=	"Disallow:/modules/\n";
 		$sampleRobotsFile .=	"Disallow:/tools/\n";
-		$sampleRobotsFile .=	"Disallow:/admin.php\n";
 		$sampleRobotsFile .=	"Disallow:/captcha.php\n";
 		$sampleRobotsFile .=	"Disallow:/common.php\n";
 		$sampleRobotsFile .=	"Crawl-delay: 3\n";							//timeout 3 sec;

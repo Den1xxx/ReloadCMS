@@ -54,7 +54,8 @@ if(!empty($_POST['logout_form'])) {
     $system->logOutUser();
 }
 define('LOGGED_IN', $system->logged_in);
-
+if (empty($system->config['admin_file'])) define('ADMIN_FILE','admin.php');
+else define('ADMIN_FILE',$system->config['admin_file']);
 // Show some messages about activation or initialization
 if(!empty($system->results['user_init'])) show_window('', $system->results['user_init'], 'center');
 ?>

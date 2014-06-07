@@ -45,7 +45,7 @@ $system->config['pagename'] = $data['title'];
 		$title =  
 		($system->checkForRight('GENERAL')and isset($_GET['get'])) ?  
 		$data['title'].' 
-		<a href="admin.php?show=module&id=tools.sendmail&edit=' . $_GET['get'] . '&tab=8" title="'.__('Edit').'">
+		<a href="'.ADMIN_FILE.'?show=module&id=tools.sendmail&edit=' . $_GET['get'] . '&tab=8" title="'.__('Edit').'">
 		<img src="' . SKIN_PATH . 'edit_small.gif" alt="'.__('Edit').'">
 		</a>
 		' : $data['title'];

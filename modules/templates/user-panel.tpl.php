@@ -55,7 +55,7 @@
 <?php if($system->checkForRight('-any-')) { ?>
 <tr>
     <td class="row3">
-        <a href="./admin.php"><?=__('Administration')?></a>
+        <a href="<?=RCMS_ROOT_PATH.ADMIN_FILE?>"><?=__('Administration')?></a>
     </td>
 </tr>
 <?php }?>

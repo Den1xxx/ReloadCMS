@@ -186,7 +186,7 @@ foreach ($elements as $file){
 	$link_img=str_replace(realpath(RCMS_ROOT_PATH).'/',RCMS_ROOT_PATH,$_REQUEST['path']);
 	if (is_images($filename)) $link = '<a href="'.$link_img.$file.'" class="gallery" title="'.__('Show').'"><img src="'.SKIN_PATH.'fastnews/view.gif" > '.$file.'</a>';
 	else $link = '<a href="' . $url_inc . '&edit=' . $file . '&path=' . $_REQUEST['path']. '" title="' . __('Edit') . '"><img src="'.SKIN_PATH.'edit.png"/> ' . $file . '</a>';
-        $loadlink = '&nbsp;&nbsp;<a href="'.RCMS_ROOT_PATH.'admin.php?show=module&id=tools.filemanager&download='.base64_encode($filename).'" title="'.__('Download').' '. $file .'">'.__('Download').'</a>';
+        $loadlink = '&nbsp;&nbsp;<a href="'.RCMS_ROOT_PATH.ADMIN_FILE.'?show=module&id=tools.filemanager&download='.base64_encode($filename).'" title="'.__('Download').' '. $file .'">'.__('Download').'</a>';
         $style = 'row1';
 		$alert = 'onClick="if(confirm(\''. __('File selected').': \n'. $file. '. \n'.__('Are you sure you want to delete this file?') . '\')) document.location.href = \'' . $url_inc . '&delete=' . $file . '&path=' . $_REQUEST['path']  . '\'"';
     }

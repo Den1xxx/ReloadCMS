@@ -26,7 +26,7 @@
 	<ul style="list-style-type:none">
 			<?php if($system->checkForRight('-any-')) { ?>
 			<li class="username">
-			<a href="./admin.php"><?=__('Administration')?></a>
+			<a href="<?=RCMS_ROOT_PATH.ADMIN_FILE?>"><?=__('Administration')?></a>
 			</li>
 			<?php }?>
 			<li class="username">

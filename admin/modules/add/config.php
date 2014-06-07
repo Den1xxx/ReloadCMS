@@ -5,10 +5,19 @@
 //   This product released under GNU General Public License v2                //
 ////////////////////////////////////////////////////////////////////////////////
 
-
 if(!empty($_POST['nconfig'])) {
-write_ini_file($_POST['nconfig'], CONFIG_PATH . 'config.ini');
-rcms_showAdminMessage(__('Configuration updated'));
+	$admin_file=(empty($system->config['admin_file'])?'admin.php':$system->config['admin_file']);
+	$new_file=$_POST['nconfig']['admin_file'];
+	if ($admin_file!=$new_file) {
+		if(substr($new_file, -4)=='.php') {
+			if (rename(RCMS_ROOT_PATH.$admin_file,RCMS_ROOT_PATH.$_POST['nconfig']['admin_file'])) {
+			write_ini_file($_POST['nconfig'], CONFIG_PATH . 'config.ini');
+			rcms_redirect(RCMS_ROOT_PATH.$new_file.'?show=module&id=add.config&tab=1');
+			}	else $_POST['nconfig']['admin_file']=$admin_file;
+		} else $_POST['nconfig']['admin_file']=$admin_file;
+	}
+	write_ini_file($_POST['nconfig'], CONFIG_PATH . 'config.ini');
+	rcms_showAdminMessage(__('Configuration updated'));
 }
 
 if (!empty($_POST['redirect'])) {
@@ -29,6 +38,7 @@ if(isset($_POST['clear_cache'])) {rcms_clear_directory(CACHE_DIR);}
 
 $system->config = parse_ini_file(CONFIG_PATH . 'config.ini');
 $config = &$system->config;
+
 if (is_file(CONFIG_PATH.'redirect.ini')) $redirect = unserialize(file_get_contents(CONFIG_PATH.'redirect.ini'));
 
 $avaible_modules = array();
@@ -45,6 +55,7 @@ $frm =new InputForm ('', 'post', __('Submit'));
 $frm->addbreak(__('Site configuration'));
 $frm->addrow(__('Your site\'s title'), $frm->text_box("nconfig[title]", @$config['title'], 60));
 $frm->addrow(__('Your site\'s slogan'), $frm->text_box("nconfig[slogan]", @$config['slogan'], 60));
+$frm->addrow(__('Admin file'), $frm->text_box("nconfig[admin_file]", (empty($config['admin_file'])?'admin.php':$config['admin_file']), 15));
 $frm->addrow(__('Do not show sitename in title'), $frm->checkbox('nconfig[hide_title]', '1', '', @$config['hide_title']));
 $frm->addrow(__('Your site\'s URL') . '<br />' . __('Leave empty for autodetect'), $frm->text_box("nconfig[site_url]", $config['site_url'], 40));
 $frm->addrow(__('Copyright for your content'), $frm->text_box("nconfig[copyright]", @$config['copyright'], 60));

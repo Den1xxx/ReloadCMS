@@ -272,7 +272,7 @@ if ($categories = $articles->getCategories(false, false, false)) {
   }
   $result .= '<br/>';
   if ($system->checkForRight('ARTICLES-ADMIN')) 
-	$result .= '<a href="' . RCMS_ROOT_PATH . 'admin.php?show=module&id=articles.containers">' . __('Manage sections') . '</a><br/>';
+	$result .= '<a href="' . RCMS_ROOT_PATH . ADMIN_FILE . '?show=module&id=articles.containers">' . __('Manage sections') . '</a><br/>';
   $system->config['pagename'] = __('Containers');
   show_window(__('Containers'), rcms_parse_module_template('art-container.tpl', $result));
 }

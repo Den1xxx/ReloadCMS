@@ -17,7 +17,7 @@ if (isset($_GET['id']))
 		}
 		$title = (!empty($page['title']))? 
 		(($system->checkForRight('GENERAL')) ? ' 
-		<form name="" method="post" action="admin.php?show=module&id=articles.pages&tab=2&page=' . $_GET['id'] . '" title="'.__('Edit').'">'.
+		<form name="" method="post" action="'.ADMIN_FILE.'?show=module&id=articles.pages&tab=2&page=' . $_GET['id'] . '" title="'.__('Edit').'">'.
 		$page['title'].'
 		<input type="hidden" name="edit" value="' . $_GET['id'] . '">
 		<input type="image" src="' . SKIN_PATH . 'edit_small.gif" title="'.__('Edit').'">

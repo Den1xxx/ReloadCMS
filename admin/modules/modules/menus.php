@@ -101,7 +101,7 @@ foreach ($ucms as $menu=>$data) {
 		<?=__('To enable the required modules drag modules from right to left field. Elements in second field and menus before first "column" in first field will not be used.')?>
 		</p>
 		<center>
-		<input type="submit" name="" value="<?=__('Save')?>"> <a href="admin.php?show=module&id=modules.menus&tab=6" class="button"><?=__('Clear')?></a>
+		<input type="submit" name="" value="<?=__('Save')?>"> <a href="<?=ADMIN_FILE?>?show=module&id=modules.menus&tab=6" class="button"><?=__('Clear')?></a>
 		</center>
 	</form>
     </td>

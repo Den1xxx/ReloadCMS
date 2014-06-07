@@ -39,7 +39,7 @@
 ?> 
 	<tr>  
 			   <td class="row2">
-                <form action="admin.php?show=module&id=articles.post" method="post">
+                <form action="<?=ADMIN_FILE?>?show=module&id=articles.post" method="post">
                  <input type="hidden" name="c" value="<?=$tpldata['container']?>" />
                  <input type="hidden" name="b" value="<?=$tpldata['catid']?>" />
                  <input type="hidden" name="save" value="0" />
@@ -47,7 +47,7 @@
                 </form>
 				</td>
 				<td class="row2">
-                <form action="admin.php?show=module&id=articles.articles" method="post">
+                <form action="<?=ADMIN_FILE?>?show=module&id=articles.articles" method="post">
                  <input type="hidden" name="c" value="<?=$tpldata['container']?>" />
                  <input type="hidden" name="b" value="<?=$tpldata['catid']?>" />
                  <input type="hidden" name="save" value="0" />
@@ -55,7 +55,7 @@
                 </form>
 				</td>
 				<td class="row2">
-                <form action="admin.php?show=module&id=articles.articles" method="post">
+                <form action="<?=ADMIN_FILE?>?show=module&id=articles.articles" method="post">
                  <input type="hidden" name="c" value="<?=$tpldata['container']?>" />
                  <input type="hidden" name="b" value="<?=$tpldata['catid']?>" />
                  <input type="hidden" name="a" value="<?=$tpldata['id']?>" />

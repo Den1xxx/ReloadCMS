@@ -17,7 +17,7 @@ if(!LOGGED_IN){
 		if(!$articles->setWorkContainer($c) || !$articles->saveArticle($b, 0, $_POST['title'], $_POST['source'], $_POST['keywords'], $_POST['sef_desc'], $_POST['description'], $_POST['text'], $_POST['mode'], $_POST['comments'])){
 			show_error($articles->last_error);
 		} elseif ($system->checkForRight('ARTICLES-EDITOR')){
-			$frm = new InputForm ('admin.php?show=module&id=articles.articles', 'post', __('Edit it'));
+			$frm = new InputForm (ADMIN_FILE.'?show=module&id=articles.articles', 'post', __('Edit it'));
 			$frm->hidden('c', $c);
 			$frm->hidden('b', $b);
 			$frm->hidden('a', $_SESSION['art_id']);
