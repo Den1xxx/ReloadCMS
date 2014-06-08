@@ -8,29 +8,6 @@ if (defined('DEBUG')) { //MySQL work!
 $db =new MySQLDB();
 //check for existing table `users` in base
 $tableExists = simple_query("SHOW TABLES LIKE 'users'") > 0;
-if (!$tableExists) {
-$query = "CREATE TABLE IF NOT EXISTS `users` (
-  `username` varchar(255) NOT NULL,
-  `userdata` text NOT NULL,
-  PRIMARY KEY (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;" ;
-$result=nr_query($query);
-//move users from files to MySQL table `users`
-if (sizeof($users=rcms_scandir(USERS_PATH)) != 0) {
-foreach ($users as $user){
-$query="INSERT INTO `users` (
-`username`,
-`userdata` 
-)
-VALUES (
-'".$user."', 
-'".file_get_contents(USERS_PATH.$user)."'
-);";
-$result.=nr_query($query);
-}
-}
-if (empty($result)) $tableExists = true;
-} 
 if ($tableExists) define('USERS_MYSQL',true); else define('USERS_MYSQL',false);
 } else define('USERS_MYSQL',false);
 
