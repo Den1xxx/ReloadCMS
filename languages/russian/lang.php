@@ -35,6 +35,7 @@ $lang['def']['Add to external link'] = 'Добавить к внешним сс�
 $lang['def']['Additional information'] = 'Дополнительная информация';
 $lang['def']['Additional meta tags for your site'] = 'Дополнительные meta теги';
 $lang['def']['Additional profile fields'] = 'Доп. поля профиля';
+$lang['def']['Admin file'] = 'Файл админки';
 $lang['def']['Administration'] = 'Администрирование';
 $lang['def']['Administrator'] = 'Администратор';
 $lang['def']['Advanced user'] = 'Продвинутый пользователь';
