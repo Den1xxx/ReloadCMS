@@ -197,21 +197,22 @@ rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'
 		} else {
 			$system->config['pagename'] = $containers[$c];
 		}
-		$contents = array_reverse($contents);
+		foreach ($contents as $tmp_article) {
+		$arr_art[$tmp_article['time']]=$tmp_article;
+		}
+		unset($contents);
+		krsort($arr_art);
+
 		if(!empty($system->config['perpage'])) {
-			$pages = ceil(sizeof($contents)/$system->config['perpage']);
 			if(!empty($_GET['page']) && ((int) $_GET['page']) > 0) $page = ((int) $_GET['page'])-1; else $page = 0;
 			$start = $page * $system->config['perpage'];
-			$total = $system->config['perpage'];
 		} else {
-			$pages = 1;
 			$page = 0;
 			$start = 0;
-			$total = sizeof($contents);
 		}
-		$result .= '<div align="right">' . rcms_pagination(sizeof($contents), $system->config['perpage'], $page+1, '?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '&amp;b=' . $b) . '</div>';
-		for ($a = $start; $a < $total+$start; $a++){
-			$article = &$contents[$a];
+		$result .= '<div align="right">' . rcms_pagination(sizeof($arr_art), $system->config['perpage'], $page+1, '?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '&amp;b=' . $b) . '</div>';
+		$contents=array_slice($arr_art,$start,$system->config['perpage']);
+		foreach ($contents as $time=>$article){
 			if(!empty($article)){
 				if($c !== '#root') {
 					$result .= rcms_parse_module_template('art-article.tpl', $article + array('showtitle' => true,
