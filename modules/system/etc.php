@@ -200,8 +200,8 @@ return $time;
  *
  * @return string
  */
-function button_delete_parent(){
-return '<img src="'.SKIN_PATH.'neok.gif" onclick="this.parentNode.parentNode.removeChild(this.parentNode)" style="cursor:pointer;vertical-align:middle;" title="'.__('Delete').'" />';
+function button_delete_parent($parent=0){
+return '<img src="'.SKIN_PATH.'neok.gif" onclick="$($(this).parents().get('.$parent.')).remove();" style="cursor:pointer;vertical-align:middle;" title="'.__('Delete').'" />';
 }
 
 function rcms_parse_text_by_mode($str, $mode){
@@ -329,7 +329,7 @@ class message{
      *
      * @var boolean
      */
-    var $nl2br = false;
+    var $nl2br = true;
     /**
      * Array of regexps for bbcodes
      *
@@ -391,21 +391,13 @@ class message{
 		);
 		
 		$this->regexp[1] = array_merge(get_animated_to_array(), $this->regexp[1]);
-		if (!empty($lightbox_config['articles'])) {
 		$this->regexp[2] = array(
-	    "#[\s\n\r]*\[img\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => ' <a href="\\1.\\2"  class="gallery" title="\\1.\\2"><img src="\\1.\\2" alt="\\2" width="'.$lightbox_config['width'].'px"/></a>',
-		"#[\s\n\r]*\[img=(\"|&quot;|)(left|right)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => ' <img src="\\4.\\5" alt="\\5" align="\\2" style="padding: 5px;" /> ',
-		"#[\s\n\r]*\[img=(\"|&quot;|)(\d+)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2px" /> ',
-		"#[\s\n\r]*\[img=(\"|&quot;|)(100%|[1-9]?[0-9]%)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2" /> '
+	    "#\[img\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => 
+		(!empty($lightbox_config['articles']) ? ' <a href="\\1.\\2"  class="gallery" title="\\1.\\2"><img src="\\1.\\2" alt="\\2" width="'.$lightbox_config['width'].'px" style="padding: 5px;" /></a>' : '<img src="\\1.\\2" alt="\\2" style="padding: 5px;" />'),
+		"#\[img=(\"|&quot;|)(left|right)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => ' <img src="\\4.\\5" alt="\\5" align="\\2" style="padding: 5px;" /> ',
+		"#\[img=(\"|&quot;|)(\d+)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2px" /> ',
+		"#\[img=(\"|&quot;|)(100%|[1-9]?[0-9]%)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2" /> '
 		);
-		} else {
-		$this->regexp[2] = array(
-		"#[\s\n\r]*\[img\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => ' <img src="\\1.\\2" alt="\\5" /> ',
-		"#[\s\n\r]*\[img=(\"|&quot;|)(left|right)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => '<img src="\\4.\\5" alt="\\5" align="\\2" style="padding: 5px;" />',
-		"#[\s\n\r]*\[img=(\"|&quot;|)(\d+)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2px" /> ',
-		"#[\s\n\r]*\[img=(\"|&quot;|)(100%|[1-9]?[0-9]%)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\][\s\n\r]*#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2" /> '
-		);		
-		}
     }
 
     /*
@@ -442,15 +434,14 @@ class message{
         $this->result = $this->str;
     }
 
-	/*
-	* Keep non-parsed string in [html]-bbcodes 
+	/**
+	* Keep non-parsed string in [html]..[/html] bbtag
 	* 
-	* @matches array Array of strings
+	* @param array $matches Array of strings
 	*/
     function parse_html_tag($matches){
 		foreach ($matches as $key=>$value) {
 			$new_html_key='{HTML:' . rcms_random_string(7) . '}';
-			$old = '[html]'.$value.'[/html]';
 			$this->sr_temp[$new_html_key]=$value;
 			$this->str = preg_replace("#\[html\](.*?)\[/html\]#is", $new_html_key, $this->str,1);
 		}
