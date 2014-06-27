@@ -57,17 +57,11 @@ class InputForm {
 	}
 
 
-	function show($return = false) {
+	function show($return = false,$cols=2, $in_row=false) {
 		$result = '<form action="' . $this->options['action'] . '" method="' . $this->options['method'] . '" name="' . $this->options['name'] . '"';
-		if(!empty($this->options['target'])) {
-			$result .= ' target="' . $this->options['target'] . '"';
-		}
-		if(!empty($this->options['enctype'])) {
-			$result .= ' enctype="' . $this->options['enctype'] . '"';
-		}
-		if(!empty($this->options['events'])) {
-			$result .= ' ' . $this->options['events'];
-		}
+		$result .= empty($this->options['target']) ? '' : ' target="' . $this->options['target'] . '"';
+		$result .= empty($this->options['enctype']) ? '' : ' enctype="' . $this->options['enctype'] . '"';
+		$result .= empty($this->options['events']) ? '' : ' ' . $this->options['events'];
 		$result .= '>' . "\n";
 
 		if(is_array($this->_hiddens)) {
@@ -80,25 +74,23 @@ class InputForm {
 
 		if(is_array($this->_rows)) {
 			foreach($this->_rows as $key=>$row){
-				if(!empty($row['break'])){
-					$result .= '<tr>' . "\n";
-					$result .= '  <th colspan="2">' . $row['break'] . '</td>' . "\n";
-					$result .= '</tr>' . "\n";
-				} elseif(!empty($row['message'])){
-					$result .= '<tr>' . "\n";
-					$result .= '  <td colspan="2" class="row1">' . $row['message'] . '</td>' . "\n";
-					$result .= '</tr>' . "\n";
-				} elseif (!empty($row['fieldset_start'])){
-				$result .= $row['fieldset_start'];
-				} elseif (!empty($row['fieldset_end'])){
-				$result .= $row['fieldset_end'];
-				} else {
-					$result .= '<tr>' . "\n";
-					$result .= '  <td valign="' . $row['title_valign'] . '" align="' . $row['title_align'] . '" class="row2" ' . ((empty($row['contents'])) ? ' colspan="2"' : '') . '>' . $row['title'] . '</td>' . "\n";
+				if(!empty($row['break'])) $result .= "<tr>\n".'  <th colspan="'.$cols.'">' . $row['break'] . "</th>\n</tr>\n";
+				elseif(!empty($row['message'])) $result .= "<tr>\n".'  <td colspan="'.$cols.'">' . $row['message'] . "</td>\n</tr>\n";
+				elseif (!empty($row['fieldset_start'])) $result .= $row['fieldset_start'];
+				elseif (!empty($row['fieldset_end'])) $result .= $row['fieldset_end'];
+				else {
+					$result .= "<tr>\n";
+					$result .= '  <td valign="' . $row['title_valign'] . '" align="' . $row['title_align'] . '" class="row2" ' . ((empty($row['contents'])) ? ' colspan="'.$cols.'"' : '') . '>' . $row['title'] . "</td>\n";
 					if(!empty($row['contents'])){
-						$result .= '  <td valign="' . $row['title_valign'] . '" align="' . $row['title_align'] . '" class="row3">' . $row['contents'] . '</td>' . "\n";
+						if (is_array($row['contents'])) {
+							foreach ($row['contents'] as $content) {
+								$result .= '  <td valign="' . $row['title_valign'] . '" align="' . $row['title_align'] . '" class="row3">' . $content . "</td>\n";
+							}
+						} else {					
+							$result .= '  <td valign="' . $row['title_valign'] . '" align="' . $row['title_align'] . '" class="row3">' . $row['contents'] . "</td>\n";
+						}
 					}
-					$result .= '</tr>' . "\n";
+					$result .= "</tr>\n";					
 				}
 			}
 		}
@@ -107,10 +99,10 @@ class InputForm {
 		if(!empty($this->options['reset'])) {
 			$result .= '<input type="reset" value="' . $this->options['reset'] . '" class="btnlite">';
 		}
-		$result .= '</td>' . "\n";
-		$result .= '</tr>' . "\n";
-		$result .= '</table>' . "\n";
-		$result .= '</form>' . "\n";
+		$result .= "</td>\n";
+		$result .= "</tr>\n";
+		$result .= "</table>\n";
+		$result .= "</form>\n";
 		if($return){
 			return $result;
 		} else {

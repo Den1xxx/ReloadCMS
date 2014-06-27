@@ -83,7 +83,7 @@ foreach ($elements as $file){
 	else continue;
         $style = 'row1';
 		$alert = 'onClick="if(confirm(\''. __('File selected').': \n'. $file. '. \n'.__('Are you sure you want to delete this file?') . '\')) document.location.href = \''.$url_inc.'&delete=' . $file . '&path=' . $user_path  . '\';else return false;"';
-		$opener='onClick="window.opener.'.get('form').'.'.get('ins').'.value += \'[img]\'+\''.$link_img.$file.'\'+\'[/img]\';'.(!empty($lightbox_config['close_by_clicking'])?'window.close();':'').' return false; "';
+		$opener='onClick="window.opener.document.getElementById(\''.get('ins').'\').value += \'[img]\'+\''.$link_img.$file.'\'+\'[/img]\';'.(!empty($lightbox_config['close_by_clicking'])?'window.close();':'').' return false; "';
 		$insertlink = get('ins')?'<a href="'.$link_img.$file.'"  class="btnmain" ' . $opener . '>' . __('Insert') . '</a>':'';
     }
     $deletelink = user_can_delete($file)?'<a href="'.$url_inc.'&delete=' . $file . '&path=' . $user_path  . '" class="btnmain" ' . $alert . '>' . __('Delete') . '</a>':'';
