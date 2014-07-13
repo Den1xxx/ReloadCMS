@@ -45,15 +45,13 @@ function rcms_pagination($total, $perpage, $current, $link){
     $return = '';
     $link = preg_replace("/((&amp;|&)page=(\d*))/", '', $link);
     if(!empty($perpage)) {
-        $pages = ceil($total/$perpage);
-        if($pages != 1){
-            $c = 1;
-            while($c <= $pages){
-                if($c != $current) $return .= ' [' . '<a href="' . $link . '&amp;page=' . $c . '">' . $c . '</a>] ';
-                else $return .= ' [' . $c . '] ';
-                $c++;
-            }
-        }
+	$arr=array(
+	'total'=>$total,
+	'perpage'=>$perpage,
+	'current'=>$current,
+	'link'=>$link
+	);
+	$return = rcms_parse_module_template('pagination.tpl',$arr);
     }
     return $return;
 }

@@ -134,14 +134,13 @@ $frm->addrow(__('Mode'), $frm->select_tag('mode', array('html' => __('HTML'), 't
 		}"'), 'top');
 	$frm->addrow(__('Date').' (yyyy-mm-dd hh:mm:ss)', $frm->text_box('date', gmdate("Y-m-d H:i:s",rcms_get_time())), 'top');
     $frm->show();
-} elseif(!empty($_POST['edit'])){
-    if($page = page_get($_POST['edit'])){
+} elseif($edited=post('edit',get('page'))){
+    if($page = page_get($edited)){
 		$frm = new InputForm ('', 'post', __('Submit'), '', '', '', 'edit');
-        $frm->addmessage('<a href="">&lt;&lt;&lt; ' . __('Back') . '</a>');
         $frm->addbreak(__('Edit article'));
-        $frm->hidden('edit', $_POST['edit']);
+        $frm->hidden('edit', $edited);
         $frm->hidden('save', '1');
-        $frm->addrow('<abbr title="' . __('Use only small Latin letters and digits') . '">' . __('MenuID') . '</abbr>', $frm->text_box('id', $_POST['edit']));
+        $frm->addrow('<abbr title="' . __('Use only small Latin letters and digits') . '">' . __('MenuID') . '</abbr>', $frm->text_box('id', $edited));
         $frm->addrow(__('Title'), $frm->text_box('title', $page['title']));
     if (empty ($page['description'])) $page['description'] = $page['title'];
 	$frm->addrow(__('Description for search engines'), $frm->text_box('description', $page['description']));

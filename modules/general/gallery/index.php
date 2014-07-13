@@ -44,17 +44,18 @@ if(!empty($_GET['id']) && ($image_data = $gallery->getData(basename($_GET['id'])
 	} else {
 		$imagesf = array();
 	}
-	//__('Next') 
-	$links = '<hr />';
-	if($imagesf[$id] > 0){
-		@$links .= '<a href="./index.php?module=' . $module . $linkdata . '&amp;id=' . $images[$imagesf[$id] - 1] . '">&lt;  ' . __('Previous') . ' </a>&nbsp;&nbsp;';
-	}
-	$links .= '<b><a href="./index.php?module=' . $module .  '">' . __('All') . '</a></b>';
-	if($imagesf[$id] < (sizeof($imagesf) - 1)){
-		$links .= '&nbsp;&nbsp;<a href="./index.php?module=' . $module . $linkdata . '&amp;id=' . $images[$imagesf[$id] + 1] . '">'.__('Next').'&gt;</a> ';
-	}
+	$system->config['pagename'] .= ' - '.$image_data['title'];	
+	$title='<a href="?module=gallery">'.__('Gallery').'</a>&rarr;'.$image_data['title'];
+	$image_arr=array(
+	'module' => $module,
+	'id'=>$id,
+	'linkdata'=>$linkdata,
+	'image'=>$gallery->getImage($id),
+	'previous' => ($imagesf[$id] > 0) ? $images[$imagesf[$id] - 1] : '', 
+	'next'=>($imagesf[$id] < (sizeof($imagesf) - 1))?$images[$imagesf[$id] + 1] : ''
+	);
 	
-	show_window($image_data['title'], $links . '<hr />' . $gallery->getImage($id), 'center');
+	show_window($title,rcms_parse_module_template('gallery-image.tpl', $image_arr) , 'center');
 
 	if(!empty($_POST['comtext'])) {
 		if (isset($sysconfig['gallery-guest']) and !LOGGED_IN){
