@@ -1,4 +1,4 @@
-<?
+<?php
 // Start output
 
 DEFINE('CACHE_DIR',DATA_PATH.'cache');

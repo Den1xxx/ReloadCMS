@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-<title><? rcms_show_element('title'); ?></title>
-<? rcms_show_element('meta'); ?>
+<title><?php rcms_show_element('title'); ?></title>
+<?php rcms_show_element('meta'); ?>
 <link rel="stylesheet" href="<?=CUR_SKIN_PATH?>style.css.php" type="text/css" />
 <?php  if($system->checkForRight('-any-')) { ?>
 <script type="text/javascript" src="./tools/js/tiny_mce/tiny_mce.js"></script>

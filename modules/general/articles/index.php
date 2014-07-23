@@ -201,6 +201,8 @@ rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'
 		$arr_art[$tmp_article['time']]=$tmp_article;
 		}
 		unset($contents);
+	
+	if(!empty($arr_art)) {
 		krsort($arr_art);
 
 		if(!empty($system->config['perpage'])) {
@@ -226,6 +228,7 @@ rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'
 				}
 			}
 		}
+	}
 		if($c !== '#root') {
 			$title = '<a class="winheader" href="?module=' . $module . '">' . __('Sections') . '</a> &rarr; ' . '<a class="winheader" href="?module=' . $module . '&amp;c=' . str_replace('#', '%23', $c) . '">' . $containers[$c] . '</a> &rarr; ' . ((mb_strlen($category['title'])>$articles->config['category']) ? mb_substr($category['title'], 0, $articles->config['category']) . '...' : $category['title']);
 		} else {

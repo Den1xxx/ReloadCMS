@@ -16,8 +16,8 @@ class articles{
 	var $last_error = '';
 
 	//--------------------------Loading configuration-----------------------//
-	function articles(){
-	$this->config = $articles->config = unserialize(file_get_contents(CONFIG_PATH . 'articles.ini'));
+	function __construct(){
+	$this->config = unserialize(file_get_contents(CONFIG_PATH . 'articles.ini'));
 	if (empty ($this->config['count_views'])) $this->config['count_views']='';
 	if (empty ($this->config['count_comments'])) $this->config['count_comments']='';
 	}

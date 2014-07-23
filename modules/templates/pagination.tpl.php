@@ -1,4 +1,5 @@
 <?
+//New pagination
         $pages = ceil($tpldata['total']/$tpldata['perpage']);
 		$return='';
         if($pages != 1){
