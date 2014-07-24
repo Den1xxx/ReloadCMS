@@ -6,7 +6,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 $gallery = new gallery();
 $system->config['pagename'] = __('Gallery');
-$sysconfig = parse_ini_file(CONFIG_PATH . 'config.ini');
 
 if(!empty($_GET['id']) && ($image_data = $gallery->getData(basename($_GET['id'])))){
 	$id = basename($_GET['id']);
@@ -46,6 +45,7 @@ if(!empty($_GET['id']) && ($image_data = $gallery->getData(basename($_GET['id'])
 	}
 	$system->config['pagename'] .= ' - '.$image_data['title'];	
 	$title='<a href="?module=gallery">'.__('Gallery').'</a>&rarr;'.$image_data['title'];
+	$title.=cfr('GALLERY')?' '.edit_button(ADMIN_FILE.'?show=module&id=gallery.upload&tab=5'):'';
 	$image_arr=array(
 	'module' => $module,
 	'id'=>$id,
@@ -58,7 +58,7 @@ if(!empty($_GET['id']) && ($image_data = $gallery->getData(basename($_GET['id'])
 	show_window($title,rcms_parse_module_template('gallery-image.tpl', $image_arr) , 'center');
 
 	if(!empty($_POST['comtext'])) {
-		if (isset($sysconfig['gallery-guest']) and !LOGGED_IN){
+		if (isset($system->config['gallery-guest']) and !LOGGED_IN){
 			show_error(__('You are not logined!'));
 		} else {                                    
 
@@ -87,7 +87,7 @@ show_window(__('Error'),__('Invalid form data'));
 	foreach ($gallery->getComments($id) as $message) {
 		show_window('', rcms_parse_module_template('gallery-comment.tpl', $message), 'center');
 	}
-	if (isset($sysconfig['forum-guest']) and !LOGGED_IN){
+	if (isset($system->config['forum-guest']) and !LOGGED_IN){
     	show_window(__('Post comment'), __('You are not logined!'), 'center');
     } else {
 		show_window(__('Post comment'), rcms_parse_module_template('gallery-form.tpl'), 'center');
@@ -154,6 +154,6 @@ show_window(__('Error'),__('Invalid form data'));
 	}
 	$data['linkdata'] = $linkdata;
 	
-	show_window(__('Gallery'), !empty($images)?rcms_parse_module_template('gallery.tpl', $data):__('Nothing founded'), 'center');
+	show_window(__('Gallery').(cfr('GALLERY')?' '.edit_button(ADMIN_FILE.'?show=module&id=gallery.upload&tab=5'):''), !empty($images)?rcms_parse_module_template('gallery.tpl', $data):__('Nothing founded'), 'center');
 }
 ?>

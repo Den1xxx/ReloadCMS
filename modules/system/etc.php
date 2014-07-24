@@ -696,4 +696,18 @@ function make_safe_filename($filename) {
 $filename =	preg_replace("/[^\p{L}0-9\+\-\_:\.@ ]/u",'',$filename);
 return	translitCP1251toUTF8($filename);
 }
+
+function edit_button($link){
+	return '<a href="'.$link.'"><img src="skins/fastnews/edit_small.gif" border="0" title="'.__('Edit').'"></a>';
+}
+
+function delete_button($link){
+	$rnd=rcms_random_string(5);
+	return '<a name="'.$rnd.'" href="#'.$rnd.'" onClick="if(confirm(\''.__('Delete').'?\')) document.location.href = \''.$link.'\';"><img src="skins/fastnews/trash_small.gif" title="'.__('Delete').'" border="0"></a>';
+}
+
+function back_button(){
+	return '[ <a href="javascript:history.back()">'.__('Back').'</a> ]';
+}
+
 ?>
