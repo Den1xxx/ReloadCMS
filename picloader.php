@@ -2,7 +2,7 @@
 
 //Preparations
 define('RCMS_ROOT_PATH', './');
-define('AJAX', true);
+//define('AJAX', true);
 require_once(RCMS_ROOT_PATH . 'common.php');
 global $lightbox_config,$system;
 $folder=FILES_PATH;

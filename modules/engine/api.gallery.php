@@ -95,19 +95,19 @@ class gallery{
 	function cleanUpIndexes(){
 		foreach ($this->indexes['type'] as $type => $images){
 			if(empty($images)){
-				rcms_remove_index($type, $this->indexes['type'][$type], true);
+				rcms_remove_index($type, $this->indexes['type'], true);
 			}
 		}
 
 		foreach ($this->indexes['size'] as $size => $images){
 			if(empty($images)){
-				rcms_remove_index($size, $this->indexes['size'][$size], true);
+				rcms_remove_index($size, $this->indexes['size'], true);
 			}
 		}
 
 		foreach ($this->indexes['keywords'] as $keyword => $images){
 			if(empty($images)){
-				rcms_remove_index($size, $this->indexes['keywords'][$keyword], true);
+				rcms_remove_index($keyword, $this->indexes['keywords'], true);
 			}
 		}
 	}
