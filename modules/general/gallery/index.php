@@ -97,7 +97,7 @@ show_window(__('Error'),__('Invalid form data'));
 	$data['types'] = $gallery->getAvaiableValues('type');
 	$data['keywords'] = $gallery->getAvaiableValues('keywords');
 
-	$linkdata = 'index.php?module=' . $module;
+	$linkdata = '?module=' . $module;
 	if(!empty($_GET['size']) && !empty($_GET['type'])){
 		$images_s = $gallery->getLimitedImagesList('size', $_GET['size']);
 		$images_t = $gallery->getLimitedImagesList('type', $_GET['type']);
@@ -154,6 +154,11 @@ show_window(__('Error'),__('Invalid form data'));
 	}
 	$data['linkdata'] = $linkdata;
 	
-	show_window(__('Gallery').(cfr('GALLERY')?' '.edit_button(ADMIN_FILE.'?show=module&id=gallery.upload&tab=5'):''), !empty($images)?rcms_parse_module_template('gallery.tpl', $data):__('Nothing founded'), 'center');
+	show_window(
+	'<a href="?module=gallery">'.__('Gallery').'</a>'.(cfr('GALLERY')?'&nbsp;'.edit_button(ADMIN_FILE.'?show=module&id=gallery.upload&tab=5'):'').
+	(get('keyword') ? ' &rarr; '.get('keyword') : ''), 
+	!empty($images)?rcms_parse_module_template('gallery.tpl', $data):__('Nothing founded'), 
+	'center'
+	);
 }
 ?>

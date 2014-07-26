@@ -191,7 +191,7 @@ echo '
 ';
 if (!empty($lightbox_config['code'])) echo $lightbox_config['code'];
 echo '<script type="text/javascript" src="tools/js/limit.js"></script>'. "\r\n";        //  Limit post addon 
-
+echo '<script type="text/javascript" src="tools/js/tiny_mce/tiny_mce.js"></script>';
             if(!empty($system->config['meta'])) echo $system->config['meta'];
             break;
         case 'copyright':
