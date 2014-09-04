@@ -306,6 +306,7 @@ $lang['def']['If you want to remove link leave it\'s URL empty. If you want to a
 $lang['def']['Ignore'] = 'Пропустить';
 $lang['def']['Ignored modules'] = 'Пропущенные модули';
 $lang['def']['Image'] = 'Изображение';
+$lang['def']['Images'] = 'Изображения';
 $lang['def']['Image removed'] = 'Изображение удалено';
 $lang['def']['Images management'] = 'Управление изображениями';
 $lang['def']['Images resizing'] = 'Размер картинок';
