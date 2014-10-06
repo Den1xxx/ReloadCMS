@@ -306,8 +306,8 @@ $lang['def']['If you want to remove link leave it\'s URL empty. If you want to a
 $lang['def']['Ignore'] = 'Пропустить';
 $lang['def']['Ignored modules'] = 'Пропущенные модули';
 $lang['def']['Image'] = 'Изображение';
-$lang['def']['Images'] = 'Изображения';
 $lang['def']['Image removed'] = 'Изображение удалено';
+$lang['def']['Images'] = 'Изображения';
 $lang['def']['Images management'] = 'Управление изображениями';
 $lang['def']['Images resizing'] = 'Размер картинок';
 $lang['def']['Images uploaded'] = 'Изображения загружены';
@@ -720,6 +720,7 @@ $lang['def']['You are not administrator of this site'] = 'Вы не являет
 $lang['def']['You are not logined!'] = 'Вы не залогинены!';
 $lang['def']['You can define position of menu modules on index page in this form.'] = 'Вы можете задать позиции для модулей меню на главной странице с помощью этой формы.';
 $lang['def']['You can enter'] = 'Вы можете ввести';
+$lang['def']['You can divide email by comma.'] = 'Вы можете разделять email запятой.';
 $lang['def']['You can use * in names and divide names by comma.'] = 'Вы можете использовать * в именах пользователей. Несколько имён можно разделять запятой.';
 $lang['def']['You can use modifiers to create link to specified part of your site. Type MODIFIER:OPTIONS in "Link" column. If you want to override default title of modified link you must enter your title to "Title" column, or leave it empty to use default one. Here is a list of modifiers:'] = 'Вы можете использовать модификаторы для создания ссылки к некоторым частям сайта, для этого введите МОДИФИКАТОР:ОПЦИИ в колонке "Ссылка". Чтобы переопределить заголовок генерируемый модификатором введите свой в поле "Заголовок", иначе оставьте его пустым. Ниже приведены описания доступных модификаторов.';
 $lang['def']['You cannot delete this post'] = 'Вы не можете удалить эту тему';

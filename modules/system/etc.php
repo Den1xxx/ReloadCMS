@@ -584,6 +584,9 @@ function cookie($value,$no_value=''){
 return (isset($_COOKIE[$value])?$_COOKIE[$value]:$no_value);
 }
 
+function arr_post($arr,$value,$no_value=''){
+return (isset($_POST[$arr][$value])?$_POST[$arr][$value]:$no_value);
+}
 
 /*
 * Short alias for $system->checkForRight($right) 

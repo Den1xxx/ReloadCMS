@@ -6,10 +6,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 $lang['def']['Admin e-mail is empty'] = 'E-mail администратора не введён';
-$lang['def']['Cannot open template for editing'] = 'Невозможно загрузить шаблон для редактирования';
+$lang['def']['Cannot open template for editing'] = 'Невозможно загрузить шаблон для редактирования'; 
 $lang['def']['Create sendmail template'] = 'Создание шаблона отправки писем';
 $lang['def']['Edit sendmail template'] = 'Редактирование шаблона отправки писем';
 $lang['def']['Email for users letters'] = 'Электропочта для пользователей';
+$lang['def']['Emailing'] = 'Рассылка';
 $lang['def']['Error in email field'] = 'Ошибка email адреса';
 $lang['def']['Error of a control code'] = 'Ошибка контрольного кода';
 $lang['def']['Important'] = 'Важно';
