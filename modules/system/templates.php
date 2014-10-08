@@ -57,9 +57,9 @@ function rcms_pagination($total, $perpage, $current, $link){
 }
 
 function show_icon ($module) {
-return ((is_file(RCMS_ROOT_PATH.'skins/icons/'.$module.'.png'))?
-'<img src="' . RCMS_ROOT_PATH . 'skins/icons/'.$module.'.png" alt="'.$module.'"/>':
-'<img src="' . RCMS_ROOT_PATH . 'skins/icons/default.png " alt="'.$module.'"/>');
+return ((is_file(IMAGES_PATH.'icons/'.$module.'.png'))?
+'<img src="'.IMAGES_PATH.'icons/'.$module.'.png" alt="'.$module.'"/>':
+'<img src="'.IMAGES_PATH.'icons/default.png " alt="'.$module.'"/>');
 }
 
 function rcms_parse_menu($format) {
@@ -88,7 +88,7 @@ function rcms_parse_menu($format) {
 			$result[] = array($link['url'], __($link['name']));
 		}
 	}
-	if ($system->checkForRight('GENERAL')) $result[]=array(ADMIN_FILE.'?show=module&id=add.navigation&tab=1','<img src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'">');
+	if ($system->checkForRight('GENERAL')) $result[]=array(ADMIN_FILE.'?show=module&id=add.navigation&tab=1','<img src="'.IMAGES_PATH.'edit_small.gif" title="'.__('Edit').'">');
 	$menu = '';
 	foreach ($result as $item){
 		if(empty($item[2])) {
@@ -96,9 +96,9 @@ function rcms_parse_menu($format) {
 		}
 		if (isset($dyna['ico'])) {		//enable icons?
 		$icon = str_replace('?module=', '', $item[0]).'.png';
-		if (is_file(RCMS_ROOT_PATH.'skins/icons/'.$icon)) 
-		$item[3] = '<img src="skins/icons/'.$icon.'" alt="'.@$item[3].'"/>';
-		else 	$item[3] = '<img src="skins/icons/default.png " alt="'.@$item[3].'"/>';
+		if (is_file(IMAGES_PATH.'icons/'.$icon)) 
+		$item[3] = '<img src="'.IMAGES_PATH.'icons/'.$icon.'" alt="'.@$item[3].'"/>';
+		else 	$item[3] = '<img src="'.IMAGES_PATH.'icons/default.png " alt="'.@$item[3].'"/>';
 		}
 		else $item[3]='';
 		$menu .= str_replace(array('{link}','{title}','{target}','{icon}'),$item,$format);

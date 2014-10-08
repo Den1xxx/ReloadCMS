@@ -15,7 +15,7 @@ if(!empty($file)){
 	if($system->checkForRight('GENERAL'))     
 	$result = $result.'<br/>
 	<a href = "?module=aforizm">
-	<img src="skins/fastnews/edit_small.gif" title="'.__('Edit').'" alt="'.__('Edit').'" border="0">
+	<img src="'.IMAGES_PATH.'skins/edit_small.gif" title="'.__('Edit').'" alt="'.__('Edit').'" border="0">
 	</a>';  
     show_window('', $result);
 }

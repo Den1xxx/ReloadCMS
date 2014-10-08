@@ -73,13 +73,13 @@ foreach ($elements as $file){
     if(@is_dir($filename)){
 	if($file=='.') $filename = $start_path . $file;;
 		$filedata[7] = '';
-        $link = '<a href="'.$url_inc.'&path='.$filename.'" title="'.__('Show').'"><img src="'.SKIN_PATH.'folder.png"/> '.$file.'</a>';
+        $link = '<a href="'.$url_inc.'&path='.$filename.'" title="'.__('Show').'"><img src="'.IMAGES_PATH.'folder.png"/> '.$file.'</a>';
         $loadlink = '';
         $style = 'row2';
 		$alert = $file<>'.' ? 'onClick="if(confirm(\'' . __('Are you sure you want to delete this directory (recursively)?').'\n /'. $file. '\')) document.location.href = \''.$url_inc.'&delete=' . $file . '&path=' . $user_path  . '\'"' : $alert = '';
     } else {
 	$link_img=str_replace(realpath(RCMS_ROOT_PATH).'/',RCMS_ROOT_PATH,$user_path);
-	if (is_images($filename)) $link = '<a href="'.$link_img.$file.'" class="gallery" title="'.$file.'"><img src="'.SKIN_PATH.'fastnews/view.gif" > '.$file.'</a>';
+	if (is_images($filename)) $link = '<a href="'.$link_img.$file.'" class="gallery" title="'.$file.'"><img src="'.IMAGES_PATH.'skins/view.gif" > '.$file.'</a>';
 	else continue;
         $style = 'row1';
 		$alert = 'onClick="if(confirm(\''. __('File selected').': \n'. $file. '. \n'.__('Are you sure you want to delete this file?') . '\')) document.location.href = \''.$url_inc.'&delete=' . $file . '&path=' . $user_path  . '\';else return false;"';

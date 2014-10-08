@@ -137,11 +137,11 @@ $frm = new InputForm ('', 'post', __('Submit'), '', '', '', 'addlogic');
 $add_logic ='<div>+ '.__('Module')." <input type=\'text\' name=\'logic[modules][]\' size=\'15\' /> "
 .$select_menus
 .__('Logic')."<input type=\'text\' name=\'logic[expression][]\' size=\'35\'/> "
-."<img src=\'".SKIN_PATH."neok.gif\' title=\'".__('Delete')."\' style=\'cursor:pointer;display:table-cell;vertical-align:middle;\' onClick=\'$($(this).parents().get(0)).remove();\'>"
+."<img src=\'".IMAGES_PATH."skins/neok.gif\' title=\'".__('Delete')."\' style=\'cursor:pointer;display:table-cell;vertical-align:middle;\' onClick=\'$($(this).parents().get(0)).remove();\'>"
 .'</div>';
 $frm->addbreak(
 __('Logic').
-' <img onClick="$(\'#add_logic\').append(\''.$add_logic.'\');" title="'.__('Add').'" src="'.SKIN_PATH.'plus.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;"/>&nbsp;&nbsp;&nbsp;'
+' <img onClick="$(\'#add_logic\').append(\''.$add_logic.'\');" title="'.__('Add').'" src="'.IMAGES_PATH.'skins/plus.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;"/>&nbsp;&nbsp;&nbsp;'
 );
 if (!empty($logic['modules'])) {
 foreach ($logic['modules'] as $i=>$value) {
@@ -151,7 +151,7 @@ __('Module').' '.$frm->text_box('logic[modules][]', @$logic['modules'][$i], 15)
 .stripslashes($select_menus)
 ,
 ' '.__('Logic').' '.$frm->text_box('logic[expression][]', @$logic['expression'][$i], 35)
-.'<img src="'.SKIN_PATH.'neok.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;" onClick="$($(this).parents(\'tr\').get(0)).remove();">'
+.'<img src="'.IMAGES_PATH.'neok.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;" onClick="$($(this).parents(\'tr\').get(0)).remove();">'
 );}
 }
 $frm->addmessage('<div id="add_logic"></div>'.$frm->hidden('settingschange', true));

@@ -18,7 +18,7 @@ if (isset($_GET['id']))
 		$title = (!empty($page['title']))? 
 		(($system->checkForRight('GENERAL')) ? $page['title'].' 
 		<a href="'.ADMIN_FILE.'?show=module&id=articles.pages&tab=2&page=' . $_GET['id'] . '" title="'.__('Edit').'">
-		<img src="' . SKIN_PATH . 'edit_small.gif" title="'.__('Edit').'">
+		<img src="'.IMAGES_PATH.'skins/edit_small.gif" title="'.__('Edit').'">
 		</a>
 		' : $page['title'])
 		:'';

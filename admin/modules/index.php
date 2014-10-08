@@ -67,6 +67,7 @@ $frm->addrow(__('Logs'), format_size(get_dir_size(LOGS_PATH)));
 $frm->addrow(__('Config'), format_size(get_dir_size(CONFIG_PATH)));
 $frm->addrow(__('Backups'), format_size(get_dir_size(BACKUP_PATH)));
 $frm->addrow(__('Skins'), format_size(get_dir_size(SKIN_PATH)));
+$frm->addrow(__('Images'), format_size(get_dir_size(IMAGES_PATH)));
 $frm->addrow(__('All'), format_size(get_dir_size(RCMS_ROOT_PATH)));
 
 if(class_exists('articles')&&$system->checkForRight('ARTICLES-EDITOR')){

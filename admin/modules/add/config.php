@@ -72,10 +72,10 @@ $frm->addrow(__('Add to external link'). '.<br /> ' .__('Example').": rel='nofol
 //Redirect
 $add_redirect ='<div>+'.__(' from ')."<input type=\'text\' name=\'redirect[from_arr][]\' size=\'35\' />*"
 .__(' to ')."<input type=\'text\' name=\'redirect[to_arr][]\' size=\'35\'/>*"
-."<img src=\'".SKIN_PATH."neok.gif\' title=\'".__('Delete')."\' style=\'cursor:pointer;display:table-cell;vertical-align:middle;\' onClick=\'$($(this).parents().get(0)).remove();\'>"
+."<img src=\'".IMAGES_PATH."skins/neok.gif\' title=\'".__('Delete')."\' style=\'cursor:pointer;display:table-cell;vertical-align:middle;\' onClick=\'$($(this).parents().get(0)).remove();\'>"
 .'</div>';
 $frm->addbreak(__('Redirect').
-'&nbsp;&nbsp;&nbsp;<img onClick="$(\'#add_redirect\').append(\''.$add_redirect.'\');" title="'.__('Add').'" src="'.SKIN_PATH.'plus.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;"/>'
+'&nbsp;&nbsp;&nbsp;<img onClick="$(\'#add_redirect\').append(\''.$add_redirect.'\');" title="'.__('Add').'" src="'.IMAGES_PATH.'skins/plus.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;"/>'
 );
 if (!empty($redirect['from_arr'])) {
 foreach ($redirect['from_arr'] as $i=>$value)
@@ -83,7 +83,7 @@ if (!empty($redirect['from_arr'][$i]))
 $frm->addrow(
 __(' from ').' '.$frm->text_box('redirect[from_arr][]', @$redirect['from_arr'][$i], 35),
 __(' to ').$frm->text_box('redirect[to_arr][]', @$redirect['to_arr'][$i], 35)
-.'<img src="'.SKIN_PATH.'neok.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;" onClick="$($(this).parents(\'tr\').get(0)).remove();">'
+.'<img src="'.IMAGES_PATH.'skins/neok.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;" onClick="$($(this).parents(\'tr\').get(0)).remove();">'
 );
 }
 $frm->addmessage('<div id="add_redirect"></div>');

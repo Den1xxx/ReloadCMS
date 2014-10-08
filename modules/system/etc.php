@@ -195,15 +195,6 @@ else $time = mktime(
 return $time;
 }
 
-/*
- * Return button, when deleting parent node in DOM
- *
- * @return string
- */
-function button_delete_parent($parent=0){
-return '<img src="'.SKIN_PATH.'neok.gif" onclick="$($(this).parents().get('.$parent.')).remove();" style="cursor:pointer;vertical-align:middle;" title="'.__('Delete').'" />';
-}
-
 function rcms_parse_text_by_mode($str, $mode){
 	switch ($mode){
 		default:
@@ -691,8 +682,10 @@ if (cfr($lightbox_config['right_string'])) return true;
 return false;
 } 
 
-/*
+/**
+* Rename or delete problems symbols from filename
 *  
+* @var $filename Name of file
 * @return string 
 */
 function make_safe_filename($filename) {
@@ -701,16 +694,27 @@ return	translitCP1251toUTF8($filename);
 }
 
 function edit_button($link){
-	return '<a href="'.$link.'"><img src="skins/fastnews/edit_small.gif" border="0" title="'.__('Edit').'"></a>';
+	return '<a href="'.$link.'"><img src="'.IMAGES_PATH.'skins/edit_small.gif" border="0" title="'.__('Edit').'"></a>';
 }
 
 function delete_button($link){
 	$rnd=rcms_random_string(5);
-	return '<a name="'.$rnd.'" href="#'.$rnd.'" onClick="if(confirm(\''.__('Delete').'?\')) document.location.href = \''.$link.'\';"><img src="skins/fastnews/trash_small.gif" title="'.__('Delete').'" border="0"></a>';
+	return '<a name="'.$rnd.'" href="#'.$rnd.'" onClick="if(confirm(\''.__('Delete').'?\')) document.location.href = \''.$link.'\';"><img src="'.IMAGES_PATH.'skins/trash_small.gif" title="'.__('Delete').'" border="0"></a>';
 }
 
-function back_button(){
-	return '[ <a href="javascript:history.back()">'.__('Back').'</a> ]';
+/**
+ * Return button, when deleting parent node in DOM
+ *
+ * @var $parent Parent node of DOM
+ * @return string
+ */
+function button_delete_parent($parent=0){
+return '<img src="'.IMAGES_PATH.'skins/neok.gif" onclick="$($(this).parents().get('.$parent.')).remove();" style="cursor:pointer;vertical-align:middle;" title="'.__('Delete').'" />';
+}
+
+function back_button($link=''){
+if (empty($link)) return '<a class="button" href="javascript:history.back()">'.__('Back').'</a>';
+else return '<a class="button" href="'.$link.'">'.__('Back').'</a>';
 }
 
 ?>

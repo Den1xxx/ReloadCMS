@@ -34,9 +34,9 @@ if (!empty($files)) {
     $result = '<table width="100%">';
 foreach ($files as $helpfile) {
 	$admin_link = '
-	<a href="?module=help&edit='.$helpfile.'"><img title="'.__('Edit').'" src="'.SKIN_PATH.'edit_small.gif"></a>
+	<a href="?module=help&edit='.$helpfile.'"><img title="'.__('Edit').'" src="'.IMAGES_PATH.'skins/edit_small.gif"></a>
 	<a href="#" onClick="if(confirm(\''	. __('Delete').': \n'. str_replace('"','&#8243;',$helpfile). '?\n\')) document.location.href = \'?module=help&delete='.$helpfile.'\'">
-	<img title="'.__('Delete').'" src="'.SKIN_PATH.'fastnews/trash_small.gif">
+	<img title="'.__('Delete').'" src="'.IMAGES_PATH.'skins/skins/trash_small.gif">
 	</a>
 	';
      $result .= '<tr><td class="row2" align="left" valign="top">'.$helpfile.'</td><td class="row3" align="left" valign="top">'.$admin_link.'</td></tr>';
@@ -47,7 +47,7 @@ show_window(__('Help').': '.__('Manage files'), $result, 'center');
 }
 }  else show_window(__('Error'),__('You are not administrator of this site'));
 } elseif (($system->checkForRight('-any-'))) {
-$link=$system->checkForRight('HELP')?'<a href="?module=help"><img src="'.SKIN_PATH.'view_file.png" title="'.__('Manage files').'" alt="'.__('Manage files').'" /></a>':'';
+$link=$system->checkForRight('HELP')?'<a href="?module=help"><img src="'.IMAGES_PATH.'skins/view_file.png" title="'.__('Manage files').'" alt="'.__('Manage files').'" /></a>':'';
 show_window(__('Help'),show_help().$link);
 }
 ?>

@@ -42,7 +42,7 @@ switch($key){
 $help = (
 strpos($key,'hover')===false)?''
 :' <a name="'.$key.'" onclick="alert(\''.__('This option can not be changed interactively').'. '.
-__('Changes can be seen only after saving configuration and reloading the page').'!\');" style="cursor: pointer; cursor:hand;" title="'.__('This option can not be changed interactively').'"><img src="'.SKIN_PATH.'refresh.png" alt="?"></a> ';
+__('Changes can be seen only after saving configuration and reloading the page').'!\');" style="cursor: pointer; cursor:hand;" title="'.__('This option can not be changed interactively').'"><img src="'.IMAGES_PATH.'skins/refresh.png" alt="?"></a> ';
 $frm->addrow(__($key), $frm->text_box('css_config['.$key.']', $css_config[$key],9).$help);
 }
 $frm->show();

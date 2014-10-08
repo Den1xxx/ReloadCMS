@@ -4,7 +4,6 @@
 <?=rcms_show_element('meta')?>
 <title><?=rcms_show_element('title')?></title>
 <link rel="stylesheet" type="text/css" href="<?=CUR_SKIN_PATH?>style.css" media="screen" />
-<link rel="stylesheet" href="<?=SKIN_PATH?>/digishop/index.css" type="text/css" />
 <!--[if lt IE 6]>
 <script defer type="text/javascript" src="<?=CUR_SKIN_PATH?>js/iepngfix.js"></script>
 <![endif]-->

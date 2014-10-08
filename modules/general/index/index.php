@@ -9,7 +9,7 @@ if(empty($system->config['wmh'])){
 $intro = file_get_contents(DATA_PATH . 'intro.html');
 if (!empty($intro)) {	
 if ($system->checkForRight('GENERAL')) 
-$intro.='&nbsp;<a href="'.ADMIN_FILE.'?show=module&id=add.config&tab=1"><img src="'.SKIN_PATH.'edit_small.gif" title="'.__('Edit').'"></a>';
+$intro.='&nbsp;<a href="'.ADMIN_FILE.'?show=module&id=add.config&tab=1"><img src="'.IMAGES_PATH.'skins/edit_small.gif" title="'.__('Edit').'"></a>';
 show_window('', $intro, 'left');
 }
 }

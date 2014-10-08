@@ -61,7 +61,7 @@ foreach ($links as $link){
 document.addnav[\''.'urls[' . $i . ']'.'\'].value = \'module:\'+ this.value;
 ">\n
 	<option value="">'. __('Add link to module').'</option')
-	.'<img src="'.SKIN_PATH.'neok.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;" onClick="$($(this).parents(\'tr\').get(0)).remove();">'	
+	.'<img src="'.IMAGES_PATH.'skins/neok.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;" onClick="$($(this).parents(\'tr\').get(0)).remove();">'	
 	);
 	$i++;
 } 
