@@ -38,7 +38,8 @@ define('CONFIG_PATH',        RCMS_ROOT_PATH . 'config/');
 define('LANG_PATH',          RCMS_ROOT_PATH . 'languages/');
 define('ADMIN_PATH',         RCMS_ROOT_PATH . 'admin/');
 define('SKIN_PATH',          RCMS_ROOT_PATH . 'skins/');
-define('SMILES_PATH',        SKIN_PATH . 'smiles/');
+define('IMAGES_PATH',        RCMS_ROOT_PATH . 'images/');
+define('SMILES_PATH',        IMAGES_PATH . 'smiles/');
 define('BACKUP_PATH',        RCMS_ROOT_PATH . 'backups/');
 
 // Content paths

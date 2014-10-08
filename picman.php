@@ -73,7 +73,7 @@ foreach ($elements as $file){
     if(@is_dir($filename)){
 	if($file=='.') $filename = $start_path . $file;;
 		$filedata[7] = '';
-        $link = '<a href="'.$url_inc.'&path='.$filename.'" title="'.__('Show').'"><img src="'.IMAGES_PATH.'folder.png"/> '.$file.'</a>';
+        $link = '<a href="'.$url_inc.'&path='.$filename.'" title="'.__('Show').'"><img src="'.IMAGES_PATH.'skins/folder.png"/> '.$file.'</a>';
         $loadlink = '';
         $style = 'row2';
 		$alert = $file<>'.' ? 'onClick="if(confirm(\'' . __('Are you sure you want to delete this directory (recursively)?').'\n /'. $file. '\')) document.location.href = \''.$url_inc.'&delete=' . $file . '&path=' . $user_path  . '\'"' : $alert = '';
