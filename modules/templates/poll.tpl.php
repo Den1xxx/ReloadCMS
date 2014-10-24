@@ -38,3 +38,4 @@
 </table>
 </form>
 <hr />
+[<a href="?module=poll"><?=__('Old polls')?></a>]

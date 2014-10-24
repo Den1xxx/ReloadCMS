@@ -25,7 +25,6 @@ if($polls = $cpolls->getCurrentPolls()){
         $result .= rcms_parse_module_template('poll.tpl', $poll);
     }
 }
-$result .= '[<a href="?module=poll">' .__('Old polls') . '</a>]';
 show_window(__('Poll'), $result, 'center');
 } else {
 //Show Archive of Polls
