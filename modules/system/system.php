@@ -49,7 +49,7 @@ class rcms_system extends rcms_user {
 				setcookie($this->cookie_skin, basename($skin_select_form), FOREVER_COOKIE);
 			}
 		}
-		if (isset($_GET['skin'])&&is_dir(SKIN_PATH .$_GET['skin'] . '/')) $this->skin=$_GET['skin'];
+		if (isset($_GET['skin'])&&is_file(SKIN_PATH .$_GET['skin'].'/skin.general.php')) $this->skin=$_GET['skin'];
 		define('CUR_SKIN_PATH', SKIN_PATH . $this->skin . '/');
 		$this->initialiseModules();
 		$this->initializeUser();
@@ -168,10 +168,10 @@ class rcms_system extends rcms_user {
 	}
 
 	function registerFeed($module, $title, $desc, $real = ''){
-	if (empty($this->disable_feeds[$module])) {
-	$this->feeds[$module] = array($title, $desc, $real);
-	$this->disable_feeds[$module]=0;
-	} else $this->disable_feeds[$module]=1;
+		if (empty($this->disable_feeds[$module])) {
+			$this->feeds[$module] = array($title, $desc, $real);
+			$this->disable_feeds[$module]=0;
+		} else $this->disable_feeds[$module]=1;
 	}
 
 	function logPut($type, $user, $message){

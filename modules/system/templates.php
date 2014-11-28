@@ -184,8 +184,9 @@ function rcms_show_element($element, $parameters = ''){
 echo '
 <link type="text/css" href="' . SKIN_PATH . 'main.css" rel="stylesheet" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script>window.jQuery || document.write("<script src="' . RCMS_ROOT_PATH . 'tools/js/vendor/jquery.1.8.3.min.js"><\/script>");</script>
+<link rel="stylesheet" href="' . RCMS_ROOT_PATH . 'tools/js/vendor/jquery-ui.base.1.9.2.css">
+<script src="' . RCMS_ROOT_PATH . 'tools/js/vendor/jquery-ui.1.9.2.min.js"></script>
 <script type="text/javascript" src="' . RCMS_ROOT_PATH . 'tools/js/ajaxupload.js"></script>
 <script type="text/javascript" src="' . RCMS_ROOT_PATH . 'tools/js/editor.js"></script>
 ';
