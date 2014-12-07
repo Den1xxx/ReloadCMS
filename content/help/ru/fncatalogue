@@ -2,8 +2,8 @@
 <p>Модуль &laquo;Каталог&raquo; предназначен для создания Каталога либо Интернет-магазина. Отличие Магазина в том, что в нем можно заказать товар, а в Каталоге нет.</p>
 <p>Управление Каталогом производится в <strong>БыстрыеНовости: Управление &mdash; Настройки</strong>.</p>
 <p>Кроме того, в каждой карточке объекта для Администратора отображаются элементы управления объектом:</p>
-<p><img title="Производитель" src="skins/fastnews/tag_small.gif" alt="" border="0" /> &mdash; Добавить Производителя</p>
-<p><img title="Изображение" src="skins/fastnews/images.gif" alt="" border="0" /> &mdash; Управление Изображениями объекта</p>
-<p><img title="Редактировать" src="skins/fastnews/edit_small.gif" alt="" border="0" /> &mdash; Редактирование объекта</p>
-<p><img title="Удалить" src="skins/fastnews/trash_small.gif" alt="" border="0" /> &mdash; Удаление объекта.</p>
+<p><img title="Производитель" src="images/skins/tag_small.gif" alt="" border="0" /> &mdash; Добавить Производителя</p>
+<p><img title="Изображение" src="images/skins/images.gif" alt="" border="0" /> &mdash; Управление Изображениями объекта</p>
+<p><img title="Редактировать" src="images/images/skins/edit_small.gif" alt="" border="0" /> &mdash; Редактирование объекта</p>
+<p><img title="Удалить" src="images/skins/trash_small.gif" alt="" border="0" /> &mdash; Удаление объекта.</p>
 <p>Более подробно про управление Каталогом можно почитать в контекстной помощи <span style="text-decoration: underline;"><a href="?module=fncatman">Модуля управления каталогом </a></span></p>

@@ -17,9 +17,9 @@
 <p>Статья должна обязательно иметь Заголовок, Категорию, Краткое описание, полный Текст статьи, Дату, Режим, можно ли разрешить Комментарии. Без этих параметров статья не сможет быть опубликована.</p>
 <p>Для редактирования статьи нужно найти либо её краткое описание в Категории статей, либо зайти в полное описание Статьи.</p>
 <p>Ниже заголовка Статьи можно увидеть управление:</p>
-<p><img title="Черновики" src="skins/fastnews/trash_small.gif" alt="" border="0" /> &mdash; удаление статьи (Статья списывается в&nbsp;<span style="text-decoration: underline;"><a href="?module=fnadmin&amp;action=drafts">Черновики</a></span>);</p>
-<p><img title="Редактировать" src="skins/fastnews/edit_small.gif" alt="" border="0" /> &mdash; редактирование статьи;</p>
-<p><img title="Теги" src="skins/fastnews/tag_small.gif" alt="" border="0" /> &mdash; добавление тега, ключевого слова по котором можно найти статью.</p>
+<p><img title="Черновики" src="images/skins/trash_small.gif" alt="" border="0" /> &mdash; удаление статьи (Статья списывается в&nbsp;<span style="text-decoration: underline;"><a href="?module=fnadmin&amp;action=drafts">Черновики</a></span>);</p>
+<p><img title="Редактировать" src="images/images/skins/edit_small.gif" alt="" border="0" /> &mdash; редактирование статьи;</p>
+<p><img title="Теги" src="images/skins/tag_small.gif" alt="" border="0" /> &mdash; добавление тега, ключевого слова по котором можно найти статью.</p>
 <p>&nbsp;</p>
 <h3>Черновики</h3>
 <p>Списанные статьи хранятся в <span style="text-decoration: underline;"><a href="?module=fnadmin&amp;action=drafts">Черновиках</a></span></p>
@@ -27,10 +27,10 @@
 <table style="width: 100%;" border="0" cellspacing="2" cellpadding="2">
 <tbody>
 <tr>
-<td><img title="Удалить" src="skins/fastnews/delete.gif" alt="" border="0" /></td>
+<td><img title="Удалить" src="images/skins/delete.gif" alt="" border="0" /></td>
 <td>Тест</td>
 <td>2013-04-11 10:27:56</td>
-<td><img title="Перенести на сайт" src="skins/fastnews/edit_small.gif" alt="" border="0" /></td>
+<td><img title="Перенести на сайт" src="images/images/skins/edit_small.gif" alt="" border="0" /></td>
 </tr>
 </tbody>
 </table>

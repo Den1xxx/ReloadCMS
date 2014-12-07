@@ -24,6 +24,7 @@ function months_array() {
 function curlang() {
     global $system;
     $result=$system->language;
+    $result=vf($result);
     return ($result);
 }
 
@@ -43,17 +44,17 @@ function show_help($module='') {
     if (LOGGED_IN) {
 	if ($system->checkForRight('HELP')) {
 	$admin_link = '
-	<a href="'.RCMS_ROOT_PATH.'?module=help&edit='.$module.'"><img title="'.__('Edit').'" src="'.IMAGES_PATH.'skins/edit_small.gif"></a>
+	<a href="'.RCMS_ROOT_PATH.'?module=help&edit='.$module.'"><img title="'.__('Edit').'" src="'.SKIN_PATH.'edit_small.gif"></a>
 	<a href="#" onClick="if(confirm(\''	. __('Delete').': \n'. str_replace('"','&#8243;',$module). '?\n\')) document.location.href = \''.RCMS_ROOT_PATH.'?module=help&delete='.$module.'\'">
-	<img title="'.__('Delete').'" src="'.IMAGES_PATH.'skins/trash_small.gif">
+	<img title="'.__('Delete').'" src="'.SKIN_PATH.'fastnews/trash_small.gif">
 	</a><br/>
 	';
-	$add_link=	'<a href="'.RCMS_ROOT_PATH.'?module=help&edit='.$module.'"><img src="'.IMAGES_PATH.'skins/add_help.png" title="'.__('Add').' '.__('Help').'" alt="'.__('Add').' '.__('Help').'" /></a> ';
+	$add_link=	'<a href="'.RCMS_ROOT_PATH.'?module=help&edit='.$module.'"><img src="'.SKIN_PATH.'add_help.png" title="'.__('Add').' '.__('Help').'" alt="'.__('Add').' '.__('Help').'" /></a> ';
 	}	else  {$admin_link=''; $add_link='';}
-        $modulename=$help_dir.$module;
+        $modulename=$help_dir.vf($module);
         if (file_exists($modulename)) {
           $help_chapter=  file_get_contents($modulename);  
-          $result=  wf_modal(wf_img(IMAGES_PATH.'skins/help.png', __('Context help')), __('Context help'), $admin_link.$help_chapter, '', '600','300','accesskey="h"');
+          $result=  wf_modal(wf_img(SKIN_PATH.'help.png', __('Context help')), __('Context help'), $admin_link.$help_chapter, '', '600','300','accesskey="h"');
          } else $result = $add_link;
     }
     return $result;
@@ -823,12 +824,12 @@ function wf_DatePicker($field) {
 			showOn: "both",
 			buttonImage: "skins/icon_calendar.gif",
 			buttonImageOnly: true,
-                        dateFormat:  "yy-mm-dd",
-                        showAnim: "slideDown"
+            dateFormat:  "yy-mm-dd",
+            showAnim: "slideDown"
 		});
                
                     
-                $.datepicker.regional[\'en\'] = {
+    $.datepicker.regional[\'en\'] = {
 		closeText: \'Done\',
 		prevText: \'Prev\',
 		nextText: \'Next\',
@@ -847,7 +848,7 @@ function wf_DatePicker($field) {
 		showMonthAfterYear: false,
 		yearSuffix: \'\'};
                     
-                $.datepicker.regional[\'ru\'] = {
+    $.datepicker.regional[\'ru\'] = {
 		closeText: \'Закрыть\',
 		prevText: \'&#x3c;Пред\',
 		nextText: \'След&#x3e;\',
@@ -866,7 +867,7 @@ function wf_DatePicker($field) {
 		showMonthAfterYear: false,
 		yearSuffix: \'\'};
                     
-                $.datepicker.regional[\'uk\'] = {
+    $.datepicker.regional[\'uk\'] = {
 		closeText: \'Закрити\',
 		prevText: \'&#x3c;\',
 		nextText: \'&#x3e;\',
@@ -1175,72 +1176,52 @@ function wf_Plate($content, $width='', $height='', $class='') {
   function wf_AjaxLoader() {
       $result='
           <script type="text/javascript">
-        function getXmlHttp()
-        {
+        function getXmlHttp() {
             var xmlhttp;
-            try
-        {
+            try {
             xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-        }
-        catch (e)
-        {
-            try
-            {
+        } catch (e) {
+            try {
                 xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
             }
-            catch (E)
-            {
+            catch (E) {
                 xmlhttp = false;
             }
         }
  
-        if(!xmlhttp && typeof XMLHttpRequest!=\'undefined\')
-        {
+        if(!xmlhttp && typeof XMLHttpRequest!=\'undefined\') {
             xmlhttp = new XMLHttpRequest();
         }
         return xmlhttp;
     }
  
-    function goajax(link,container)
-    {
- 
-        var myrequest = getXmlHttp()
+    function goajax(link,container) {
+
+		var myrequest = getXmlHttp()
         var docum = link;
         var contentElem = document.getElementById(container);
         myrequest.open(\'POST\', docum, true);
         myrequest.setRequestHeader(\'Content-Type\', \'application/x-www-form-urlencoded\');
  
-        myrequest.onreadystatechange = function()
-        {
-            if (myrequest.readyState == 4)
-            {
-                if(myrequest.status == 200)
-                {
+        myrequest.onreadystatechange = function() {
+            if (myrequest.readyState == 4) {
+                if(myrequest.status == 200) {
                     var resText = myrequest.responseText;
- 
- 
-                    var ua = navigator.userAgent.toLowerCase();
- 
-                    if (ua.indexOf(\'gecko\') != -1)
-                    {
-                        var range = contentElem.ownerDocument.createRange();
+                     var ua = navigator.userAgent.toLowerCase();
+                     if (ua.indexOf(\'gecko\') != -1)                    {
+						var range = contentElem.ownerDocument.createRange();
                         range.selectNodeContents(contentElem);
                         range.deleteContents();
                         var fragment = range.createContextualFragment(resText);
                         contentElem.appendChild(fragment);
-                    }
-                    else  
-                    {
+                    } else {
                         contentElem.innerHTML = resText;
                     }
-                }
-                else
-                {
+                } else {
                     contentElem.innerHTML = \''.__('Error').'\';
                 }
             }
- 
-        }
+         }
         myrequest.send();
     }
     </script>
@@ -1261,10 +1242,10 @@ function wf_Plate($content, $width='', $height='', $class='') {
  *  
  */
 
-function wf_modalOpened($title, $content, $width = '',$height='') {
+function wf_modalOpened($title, $content, $width = '',$height='',$autoclose='') {
 
     $wid = wf_inputid();
-    
+    $close = $autoclose ? '	setInterval(function(){$( "#dialog-modal_' . $wid . '" ).dialog( "close" )},'.(int)$autoclose.');' : '';
 //setting auto width if not specified
     if ($width == '') {
         $width = '600';
@@ -1284,9 +1265,10 @@ $(function() {
                         height: '.$height.',
 			modal: true,
 			show: "drop",
+			closeOnEscape: true,
 			hide: "fold"
 		});
-
+        '.$close.'
 		$( "#opener_' . $wid . '" ).click(function() {
 			$( "#dialog-modal_' . $wid . '" ).dialog( "open" );
                       	return false;
@@ -1304,10 +1286,10 @@ $(function() {
     return($dialog);
 }
 
-function wf_if_save($result='') {
+function wf_if_save($result='',$autoclose='') {
 global $system;
 $result=(empty($result))?__('Settings saved'):$result;
-$data=wf_modalOpened(__('Result'), $result, 300, 200);
+$data=wf_modalOpened(__('Result'), $result, 300, 200,$autoclose);
 $system->output['modules'][] = array('', $data, 'center');
 }
 ?>
