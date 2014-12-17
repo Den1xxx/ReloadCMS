@@ -23,14 +23,6 @@ var $time_file_cache=600;
 
 var $CONTENT;
 
-function __construct(){
-
-if ($this ->enable_cache) return true;
-
-else return false;
-
-}
-
 /*
 
 Показать кеш, если нет - создать.
@@ -38,13 +30,11 @@ else return false;
 */
 
 function start_cache (){
-
-if ($this ->enable_cache) {
+if ($this->enable_cache) {
 ob_start();
 return true;
 }
-else return false;
-
+return false;
 }
 
 /*

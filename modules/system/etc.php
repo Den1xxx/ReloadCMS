@@ -8,10 +8,14 @@
 /**
  * Misc ReloadCMS packages
  *
- * @author DruidVAV
+ * @author DruidVAV, Den1xxx
  * @package ReloadCMS
  */
  
+/**
+* Hooks array
+*/
+ $hook=array();
 /**
  * Configuration display images
  *
@@ -717,4 +721,23 @@ if (empty($link)) return '<a class="button" href="javascript:history.back()">'._
 else return '<a class="button" href="'.$link.'">'.__('Back').'</a>';
 }
 
+/**
+* Hook system
+* add to function: function my_func($result=1) {return hook($result);}
+* register new hook: $hooks['my_func'][]='new_func';
+*/
+function hook($result){
+	global $hooks;
+	$d_backtrace=debug_backtrace();
+	$backtrace=is_array($d_backtrace[1])?$d_backtrace[1]:$d_backtrace;
+	$functions=@$hooks[$backtrace['function']];
+	$args=$backtrace['args'];
+	if(is_array($functions)){
+		ksort($functions);
+		foreach($functions as $function)
+			if($function&&function_exists($function))
+				$result=$function($result,$args);
+	}
+	return $result;
+}
 ?>
