@@ -15,13 +15,14 @@
 /**
 * Hooks array
 */
- $hook=array();
+ $hooks=array();
+ 
 /**
  * Configuration display images
  *
- * @author Den1xxx
  */
 $lightbox_config = is_file(CONFIG_PATH . 'lightbox.ini')?unserialize(file_get_contents(CONFIG_PATH . 'lightbox.ini')):array('code'=>'','gallery'=>'1','gal_width'=>'600','articles'=>'1','width'=>'300');
+
 /**
  * Function recursively check if $needle is present in $haystack
  *
@@ -54,6 +55,7 @@ function rcms_htmlspecialchars_recursive($array) {
     }
     return $array;
 }
+
 /**
  * Recursively stripslashes array.
  *
@@ -92,12 +94,12 @@ function rcms_redirect($url, $header = false) {
  * @param string $text
  * @return boolean
  */
-function rcms_send_mail($to, $from, $sender, $encoding, $subj, $text) {
+function rcms_send_mail($to, $from, $sender, $encoding, $subj, $text, $type='text/plain') {
 	$headers = 'From: =?'.$encoding.'?B?' . base64_encode($sender) . '?= <' . $from . ">\n";
 	$headers .= "MIME-Version: 1.0\n";
-	$headers .= 'Message-ID: <' . md5(uniqid(time())) . "@" . $sender . ">\n";
-	$headers .= 'Date: ' . gmdate('D, d M Y H:i:s T', time()) . "\n";
-	$headers .= "Content-type: text/plain; charset={$encoding}\n";
+	$headers .= 'Message-ID: <' . md5(uniqid(rcms_get_time())) . "@" . $sender . ">\n";
+	$headers .= 'Date: ' . gmdate('D, d M Y H:i:s T', rcms_get_time()) . "\n";
+	$headers .= "Content-type: {$type}; charset={$encoding}\n";
 	$headers .= "Content-transfer-encoding: 8bit\n";
 	$headers .= "X-Mailer: ReloadCMS\n";
 	$headers .= "X-MimeOLE: ReloadCMS\n";
