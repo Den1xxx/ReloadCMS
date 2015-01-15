@@ -1,0 +1,4 @@
+allow from all
+<Files ~ "\.(php|php3)$">
+deny from all
+</Files>

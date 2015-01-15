@@ -260,7 +260,7 @@ rcms_redirect(RCMS_ROOT_PATH.'?module=articles&c='.$_GET['c'].'&b='.$_GET['b'].'
     if ($articles->setWorkContainer($container_id) == true) {
        $siteUrl = '.';
         $result .= "\n<ul>\n";
-        $result .= "<li type=\"disc\"><a href=\"".$siteUrl.'/?module=articles&amp;c='.str_replace('#','%23',$container_id).'">'.$container_title."</a></li>\n<li style=\"visibility: hidden\">\n";
+        $result .= '<li style="list-style-type:disc"><a href="'.$siteUrl.'/?module=articles&amp;c='.str_replace('#','%23',$container_id).'">'.$container_title."</a></li>\n<li style=\"visibility: hidden\">\n";
 if ($categories = $articles->getCategories(false, false, false)) {  
           $result .= "<ul>\n";
           foreach ($categories as $category) {

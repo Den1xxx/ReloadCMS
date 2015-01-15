@@ -23,9 +23,7 @@ function months_array() {
  */
 function curlang() {
     global $system;
-    $result=$system->language;
-    $result=vf($result);
-    return ($result);
+    return $system->language;
 }
 
 /*
@@ -44,17 +42,17 @@ function show_help($module='') {
     if (LOGGED_IN) {
 	if ($system->checkForRight('HELP')) {
 	$admin_link = '
-	<a href="'.RCMS_ROOT_PATH.'?module=help&edit='.$module.'"><img title="'.__('Edit').'" src="'.SKIN_PATH.'edit_small.gif"></a>
+	<a href="'.RCMS_ROOT_PATH.'?module=help&edit='.$module.'"><img title="'.__('Edit').'" src="'.IMAGES_PATH.'skins/edit_small.gif"></a>
 	<a href="#" onClick="if(confirm(\''	. __('Delete').': \n'. str_replace('"','&#8243;',$module). '?\n\')) document.location.href = \''.RCMS_ROOT_PATH.'?module=help&delete='.$module.'\'">
-	<img title="'.__('Delete').'" src="'.SKIN_PATH.'fastnews/trash_small.gif">
+	<img title="'.__('Delete').'" src="'.IMAGES_PATH.'skins/trash_small.gif">
 	</a><br/>
 	';
-	$add_link=	'<a href="'.RCMS_ROOT_PATH.'?module=help&edit='.$module.'"><img src="'.SKIN_PATH.'add_help.png" title="'.__('Add').' '.__('Help').'" alt="'.__('Add').' '.__('Help').'" /></a> ';
+	$add_link=	'<a href="'.RCMS_ROOT_PATH.'?module=help&edit='.$module.'"><img src="'.IMAGES_PATH.'skins/add_help.png" title="'.__('Add').' '.__('Help').'" alt="'.__('Add').' '.__('Help').'" /></a> ';
 	}	else  {$admin_link=''; $add_link='';}
-        $modulename=$help_dir.vf($module);
+        $modulename=$help_dir.make_safe_filename($module);
         if (file_exists($modulename)) {
           $help_chapter=  file_get_contents($modulename);  
-          $result=  wf_modal(wf_img(SKIN_PATH.'help.png', __('Context help')), __('Context help'), $admin_link.$help_chapter, '', '600','300','accesskey="h"');
+          $result=  wf_modal(wf_img(IMAGES_PATH.'skins/help.png', __('Context help')), __('Context help'), $admin_link.$help_chapter, '', '600','300','accesskey="h"');
          } else $result = $add_link;
     }
     return $result;

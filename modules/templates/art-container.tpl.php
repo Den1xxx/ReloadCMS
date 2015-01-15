@@ -1,3 +1,3 @@
-<table border="0" cellpadding="1" cellspacing="1" style="width: 100%;">
+<table style="width:100%; padding: 1px; border: none; border-spacing: 1px; border-collapse: separate;">
  <tr><td class="container"><?=$tpldata?></td></tr>
 </table>

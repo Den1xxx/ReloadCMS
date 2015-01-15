@@ -36,7 +36,7 @@ foreach ($files as $helpfile) {
 	$admin_link = '
 	<a href="?module=help&edit='.$helpfile.'"><img title="'.__('Edit').'" src="'.IMAGES_PATH.'skins/edit_small.gif"></a>
 	<a href="#" onClick="if(confirm(\''	. __('Delete').': \n'. str_replace('"','&#8243;',$helpfile). '?\n\')) document.location.href = \'?module=help&delete='.$helpfile.'\'">
-	<img title="'.__('Delete').'" src="'.IMAGES_PATH.'skins/skins/trash_small.gif">
+	<img title="'.__('Delete').'" src="'.IMAGES_PATH.'skins/trash_small.gif">
 	</a>
 	';
      $result .= '<tr><td class="row2" align="left" valign="top">'.$helpfile.'</td><td class="row3" align="left" valign="top">'.$admin_link.'</td></tr>';
