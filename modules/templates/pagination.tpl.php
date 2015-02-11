@@ -11,7 +11,7 @@
             }
 		$prev=($tpldata['current']>1)?'<a href="' . $tpldata['link'] . '&amp;page=' . ($tpldata['current']-1) . '">&larr;' . __('Back') . '</a> ':'';
 		$next=($tpldata['current']<$pages)?'<a href="' . $tpldata['link'] . '&amp;page=' . ($tpldata['current']+1) . '">' . __('Forward') . '&rarr;</a> ':'';
-		$return = $prev.$return.$next;
+		if ($c!=1) $return = $prev.$return.$next;
         }
 ?>
 <?=$return?>
