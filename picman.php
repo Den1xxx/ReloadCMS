@@ -14,12 +14,17 @@ else return false;
 if (!user_can_upload_images()) {
 return false;
 }
-$start_path=realpath(RCMS_ROOT_PATH.'uploads/'.$system->user['username'].'/');
-if (!@is_dir($start_path)) {
-$msg=__('Nothing founded');
-rcms_mkdir(RCMS_ROOT_PATH.'uploads/'.$system->user['username']);
-rcms_redirect('');
+
+$start_path=realpath(RCMS_ROOT_PATH.'uploads/');
+if (!empty($lightbox_config['distribute_enable'])) {
+	if (!cfr('GENERAL')) $start_path .= $system->user['username'];
+	if (!@is_dir($start_path)) {
+		$msg=__('Nothing founded');
+		rcms_mkdir(RCMS_ROOT_PATH.'uploads/'.$system->user['username']);
+		//rcms_redirect('');
+	}
 }
+
 if(empty($_GET['path'])) {
 $user_path = $start_path;
 } else {
