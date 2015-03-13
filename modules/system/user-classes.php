@@ -384,7 +384,7 @@ class rcms_user extends rcms_access {
             $this->results['registration'] = __('Invalid nickname');
             return false;
         }
-		if(empty($username) || preg_replace("/[\d\w]+/i", '', $username) != '' || strlen($username) > 32 || $username == 'guest') {
+		if(empty($username) || preg_replace("/[\d\w]+/i", '', $username) != '' || mb_strlen($username) > 32 || $username == 'guest') {
 			$this->results['registration'] = __('Invalid username');
 			return false;
 		}
