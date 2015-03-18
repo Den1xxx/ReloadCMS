@@ -210,13 +210,13 @@ class rcms_user extends rcms_access {
 		$this->initialiseAccess($this->user['admin'], (int)@$userdata['accesslevel']);
 
 		// Ability for guests to enter nick
-		$_POST['gst_nick'] = mb_substr(trim(@$_POST['gst_nick']), 0, 32);
+		$_POST['gst_nick'] = mb_substr(trim(@$_POST['gst_nick']), 0, 50);
 		if(!empty($_POST['gst_nick']) && !$this->logged_in){
 			$this->user['nickname'] = $_POST['gst_nick'];
 			setcookie('reloadcms_nick', $this->user['nickname']);
 			$_COOKIE['reloadcms_nick'] = $this->user['nickname'];
 		} elseif(!$this->logged_in && !empty($_COOKIE['reloadcms_nick'])){
-			$this->user['nickname'] = mb_substr(trim($_COOKIE['reloadcms_nick']), 0, 32);
+			$this->user['nickname'] = mb_substr(trim($_COOKIE['reloadcms_nick']), 0, 50);
 		}
 		if(!$this->users_cache->checkField('nicks', $this->user['nickname'])) {
 			$this->user['nickname'] = __('Guest');
@@ -379,12 +379,12 @@ class rcms_user extends rcms_access {
 
 	function registerUser($username, $nickname, $password, $confirm, $email, $userdata){
 		$username = basename($username);
-		$nickname = empty($nickname) ? $username : mb_substr(trim($nickname), 0, 32);
+		$nickname = empty($nickname) ? $username : mb_substr(trim($nickname), 0, 50);
         if (preg_match("/[^(\\w)|(\\x7F-\\xFF)|(\\-)]/", $nickname)) {
             $this->results['registration'] = __('Invalid nickname');
             return false;
         }
-		if(empty($username) || preg_replace("/[\d\w]+/i", '', $username) != '' || mb_strlen($username) > 32 || $username == 'guest') {
+		if(empty($username) || preg_replace("/[\d\w]+/i", '', $username) != '' || mb_strlen($username) > 50 || $username == 'guest') {
 			$this->results['registration'] = __('Invalid username');
 			return false;
 		}
@@ -468,7 +468,7 @@ class rcms_user extends rcms_access {
 	}
 
 	function updateUser($username, $nickname, $password, $confirm, $email, $userdata, $admin = false){
-		$nickname = empty($nickname) ? $username : mb_substr(strip_tags($nickname), 0, 20);
+		$nickname = empty($nickname) ? $username : mb_substr(strip_tags($nickname), 0, 50);
 
 		if(empty($username) || preg_replace("/[\d\w]+/i", '', $username) != '') {
 			$this->results['profileupdate'] = __('Invalid username');
