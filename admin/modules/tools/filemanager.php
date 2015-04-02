@@ -88,7 +88,7 @@ if(!empty($_REQUEST['edit'])){
 <tr>
     <td class="row1" align="center">
         <form name="form1" method="post" action="<?=$link?>">
-            <?=__('Rename')?>: <input type="text" name="newname" value="<?=$_REQUEST['rename']?>"><br/>
+            <?=__('Rename')?>: <input type="text" name="newname" value="<?=$_REQUEST['rename']?>" size="35"><br/>
             <input type="submit" name="save" value="<?=__('Submit')?>">
         </form>
     </td>
