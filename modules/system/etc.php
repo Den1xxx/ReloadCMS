@@ -381,7 +381,7 @@ class message{
 		"#\[mailto=(\"|&quot;|)([a-z0-9&\-_.]+?@[\w\-]+\.([\w\-\.]+\.)?[\w]+)(\"|&quot;|)\](.*?)\[/mailto\]#is" => '<a href="mailto:\\2">\\5</a>',
 		"#\[color=(\"|&quot;|)([\#\w]*)(\"|&quot;|)\](.*?)\[/color(.*?)\]#is" => '<span style="color:\\2">\\4</span>',
 		"#\[size=(\"|&quot;|)([0-9]*)(\"|&quot;|)\](.*?)\[/size(.*?)\]#is" => '<span style="font-size: \\2pt">\\4</span>',
-		"#\[align=(\"|&quot;|)(left|right|center|justify)(\"|&quot;|)\](.*?)\[/align(.*?)\]#is" => '<span style="text-align: \\2">\\4</span>',
+		"#\[align=(\"|&quot;|)(left|right|center|justify)(\"|&quot;|)\](.*?)\[/align(.*?)\]#is" => '<div style="text-align: \\2">\\4</div>',
 		"#\[user\]([\d\w]*?)\[/user\]#is" => ' [ <a href="' . RCMS_ROOT_PATH . '?module=user.list&amp;user=\\1">\\1</a> ] ',
 		"#\[user=([\d\w]*?)\](.*?)\[/user\]#is" => ' [ <a href="' . RCMS_ROOT_PATH . '?module=user.list&amp;user=\\1">\\2</a> ] ',
 		"#\[hidden\](.*?)\[/hidden\]#is" => return_hidden_bb_text()
