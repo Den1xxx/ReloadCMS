@@ -95,6 +95,10 @@ function rcms_redirect($url, $header = false) {
  * @return boolean
  */
 function rcms_send_mail($to, $from, $sender, $encoding, $subj, $text, $type='text/plain') {
+	if (!function_exists('mail')) {
+		show_window(__('Error'),__('Function mail() disabled in PHP'));
+		return false;
+	}
 	$headers = 'From: =?'.$encoding.'?B?' . base64_encode($sender) . '?= <' . $from . ">\n";
 	$headers .= "MIME-Version: 1.0\n";
 	$headers .= 'Message-ID: <' . md5(uniqid(rcms_get_time())) . "@" . $sender . ">\n";
@@ -273,12 +277,11 @@ function rcms_is_valid_email($text) {
  * @param string $textarea
  * @return string
  */
-function rcms_show_bbcode_panel($textarea){
+function rcms_show_bbcode_panel($textarea) {
     return rcms_parse_module_template('bbcodes-panel.tpl', array('textarea' => $textarea));
 }
 
-function get_animated_to_array()
-{
+function get_animated_to_array() {
 	$arr=rcms_scandir(SMILES_PATH);
 	$arr2 = array();
 	foreach ($arr as $key) {
@@ -359,6 +362,8 @@ class message{
     function init_bbcodes(){
 	global $system,$lightbox_config;
 	$addtolink=empty($system->config['addtolink'])?'':$system->config['addtolink'];
+	if (empty($lightbox_config['iframe_width'])) $lightbox_config['iframe_width']=420;
+	if (empty($lightbox_config['iframe_height'])) $lightbox_config['iframe_height']=315;
 
     	$this->regexp[0] = array();
 		$this->regexp[1] = array(
@@ -393,11 +398,12 @@ class message{
 		(!empty($lightbox_config['articles']) ? ' <a href="\\1.\\2"  class="gallery" title="\\1.\\2"><img src="\\1.\\2" alt="\\2" width="'.$lightbox_config['width'].'px" style="padding: 5px;" /></a>' : '<img src="\\1.\\2" alt="\\2" style="padding: 5px;" />'),
 		"#\[img=(\"|&quot;|)(left|right)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => ' <img src="\\4.\\5" alt="\\5" align="\\2" style="padding: 5px;" /> ',
 		"#\[img=(\"|&quot;|)(\d+)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2px" /> ',
-		"#\[img=(\"|&quot;|)(100%|[1-9]?[0-9]%)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2" /> '
+		"#\[img=(\"|&quot;|)(100%|[1-9]?[0-9]%)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2" /> ',
+		'#\[youtube\]\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)\[/youtube\]#is' => '<iframe width="'.$lightbox_config['iframe_width'].'" height="'.$lightbox_config['iframe_height'].'" src="https://www.youtube.com/embed/\\1" frameborder="0" allowfullscreen></iframe>',
 		);
     }
-
-    /*
+	
+	/*
      * Main parse method. Parses message::str
      *
      */
@@ -414,6 +420,7 @@ class message{
             if($this->bbcode_level > 0){
                 $this->parseCodeTag();
                 $this->parseQuoteTag();
+                $this->str = preg_replace_callback("#\[hidden(=(\"|&quot;|)(.*?)(\"|&quot;|)|)\](.*?)\[/hidden\]#is", 'rcms_hidden_user_text', $this->str);
                 $this->str = preg_replace_callback("#\[spoiler(=(\"|&quot;|)(.*?)(\"|&quot;|)|)\](.*?)\[/spoiler\]#is", 'rcms_spoiler_tag', $this->str);
                 $this->str = preg_replace_callback("#\[offtop(=(\"|&quot;|)(.*?)(\"|&quot;|)|)\](.*?)\[/offtop\]#is", 'rcms_offtop_tag', $this->str);
                 $this->str = preg_replace(array_keys($this->regexp[1]), array_values($this->regexp[1]), ' ' . $this->str . ' ');
@@ -536,14 +543,27 @@ function rcms_prc_mail($matches){
     } else return ' <a href="mailto:' . $matches[2] . '@' . $matches[3] . '" target="_blank">' . $matches[2] . '</a>';
 }
 
+function rcms_expand($title,$body) {
+		return '<div class="codetitle" ><span onclick="openBlock(this);" style="cursor: pointer; cursor: hand;"> + </span>'. $title . '<div class="codetext" style="display:none; margin:0;">'.$body.'</div></div>';
+}
+
+function rcms_hidden_user_text($matches){
+global $system;
+	$users = explode(',',$matches[3]);
+	if(!LOGGED_IN) return '';
+	$title = (!empty($matches[3])) ? __('Message').__(' for ').$matches[3] : __('Spoiler') . ' (' . __('click to view') . ')';
+	$body = in_array($system->user['nickname'],$users) ? $matches[5]:__('This field is hidden');
+	return rcms_expand($title,$body);
+} 
+
 function rcms_spoiler_tag($matches){
 	if(!empty($matches[3])) $title = $matches[3]; else $title = __('Spoiler') . ' (' . __('click to view') . ')';
-	return '<div class="codetitle" ><span onclick="openBlock(this);" style="cursor: pointer; cursor: hand;"> + </span>'. $title . '<div class="codetext" style="display:none; margin:0;">'.$matches[5].'</div></div>';
+	return rcms_expand($title,$matches[5]);
 } 
 
 function rcms_offtop_tag($matches){
 	if(!empty($matches[3])) $title = $matches[3]; else $title = __('Offtop') . ' (' . __('click to view') . ')';
-	return '<div class="codetitle" ><span onclick="openBlock(this);" style="cursor: pointer; cursor: hand;"> + </span>'. $title . '<div class="codetext" style="display:none; margin:0;">'.$matches[5].'</div></div>';
+	return rcms_expand($title,$matches[5]);
 }
 
 function rcms_remove_index($key, &$array, $preserve_keys = false) {
@@ -736,10 +756,21 @@ function hook($result){
 	$args=$backtrace['args'];
 	if(is_array($functions)){
 		ksort($functions);
-		foreach($functions as $function)
-			if($function&&function_exists($function))
+		foreach($functions as $function) {
+			if($function&&function_exists($function)) {
 				$result=$function($result,$args);
+			}
+		}
 	}
 	return $result;
+}
+/**
+*  Check if user is not registered
+*  @return boolean
+*/
+function is_guest(){
+	global $system;
+	if (empty($system->user['username']) OR $system->user['username']=='guest') return true;
+	else return false;
 }
 ?>
