@@ -118,16 +118,13 @@ function rcms_send_mail($to, $from, $sender, $encoding, $subj, $text, $type='tex
  */
 function rcms_random_string($num_chars) {
 	$chars = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',  'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',  'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9');
-
 	list($usec, $sec) = explode(' ', microtime());
 	mt_srand($sec * $usec);
-
 	$max_chars = sizeof($chars) - 1;
 	$rand_str = '';
 	for ($i = 0; $i < $num_chars; $i++)	{
 		$rand_str .= $chars[mt_rand(0, $max_chars)];
 	}
-
 	return $rand_str;
 }
 
@@ -152,9 +149,7 @@ global $system;
  */
 function rcms_format_time($format, $gmepoch, $tz = ''){
     global $lang, $system;
-
     if(empty($tz)) $tz = $system->user['tz'];
-    
     if ($system->language != 'english'){
         @reset($lang['datetime']);
         while (list($match, $replace) = @each($lang['datetime'])){
@@ -172,7 +167,6 @@ function rcms_format_time($format, $gmepoch, $tz = ''){
  */
 function rcms_date_localise($string){
     global $lang, $system;
-    
     if ($system->language != 'english'){
         @reset($lang['datetime']);
         while (list($match, $replace) = @each($lang['datetime'])){
@@ -396,6 +390,8 @@ class message{
 		$this->regexp[2] = array(
 	    "#\[img\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => 
 		(!empty($lightbox_config['articles']) ? ' <a href="\\1.\\2"  class="gallery" title="\\1.\\2"><img src="\\1.\\2" alt="\\2" width="'.$lightbox_config['width'].'px" style="padding: 5px;" /></a>' : '<img src="\\1.\\2" alt="\\2" style="padding: 5px;" />'),
+	    "#\[img=(\"|&quot;|)([\d\w\.]*?)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => 
+		(!empty($lightbox_config['articles']) ? ' <a href="\\4.\\5"  class="gallery" title="\\2"><img src="\\4.\\5" alt="\\2" width="'.$lightbox_config['width'].'px" style="padding: 5px;" /></a>' : '<img src="\\4.\\5" alt="\\2" style="padding: 5px;" />'),
 		"#\[img=(\"|&quot;|)(left|right)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => ' <img src="\\4.\\5" alt="\\5" align="\\2" style="padding: 5px;" /> ',
 		"#\[img=(\"|&quot;|)(\d+)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2px" /> ',
 		"#\[img=(\"|&quot;|)(100%|[1-9]?[0-9]%)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2" /> ',
