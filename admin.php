@@ -25,6 +25,7 @@ setcookie('admin_skin',$_POST['admin_selected_skin'], FOREVER_COOKIE);
 rcms_redirect('');
 }
 $admin_skin = cookie('admin_skin','default');
+$admin_skin = preg_replace("/[^a-zA-Z]+/",'',$admin_skin);//only letters
 define('ADMIN_SKIN', ADMIN_PATH.'skins/'.$admin_skin.'/');
 $rights = &$system->rights;
 $root   = &$system->root;
