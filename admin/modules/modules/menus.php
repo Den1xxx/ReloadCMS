@@ -151,7 +151,7 @@ __('Module').' '.$frm->text_box('logic[modules][]', @$logic['modules'][$i], 15)
 .stripslashes($select_menus)
 ,
 ' '.__('Logic').' '.$frm->text_box('logic[expression][]', @$logic['expression'][$i], 35)
-.'<img src="'.IMAGES_PATH.'neok.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;" onClick="$($(this).parents(\'tr\').get(0)).remove();">'
+.'<img src="'.IMAGES_PATH.'skins/neok.gif" style="cursor:pointer;display:table-cell;vertical-align:middle;" onClick="$($(this).parents(\'tr\').get(0)).remove();">'
 );}
 }
 $frm->addmessage('<div id="add_logic"></div>'.$frm->hidden('settingschange', true));
