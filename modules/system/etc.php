@@ -15,7 +15,7 @@
 /**
 * Hooks array
 */
- $hooks=array();
+$hooks=array();
  
 /**
  * Configuration display images
@@ -166,7 +166,7 @@ function rcms_format_time($format, $gmepoch, $tz = ''){
  * @return string
  */
 function rcms_date_localise($string){
-    global $lang, $system;
+    global $lang, $system;  
     if ($system->language != 'english'){
         @reset($lang['datetime']);
         while (list($match, $replace) = @each($lang['datetime'])){
@@ -271,7 +271,7 @@ function rcms_is_valid_email($text) {
  * @param string $textarea
  * @return string
  */
-function rcms_show_bbcode_panel($textarea) {
+function rcms_show_bbcode_panel($textarea){
     return rcms_parse_module_template('bbcodes-panel.tpl', array('textarea' => $textarea));
 }
 
@@ -293,6 +293,15 @@ function return_hidden_bb_text() {
 			return '<div class="hidden">'.__('This block only for registered users').'</div>';
 		}
 	}
+
+function return_hidden_user_text($matches){
+global $system;
+	if(empty($matches[1]) or !LOGGED_IN) return '';
+	$users = explode(',',$matches[1]);
+	$title = __('Message').__(' for ').$matches[1];
+	$body = in_array($system->user['username'],$users) ? $matches[2]:'';
+	return '<div class="codetitle" ><span onclick="openBlock(this);" style="cursor: pointer; cursor: hand;"> + </span>'. $title . '<div class="codetext" style="display:none; margin:0;">'.$body.'</div></div>';
+} 
 
 /**
  * Message parser class
@@ -358,7 +367,6 @@ class message{
 	$addtolink=empty($system->config['addtolink'])?'':$system->config['addtolink'];
 	if (empty($lightbox_config['iframe_width'])) $lightbox_config['iframe_width']=420;
 	if (empty($lightbox_config['iframe_height'])) $lightbox_config['iframe_height']=315;
-
     	$this->regexp[0] = array();
 		$this->regexp[1] = array(
 		"#\[b\](.*?)\[/b\]#is" => '<span style="font-weight: bold">\\1</span>',
@@ -390,7 +398,7 @@ class message{
 		$this->regexp[2] = array(
 	    "#\[img\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => 
 		(!empty($lightbox_config['articles']) ? ' <a href="\\1.\\2"  class="gallery" title="\\1.\\2"><img src="\\1.\\2" alt="\\2" width="'.$lightbox_config['width'].'px" style="padding: 5px;" /></a>' : '<img src="\\1.\\2" alt="\\2" style="padding: 5px;" />'),
-	    "#\[img=(\"|&quot;|)([\d\w\.]*?)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => 
+	    "#\[img=(\"|&quot;|)([^\"|^\]]*?)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => 
 		(!empty($lightbox_config['articles']) ? ' <a href="\\4.\\5"  class="gallery" title="\\2"><img src="\\4.\\5" alt="\\2" width="'.$lightbox_config['width'].'px" style="padding: 5px;" /></a>' : '<img src="\\4.\\5" alt="\\2" style="padding: 5px;" />'),
 		"#\[img=(\"|&quot;|)(left|right)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => ' <img src="\\4.\\5" alt="\\5" align="\\2" style="padding: 5px;" /> ',
 		"#\[img=(\"|&quot;|)(\d+)(\"|&quot;|)\][\s\n\r]*([\w]+?://[^ \"\n\r\t<]*?|".RCMS_ROOT_PATH."[^ \"\n\r\t<]*?)\.(gif|png|jpe?g)[\s\n\r]*\[/img\]#is" => ' <img src="\\4.\\5" alt="\\5" width="\\2px" /> ',
@@ -398,8 +406,8 @@ class message{
 		'#\[youtube\]\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)\[/youtube\]#is' => '<iframe width="'.$lightbox_config['iframe_width'].'" height="'.$lightbox_config['iframe_height'].'" src="https://www.youtube.com/embed/\\1" frameborder="0" allowfullscreen></iframe>',
 		);
     }
-	
-	/*
+
+    /*
      * Main parse method. Parses message::str
      *
      */
@@ -760,6 +768,7 @@ function hook($result){
 	}
 	return $result;
 }
+
 /**
 *  Check if user is not registered
 *  @return boolean
