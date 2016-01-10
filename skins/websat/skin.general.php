@@ -63,7 +63,7 @@ $(function() {
 </div>
 <div id="footer">
     <p>Copyright &copy; 2013 <a href="<?=RCMS_ROOT_PATH?>"><?=$system->config['copyright'];?></a> | Developed by <a href="http://fromgomel.com">Den1xxx</a>
-<?if(cfr('GENERAL')){ global $query_counter; $mtime = explode(' ', microtime()); $totaltime = $mtime[0] + $mtime[1] - $starttime; print(' | GT: '.round($totaltime,2).' | Запросов: '.$query_counter.' | IP: '.$_SERVER['SERVER_ADDR']).' | '.
+<?if(cfr('GENERAL')){ global $query_counter; $mtime = explode(' ', microtime()); $totaltime = $mtime[0] + $mtime[1] - $starttime; print(' | GT: '.round($totaltime,2).' | Запросов: '.$query_counter.' | IP: '.getenv('SERVER_ADDR')).' | '.
 __('Memory peak usage: ').number_format(memory_get_peak_usage()/(1024*1024),2)."MB";}?>
 	</p>
 </div>
