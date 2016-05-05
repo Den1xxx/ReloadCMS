@@ -14,7 +14,7 @@ class archiveTar
 	var $errors = array();
 	var $files = array();
 	
-	function archiveTar(){
+	function __construct(){
 		if (!isset($this->errors)) $this->errors = array();
 	}
 	
