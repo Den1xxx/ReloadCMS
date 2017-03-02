@@ -216,7 +216,7 @@ function rcms_scandir($directory, $exp = '', $type = 'all', $do_not_filter = fal
 		$func = 'is_' . $type;
 	}
 	if(@is_dir($directory)){
-		$fh = opendir($directory);
+		if(!($fh = @opendir($directory))) return false;
 		while (false !== ($filename = readdir($fh))) {
 			if(substr($filename, 0, 1) != '.' || $do_not_filter) {
 				if((empty($type) || $type == 'all' || $func($directory . '/' . $filename)) && (empty($exp) || preg_match($exp, $filename))){

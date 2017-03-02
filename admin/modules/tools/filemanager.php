@@ -163,12 +163,16 @@ if(!empty($_REQUEST['edit'])){
 $elements = rcms_scandir($_REQUEST['path'], '', 'all', true);
 $dirs = array();
 $files = array();
-foreach ($elements as $file){
-    if(@is_dir($_REQUEST['path'] . $file)){
-        $dirs[] = $file;
-    } else {
-        $files[] = $file;
-    }
+if(!empty($elements)) {
+	foreach ($elements as $file){
+		if(@is_dir($_REQUEST['path'] . $file)){
+			$dirs[] = $file;
+		} else {
+			$files[] = $file;
+		}
+	}
+} else {
+	echo '<td colspan="5">'.__('Access denied').'</td>';
 }
 natsort($dirs); natsort($files);
 $elements = array_merge($dirs, $files);
